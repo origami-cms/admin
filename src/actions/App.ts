@@ -20,43 +20,43 @@ export const getSidebarItems = () =>
                 path: '/brokers',
                 name: 'Brokers'
             },
-            {
-                icon: 'page',
-                color: 'red',
-                path: '/pages',
-                name: 'Pages'
-            },
-            {
-                icon: 'dollar',
-                color: 'green',
-                path: '/app/sales',
-                name: 'Sales'
-            },
-            {
-                icon: 'messages',
-                color: 'orange',
-                path: '/app/engagement',
-                name: 'Engagement'
-            },
-            {
-                icon: 'user',
-                color: 'blue',
-                path: '/users',
-                name: 'Users'
-            },
-            {
-                icon: 'image',
-                color: 'gold',
-                path: '/images',
-                name: 'Images'
-            },
-            {
-                icon: 'settings',
-                color: 'white',
-                path: '/settings',
-                name: 'Settings',
-                iconColor: 'grey-500'
-            }
+            // {
+            //     icon: 'page',
+            //     color: 'red',
+            //     path: '/pages',
+            //     name: 'Pages'
+            // },
+            // {
+            //     icon: 'dollar',
+            //     color: 'green',
+            //     path: '/app/sales',
+            //     name: 'Sales'
+            // },
+            // {
+            //     icon: 'messages',
+            //     color: 'orange',
+            //     path: '/app/engagement',
+            //     name: 'Engagement'
+            // },
+            // {
+            //     icon: 'user',
+            //     color: 'blue',
+            //     path: '/users',
+            //     name: 'Users'
+            // },
+            // {
+            //     icon: 'image',
+            //     color: 'gold',
+            //     path: '/images',
+            //     name: 'Images'
+            // },
+            // {
+            //     icon: 'settings',
+            //     color: 'white',
+            //     path: '/settings',
+            //     name: 'Settings',
+            //     iconColor: 'grey-500'
+            // }
         ]});
     };
 

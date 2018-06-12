@@ -5,8 +5,8 @@ import {component, property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {SidebarItem} from 'store/state';
+import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import CSS from './sidebar-css';
-import {unsafeHTML} from '../../../../../zen/node_modules/lit-html/lib/unsafe-html';
 
 
 export interface Routes {
@@ -37,7 +37,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
         return html`
             ${CSS}
 
-            <zen-link href='${BASE_URI}' class$="top-link display-b ${l === BASE_URI + '/' ? 'active' : ''}">
+            <zen-link href='${BASE_URI}/' class="top-link display-b">
                 <img class="logo" src="${BASE_URI}/images/logo.svg" />
             </zen-link>
 

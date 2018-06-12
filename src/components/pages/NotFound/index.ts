@@ -11,7 +11,7 @@ export default class PageNotFound extends LitElement implements props {
         return html`
             ${CSS}
             <h1>Page not found</h1>
-            <zen-link href='/admin'>
+            <zen-link href='/admin/'>
                 Return home
             </zen-link>
         `;

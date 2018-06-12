@@ -46,10 +46,13 @@ export default class Router extends connect(store)(LitElement) implements Router
     _firstRendered() {
         // Setup to watch the location and bind to redux store
         installRouter(
-            (location: Location) => store.dispatch(
-                // @ts-ignore
-                App.navigate(window.decodeURIComponent(location.pathname))
-            )
+            (location: Location) => {
+                store.dispatch(
+                    // @ts-ignore
+                    App.navigate(window.decodeURIComponent(location.pathname))
+                );
+                this._requestRender();
+            }
         );
     }
 
