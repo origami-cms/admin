@@ -55,8 +55,15 @@ export interface App {
         path: string
     };
     sidebar: {
-        items: object[]
+        items: SidebarItem[]
     };
+}
+
+export interface SidebarItem {
+    icon: string;
+    color: string;
+    path: string;
+    name: string;
 }
 
 export interface BrokerDetails {

@@ -18,6 +18,8 @@ interface props {
 // Boots to login if invalid verification or no JWT
 @component('zen-app')
 export default class AppRouter extends Router implements props {
+    notfound = 'page-not-found';
+
     _verified: boolean = false;
     __verifyError: string | null = null;
 
@@ -25,7 +27,10 @@ export default class AppRouter extends Router implements props {
     _loading: boolean = true;
 
     routes = {
-        '/': 'page-admin',
+        '/': {
+            element: 'page-admin',
+            exact: true
+        },
         '/login': 'page-login'
     };
 

@@ -9,6 +9,8 @@ export default class PageAdmin extends Router {
         '/users': 'page-users'
     };
 
+    notfound = 'page-not-found';
+
     _render(props: RouterProps) {
         const page = super._render(props);
         return html`
