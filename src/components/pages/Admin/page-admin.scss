@@ -1,0 +1,22 @@
+@import 'zen-css/import';
+
+:host {
+    main {
+        // Sidebar offset
+        position: absolute;
+        left: var(--sidebar-width);
+        top: var(--header-height);
+        bottom: 0;
+        right: 0;
+        padding: default('size-main');
+    }
+
+
+    zen-sidebar {
+        opacity: 1;
+        transition: all var(--transition-time);
+        &:unresolved {
+            opacity: 0;
+        }
+    }
+}

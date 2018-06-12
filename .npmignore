@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+tsconfig.json
+tslint.json
+
+node_modules
+src/
+.vscode
