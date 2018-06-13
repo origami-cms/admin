@@ -11,14 +11,16 @@ interface props {
     me?: Me;
 }
 
+export * from './Users';
+
 @component('page-admin')
 export default class PageAdmin extends connect(store)(Router) implements props {
     me?: Me;
 
-    routes = {
-        '/': 'page-dashboard',
-        '/users': 'page-users'
-    };
+    routes = [
+        {path: '/', element: 'page-dashboard', exact: true},
+        {path: '/users', element: 'page-users'}
+    ];
 
     notfound = 'page-not-found';
 
@@ -31,6 +33,7 @@ export default class PageAdmin extends connect(store)(Router) implements props {
 
     _render(props: RouterProps) {
         const page = super._render(props);
+
         return html`
             ${CSS}
             <ui-sidebar></ui-sidebar>

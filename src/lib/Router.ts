@@ -8,33 +8,36 @@ import store, {State} from 'store';
 import {BASE_URI} from 'const';
 import matchPath from 'lib/Path';
 
-window.matchPath = matchPath;
-export interface Routes {
-    [path: string]: string | {
-        element: string
-        exact?: boolean;
-    };
+export interface Route {
+    path: string;
+    exact?: boolean;
+    element: string;
 }
 
 export interface RouterProps {
     path: string;
-    routes: Routes;
+    routes: Route[];
     base: string;
+    switch: boolean;
 }
 
 
 export default class Router extends connect(store)(LitElement) implements RouterProps {
     @property
-    path: string = '/';
+    path: string = window.location.pathname;
 
     @property
-    routes: Routes = {};
+    routes: Route[] = [];
 
     @property
     base: string = BASE_URI;
 
     @property
     notfound?: string;
+
+    /** Only show one route */
+    @property
+    switch: boolean = true;
 
     protected _store = store;
 
@@ -69,28 +72,20 @@ export default class Router extends connect(store)(LitElement) implements Router
         return html`${pages}`;
     }
 
-    _getRoutes(routes: Routes, base: string, path: string) {
-        return Object.entries(routes)
-            // Convert any routes to a route object
-            .map(([route, ele]) => {
-                let e = ele;
-                if (typeof e === 'string') {
-                    e = {element: e, exact: true};
-                }
-                return {
-                    path: base + route,
-                    route: e
-                };
-            })
+    _getRoutes(routes: Route[], base: string, path: string) {
+        const r = [...routes]
             // Match each route against the current location
             .filter(r => {
                 return matchPath(path, {
-                    path: r.path,
-                    exact: r.route.exact
+                    path: this.base + r.path,
+                    exact: r.exact
                 });
             })
             // Convert each valid route to a html template
-            .map(r => this._renderElement(r.route.element));
+            .map(r => this._renderElement(r.element));
+
+        if (!r.length) return [];
+        return this.switch ? [r[0]] : r;
     }
 
     _renderElement(ele: string) {

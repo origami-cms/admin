@@ -11,7 +11,8 @@ module.exports = {
     },
     output: {
         filename: '[name]',
-        path: DIST
+        path: DIST,
+        publicPath: '/admin/'
     },
     module: {
         rules: [

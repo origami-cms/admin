@@ -17,7 +17,7 @@ const initialState = immutable<App>({
     },
     page: {
         title: '',
-        path: '/'
+        path: window.location.pathname
     }
 });
 

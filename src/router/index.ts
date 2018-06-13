@@ -26,13 +26,10 @@ export default class AppRouter extends Router implements props {
     @property
     _loading: boolean = true;
 
-    routes = {
-        '/': {
-            element: 'page-admin',
-            exact: true
-        },
-        '/login': 'page-login'
-    };
+    routes = [
+        {path: '/login', element: 'page-login'},
+        {path: '/', element: 'page-admin'}
+    ];
 
     // @ts-ignore Is correct props
     _render(props: props) {
