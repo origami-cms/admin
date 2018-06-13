@@ -1,0 +1,34 @@
+@import 'zen-css/import';
+
+:host {
+    display: grid;
+    grid-row-gap: var(--size-small);
+    --card-padding: var(--size-small);
+
+    .row {
+        display: grid;
+        grid-template-columns: 4rem repeat(var(--cols), 1fr);
+        @extend %comp-card;
+
+        .cell, .header {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-left: var(--size-small);
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+
+        &.header {
+            background-color: transparent;
+            box-shadow: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: default('color-grey-300');
+        }
+    }
+
+}
