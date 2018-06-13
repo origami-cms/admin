@@ -38,12 +38,12 @@ export const getSidebarItems = () =>
             //     path: '/app/engagement',
             //     name: 'Engagement'
             // },
-            // {
-            //     icon: 'user',
-            //     color: 'blue',
-            //     path: '/users',
-            //     name: 'Users'
-            // },
+            {
+                icon: 'user',
+                color: 'blue',
+                path: '/users',
+                name: 'Users'
+            },
             // {
             //     icon: 'image',
             //     color: 'gold',

@@ -1,12 +1,12 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {App} from 'actions';
+import {BASE_URI} from 'const';
+import matchPath, {MatchResultsParams} from 'lib/Path';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import {installRouter} from 'pwa-helpers/router';
 import store, {State} from 'store';
-import {BASE_URI} from 'const';
-import matchPath from 'lib/Path';
 
 export interface Route {
     path: string;
@@ -75,20 +75,24 @@ export default class Router extends connect(store)(LitElement) implements Router
     _getRoutes(routes: Route[], base: string, path: string) {
         const r = [...routes]
             // Match each route against the current location
-            .filter(r => {
-                return matchPath(path, {
+            .map(r => {
+                const params = matchPath(path, {
                     path: this.base + r.path,
-                    exact: r.exact
+                    exact: r.exact,
+                    strict: false
                 });
+                if (params) return {params: params.params, element: r.element};
             })
+            .filter(r => r)
             // Convert each valid route to a html template
-            .map(r => this._renderElement(r.element));
+            .map(r => this._renderElement(r.element, r));
 
         if (!r.length) return [];
         return this.switch ? [r[0]] : r;
     }
 
-    _renderElement(ele: string) {
+    _renderElement(ele: string, params: MatchResultsParams) {
+        // TODO: Pass in props
         const unsafe = `<${ele}></${ele}>`;
         return html`${unsafeHTML(unsafe)}`;
     }

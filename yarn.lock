@@ -42,6 +42,10 @@
   dependencies:
     path-to-regexp "*"
 
+"@types/pluralize@^0.0.28":
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@types/pluralize/-/pluralize-0.0.28.tgz#daf46f90fdaa6172600bfeac81e46065177f03ea"
+
 "@types/route-parser@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@types/route-parser/-/route-parser-0.1.1.tgz#24b69588c68249f695122c230e547d3d6c8be095"
@@ -3210,6 +3214,10 @@ pkg-dir@^2.0.0:
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
   dependencies:
     find-up "^2.1.0"
+
+pluralize@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
 
 "polymer3-decorators@https://github.com/tristanMatthias/polymer-decorators.git":
   version "0.0.1"

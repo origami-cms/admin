@@ -1,12 +1,17 @@
+import {ResourceState} from 'origami-zen/API';
+
 export {ImmutableObject} from 'seamless-immutable';
 
 export default interface State {
     App: App;
+    Apps: Apps;
     Broker: Broker;
     Quote: QuoteWithLoader;
     Setup: Setup;
     Me: Me;
     Auth: Auth;
+    Users: Users;
+    Pages: Pages;
 }
 export interface Loader {
     _loading: {
@@ -17,11 +22,6 @@ export interface Loader {
         get: string | boolean;
         post: string | boolean;
     };
-}
-
-export interface Page {
-    id?: string;
-    children?: Page[];
 }
 
 export interface Setup {
@@ -57,6 +57,16 @@ export interface App {
     sidebar: {
         items: SidebarItem[]
     };
+}
+
+export interface Apps {
+    apps: AppDetail[];
+}
+
+export interface AppDetail {
+    name: string;
+    icon: string;
+    manifest: object;
 }
 
 export interface SidebarItem {
@@ -100,6 +110,25 @@ export interface QuoteWithLoader extends Quote, Loader {}
 
 
 export interface Me {
+    id: null | string;
+    fname: null | string;
+    lname: null | string;
+    email: null | string;
+}
+
+
+export interface Pages extends Loader {
+    pages: Page[];
+}
+export interface Page {
+    id?: string;
+    children?: Page[];
+}
+
+export interface Users extends ResourceState {
+    users: User[];
+}
+export interface User {
     id: null | string;
     fname: null | string;
     lname: null | string;
