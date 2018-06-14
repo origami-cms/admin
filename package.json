@@ -25,7 +25,7 @@
     "lit-html": "^0.10.0",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.0",
-    "origami-zen": "^0.3.12",
+    "origami-zen": "^0.3.16",
     "path-to-regexp": "^2.2.1",
     "pluralize": "^7.0.0",
     "polymer3-decorators": "https://github.com/tristanMatthias/polymer-decorators.git",

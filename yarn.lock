@@ -3038,9 +3038,9 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-origami-zen@^0.3.12:
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/origami-zen/-/origami-zen-0.3.12.tgz#5cd5e4e58af5bd806ef68b7412927ca776ff4386"
+origami-zen@^0.3.16:
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/origami-zen/-/origami-zen-0.3.16.tgz#cfb03d2e1add0243814177e660c6a25fde2dc7b1"
 
 os-browserify@^0.3.0:
   version "0.3.0"
