@@ -7,6 +7,7 @@ export const appGet = (name: string) =>
     async (dispatch: Dispatch) => {
         const {data} = await API.get(`/apps/${name}`);
         if (data) {
+            // @ts-ignore
             dispatch({type: APPS_SET, apps: [data.manifest]});
         }
     };

@@ -8,23 +8,25 @@ import store, {State} from 'store';
 import CSS from './page-login-css';
 
 interface props {
-    error?: string;
+    error?: string | null;
     loggedIn?: boolean;
+    values?: FormValues;
+    _email?: string | null;
 }
 
 @component('page-login')
 export default class PageLogin extends connect(store)(LitElement) implements props{
     @property
-    error?: string;
+    error?: string | null;
 
     @property
     loggedIn?: boolean;
 
     @property
-    values?: FormValues = {
-        email: 'hello@tristanmatthias.com',
-        password: 'pass'
-    };
+    values?: FormValues = {};
+
+    @property
+    _email?: string | null;
 
     constructor() {
         super();
@@ -34,6 +36,7 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
     _stateChanged(s: State) {
         this.error = s.Auth.errors.loggingIn;
         this.loggedIn = s.Auth.loggedIn;
+        this._email = s.Me.email;
     }
 
     static fields: Field[] = [
@@ -63,15 +66,22 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
     }
 
     _render({error, values}: props) {
+        const v = {
+            ...{email: this._email},
+            ...values
+        };
+        // @ts-ignore
+        const fields = this.constructor.fields;
+
         return html`
             ${CSS}
             <div class="center rounded text-center padding-large shadow-shade-1">
-                <img class="logo margin-b-large height-main" src="/images/logo-origami.svg"/>
+                <img class="logo margin-b-large height-main" src="/admin/images/logo.svg"/>
                 <zen-form
-                    fields=${this.constructor.fields}
+                    fields=${fields}
                     on-submit=${this.submit}
                     error=${error}
-                    values=${values}
+                    values=${v}
                 />
             </div>
         `;
@@ -80,7 +90,7 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
     _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
         if (c.loggedIn) {
-            store.dispatch<any>(navigate('/admin'));
+            store.dispatch<any>(navigate('/admin/'));
         }
     }
 }

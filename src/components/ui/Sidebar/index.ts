@@ -2,6 +2,7 @@ import {html, LitElement} from '@polymer/lit-element';
 import {getSidebarItems} from 'actions/App';
 import {BASE_URI} from 'const';
 import {component, property} from 'polymer3-decorators';
+// @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {SidebarItem} from 'store/state';

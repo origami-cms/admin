@@ -16,7 +16,7 @@ module.exports = {
     },
     module: {
         rules: [
-            {test: /\.ts$/, loader: 'ts-loader'},
+            {test: /\.ts$/, loader: 'awesome-typescript-loader'},
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract('css-loader!sass-loader')

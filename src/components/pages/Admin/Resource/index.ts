@@ -86,14 +86,16 @@ export default class PageResource extends connect(store)(Router) implements prop
 
 
         // @ts-ignore Shadow root exists
-        const list = this.shadowRoot.querySelector('ui-resource-table');
-        const create = this.shadowRoot.querySelector('form-resource-create');
-        const edit = this.shadowRoot.querySelector('form-resource-edit');
+        const sr = this.shadowRoot;
+        const list = sr.querySelector('ui-resource-table');
+        const create = sr.querySelector('form-resource-create');
+        const edit = sr.querySelector('form-resource-edit');
 
-        const getFields = fields => fields.map(f => {
+        const getFields = (fields: string[]) => fields.map(f => {
             const field = properties[f].asMutable({deep: true}) as Field;
 
             field.name = f;
+            // @ts-ignore
             field.placeholder = startCase(f);
             field.validate = {required: field.required};
             return field;
@@ -101,7 +103,7 @@ export default class PageResource extends connect(store)(Router) implements prop
 
 
         if (list) list.columns = listFields;
-        if (create) create.fields = getFields(createFields);
-        if (edit) edit.fields = getFields(editFields);
+        if (create && createFields) create.fields = getFields(createFields);
+        if (edit && editFields) edit.fields = getFields(editFields);
     }
 }

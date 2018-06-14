@@ -5,17 +5,17 @@ import {Field, FormValues} from 'origami-zen';
 import {component, property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
-import CSS from './page-login-css';
 
 interface props {
-    error?: string;
+    error: string | null;
     loggedIn?: boolean;
+    values?: FormValues;
 }
 
 @component('page-app')
 export default class PageLogin extends connect(store)(LitElement) implements props {
     @property
-    error?: string;
+    error: string | null = null;
 
     @property
     loggedIn?: boolean;
@@ -63,12 +63,15 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
     }
 
     _render({error, values}: props) {
+        // @ts-ignore
+        const {fields} = this.constructor;
+
         return html`
             ${CSS}
             <div class="center rounded text-center padding-large shadow-shade-1">
                 <img class="logo margin-b-large height-main" src="/images/logo-origami.svg"/>
                 <zen-form
-                    fields=${this.constructor.fields}
+                    fields=${fields}
                     on-submit=${this.submit}
                     error=${error}
                     values=${values}

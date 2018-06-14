@@ -4,6 +4,7 @@ import {upperFirst} from 'lodash';
 import {Field, FormValues} from 'origami-zen';
 import pluralize, {singular} from 'pluralize';
 import {property} from 'polymer3-decorators';
+// @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './resource-form-css';
@@ -83,6 +84,7 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
                 store.dispatch<any>(
                     // @ts-ignore Is a valid resource
                     (actions[this._resPluralUpper])
+                        // @ts-ignore
                         [`${this._resPlural}${type}`](this.id, e.target.values)
                 );
                 break;
@@ -115,7 +117,7 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
                     error=${error}
                     fields=${f}
                     values=${values}
-                    on-change=${e => this.values = e.target.values}
+                    on-change=${(e: {target: {values: object}}) => this.values = e.target.values}
                     on-submit=${this.submit}
                 ></zen-form>
             </div>

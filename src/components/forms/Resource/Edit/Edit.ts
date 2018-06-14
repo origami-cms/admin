@@ -1,7 +1,8 @@
 import FormResourceBase from '../Base/ResourceFormBase';
 import {component, property} from 'polymer3-decorators';
-import {State} from 'store';
+import store, {State} from 'store';
 import matchPath from 'lib/Path';
+import {navigate} from 'actions/App';
 
 @component('form-resource-edit')
 export default class FormResourceEdit extends FormResourceBase {
@@ -29,6 +30,7 @@ export default class FormResourceEdit extends FormResourceBase {
 
     _stateChanged(s: State) {
         super._stateChanged(s);
+        // @ts-ignore
         const res = s[this._resPluralUpper];
 
         if (this._errorGet && !this._redirecting) {
@@ -46,7 +48,7 @@ export default class FormResourceEdit extends FormResourceBase {
         if (match) {
             // tslint:disable
             if (this.id != match.params.id) this.id = match.params.id;
-            const u = res[this._resPlural].find(r => r.id === this.id);
+            const u = res[this._resPlural].find((r: any) => r.id === this.id);
 
             if (u) this.values = u;
         }

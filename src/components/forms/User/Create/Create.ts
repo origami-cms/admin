@@ -3,6 +3,7 @@ import {login} from 'actions/Auth';
 import {navigate} from 'actions/App';
 import {Field, FormValues} from 'origami-zen';
 import {component, property} from 'polymer3-decorators';
+// @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './create-css';
@@ -98,7 +99,7 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
                 <zen-form
                     error=${error}
                     fields=${this.fields}
-                    on-change=${e => this.values = e.target.values}
+                    on-change=${(e: {target: {values: object}}) => this.values = e.target.values}
                     on-submit=${this.submit}
                 ></zen-form>
             </div>

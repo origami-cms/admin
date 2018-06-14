@@ -1,6 +1,7 @@
 import {component, property} from 'polymer3-decorators';
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './header-user-css';
+// @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 

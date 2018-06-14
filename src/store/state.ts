@@ -75,9 +75,9 @@ export interface AppDetail {
     }[];
     pages: {
         properties: {
-            listFields?: string;
-            createFields?: string;
-            editFields?: string;
+            listFields?: string[];
+            createFields?: string[];
+            editFields?: string[];
         }
     }[];
 }

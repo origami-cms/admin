@@ -4,7 +4,9 @@ import {BASE_URI} from 'const';
 import matchPath from 'lib/Path';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {property} from 'polymer3-decorators';
+// @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
+// @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
 import store, {State} from 'store';
 
@@ -55,7 +57,6 @@ export default class Router extends connect(store)(LitElement) implements Router
                     // @ts-ignore
                     App.navigate(window.decodeURIComponent(location.pathname))
                 );
-                this._requestRender();
             }
         );
     }

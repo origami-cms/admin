@@ -6,7 +6,9 @@
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
   "scripts": {
-    "watch:sass": "sass-render src/components/**/*.scss --suffix=-css.ts -w",
+    "build": "yarn build:sass; webpack-cli",
+    "build:sass": "sass-render src/components/**/*.scss --suffix=-css.ts",
+    "watch:sass": "yarn build:sass -- -w",
     "watch": "webpack-cli --mode development -w",
     "serve": "http-server-spa build/",
     "start": "yarn watch & yarn watch:sass & yarn serve"
@@ -23,7 +25,7 @@
     "lit-html": "^0.10.0",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.0",
-    "origami-zen": "^0.3.11",
+    "origami-zen": "^0.3.12",
     "path-to-regexp": "^2.2.1",
     "pluralize": "^7.0.0",
     "polymer3-decorators": "https://github.com/tristanMatthias/polymer-decorators.git",
@@ -38,10 +40,11 @@
     "typescript": "^2.9.1",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.3",
-    "zen-css": "^1.1.10"
+    "zen-css": "^1.1.12"
   },
   "dependencies": {
     "@types/route-parser": "^0.1.1",
+    "awesome-typescript-loader": "^5.0.0",
     "copy-webpack-plugin": "^4.5.1",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0"

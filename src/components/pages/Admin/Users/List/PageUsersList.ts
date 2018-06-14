@@ -11,6 +11,7 @@ export default class PageUsersList extends LitElement implements props {
     static columns = ['fname', 'lname', 'email'];
 
     _render(props: RouterProps) {
+        // @ts-ignore
         return html`<ui-resource-table resource="users" columns=${this.constructor.columns}></ui-resource-table>`;
     }
 }

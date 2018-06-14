@@ -79,6 +79,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
 
     private _stateChanged(s: State) {
+        // @ts-ignore
         this._data = s[upperFirst(this._resPlural)][this._resPlural].asMutable();
     }
 
@@ -101,7 +102,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                     <div class="cell icon">
                         <zen-checkbox
                             size="medium"
-                            on-change=${e => this._handleCheckbox(e, 'all')}
+                            on-change=${(e: Event) => this._handleCheckbox(e, 'all')}
                         ></zen-checkbox>
                     </div>
                     ${unsafeHTML(cols.map(c => `
@@ -114,7 +115,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                         <div class="cell icon">
                             <zen-checkbox
                                 size="medium"
-                                on-change="${e => this._handleCheckbox(e, row)}"
+                                on-change="${(e: Event) => this._handleCheckbox(e, row)}"
                                 checked=${_selected.includes(row.id)}
                             ></zen-checkbox>
                         </div>
@@ -129,8 +130,9 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
     _didRender() {
         super._didRender();
+        // @ts-ignore Shadow root exists
         const rows = this.shadowRoot.querySelectorAll('.table .row:not(.header)');
-        rows.forEach((r, i) => {
+        (Array.from(rows) as HTMLElement[]).forEach((r, i) => {
             const id = this._data[i].id;
             r.classList.toggle('active', this.selected.includes(id));
         });
@@ -157,6 +159,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
     }
 
     private _updateActions() {
+        // @ts-ignore
         const a = actions[upperFirst(this._resPlural)];
         this._actions = {
             create: a[`${this._resPlural}Create`],
@@ -212,6 +215,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                 s.push(select.id);
                 this.selected = s;
             } else this._unselect(select.id);
+            // @ts-ignore Is just protected
             this._requestRender();
         }
     }
