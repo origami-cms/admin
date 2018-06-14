@@ -1,5 +1,4 @@
 import {Dispatch} from 'redux';
-import {BASE_URI} from 'const';
 
 
 export const APP_SIDEBAR_ITEMS_SET = 'APP_JEWEL_ITEMS_SET';
@@ -66,6 +65,7 @@ export const titleSet = (title: string) =>
 
 export const navigate = (path: string) =>
     async (dispatch: Dispatch<any>) => {
+
         if (window.location.pathname !== path) {
             dispatchEvent(new PopStateEvent('popstate', {state: {}}));
             window.history.pushState({}, undefined, path);

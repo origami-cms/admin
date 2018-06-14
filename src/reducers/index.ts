@@ -7,6 +7,7 @@ import {APIReducer} from 'origami-zen/API';
 
 import Auth from './Auth';
 import App from './App';
+import Apps from './Apps';
 import Me from './Me';
 import Setup from './Setup';
 // import Pages from './Pages';
@@ -14,6 +15,7 @@ import Setup from './Setup';
 export default combineReducers({
     Auth,
     App,
+    Apps,
     Me,
     Setup,
     // Pages,

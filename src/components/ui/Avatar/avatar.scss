@@ -17,3 +17,10 @@
         vertical-align: top;
     }
 }
+
+@each $size in $sizes {
+    :host-context([size=#{$size}]) {
+        width: default('size-#{$size}');
+        height: default('size-#{$size}');
+    }
+}

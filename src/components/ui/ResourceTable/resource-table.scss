@@ -1,33 +1,57 @@
 @import 'zen-css/import';
 
 :host {
-    display: grid;
-    grid-row-gap: var(--size-small);
-    --card-padding: var(--size-small);
 
-    .row {
+
+    .table {
         display: grid;
-        grid-template-columns: 4rem repeat(var(--cols), 1fr);
-        @extend %comp-card;
+        grid-row-gap: var(--size-small);
+        --card-padding: var(--size-small);
 
-        .cell, .header {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            padding-left: var(--size-small);
+        .row {
+            position: relative;
+            display: grid;
+            grid-template-columns: 4rem repeat(var(--cols), 1fr);
+            border: 2px solid transparent;
+            cursor: default;
 
-            &:first-child {
-                padding-left: 0;
+            &.active {
+                border-color: default('color-grey-300');
             }
-        }
 
-        &.header {
-            background-color: transparent;
-            box-shadow: none;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: default('color-grey-300');
+            &:not(.header):before {
+                content: '';
+                @extend %cover;
+                background-color: default('color-main');
+                opacity: 0;
+                transition: all calc(default('transition-time') / 2);
+            }
+            &:hover:before {
+                opacity: 0.05;
+            }
+
+            @extend %comp-card;
+
+            .cell, .header {
+                position: relative;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding-left: var(--size-small);
+
+                &:first-child {
+                    padding-left: 0;
+                }
+            }
+
+            &.header {
+                background-color: transparent;
+                box-shadow: none;
+                text-transform: uppercase;
+                font-weight: 600;
+                letter-spacing: 1px;
+                color: default('color-grey-300');
+            }
         }
     }
 

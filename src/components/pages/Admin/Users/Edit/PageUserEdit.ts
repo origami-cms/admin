@@ -6,8 +6,8 @@ import {component} from 'polymer3-decorators';
 interface props {
 }
 
-@component('page-user-create')
-export default class PageUsersList extends LitElement implements props {
+@component('page-user-edit')
+export default class PageUsersEdit extends LitElement implements props {
     get fields(): Field[] {
         return [
             {
@@ -32,18 +32,11 @@ export default class PageUsersList extends LitElement implements props {
                 type: 'email',
                 icon: 'mail',
                 iconColor: 'grey-300'
-            },
-            {
-                name: 'password',
-                placeholder: 'Password',
-                type: 'password',
-                icon: 'lock',
-                iconColor: 'grey-300'
             }
         ];
     }
 
-    _render({}) {
-        return html`<form-resource-create resource="user" fields=${this.fields}></form-resource-create>`;
+    _render({ }) {
+        return html`<form-resource-edit resource="user" fields=${this.fields}></form-resource-edit>`;
     }
 }

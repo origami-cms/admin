@@ -66,7 +66,20 @@ export interface Apps {
 export interface AppDetail {
     name: string;
     icon: string;
-    manifest: object;
+    path: string;
+    resources: {
+        name: string,
+        properties: {
+            [prop: string]: any
+        }
+    }[];
+    pages: {
+        properties: {
+            listFields?: string;
+            createFields?: string;
+            editFields?: string;
+        }
+    }[];
 }
 
 export interface SidebarItem {

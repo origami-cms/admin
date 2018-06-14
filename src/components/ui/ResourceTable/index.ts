@@ -8,6 +8,8 @@ import {component, property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './resource-table-css';
+import {ButtonOptions} from 'origami-zen/packages/components/ButtonGroup/ButtonGroup';
+import {navigate} from 'actions/App';
 
 
 type data = {
@@ -20,17 +22,16 @@ interface props {
     resource?: string;
     selected: string[];
     _resource?: string;
+    _selected: string[];
     _data: data[];
     _actions: {[action: string]: Function};
+    _buttons: ButtonOptions[];
 }
 
 @component('ui-resource-table')
 export default class ResourceTable extends connect(store)(LitElement) implements props {
     @property
     columns: string[] = [];
-
-    @property
-    selected: string[] = [];
 
     @property
     get resource() {
@@ -41,11 +42,24 @@ export default class ResourceTable extends connect(store)(LitElement) implements
         this._updateActions();
     }
 
+    get selected() {
+        return this._selected;
+    }
+    set selected(v) {
+        this._selected = v;
+        this._updateButtons();
+    }
+
     @property
     _data: data[] = [];
 
+    @property
+    _buttons: ButtonOptions[] = [];
+
 
     _resource?: string;
+    @property
+    _selected: string[] = [];
     _actions: { [action: string]: Function } = {};
 
 
@@ -56,7 +70,11 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
     constructor() {
         super();
+        this._actionCreate = this._actionCreate.bind(this);
+        this._actionEdit = this._actionEdit.bind(this);
+        this._actionRemove = this._actionRemove.bind(this);
         this._handleCheckbox = this._handleCheckbox.bind(this);
+        this._handleRowClick = this._handleRowClick.bind(this);
     }
 
 
@@ -66,50 +84,77 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
 
     private _firstRendered() {
-        this._fetch();
+        this._get();
     }
 
 
-    _render({_data, columns, selected}: props) {
+    _render({_data, columns, _selected = [], _buttons}: props) {
+
         const cols = this._getColumns(columns);
 
         return html`
             ${CSS}
             <style>:host{--cols: ${cols.length}}</style>
-            <div class="row header">
-                <div class="cell icon">
-                    <zen-checkbox
-                        size="medium"
-                        on-change=${e => this._handleCheckbox(e, 'all')}
-                    ></zen-checkbox>
-                </div>
-                ${unsafeHTML(cols.map(c => `
-                    <div class="header">${c}</div>
-                `).join(''))}
-            </div>
-
-            ${repeat(_data, (r: data) => r.id, (row: data) => html`
-                <div class="row">
+            <zen-button-group buttons=${_buttons}></zen-button-group>
+            <div class="table">
+                <div class="row header">
                     <div class="cell icon">
                         <zen-checkbox
                             size="medium"
-                            on-change="${e => this._handleCheckbox(e, row)}"
-                            checked=${selected.includes(row.id)}
+                            on-change=${e => this._handleCheckbox(e, 'all')}
                         ></zen-checkbox>
                     </div>
-                    ${repeat(cols, c => c, c => html`
-                        <div class="cell">${row[c]}</div>
-                    `)}
+                    ${unsafeHTML(cols.map(c => `
+                        <div class="header">${c}</div>
+                    `).join(''))}
                 </div>
-            `)}
+
+                ${repeat(_data, (r: data) => r.id, (row: data) => html`
+                    <div class="row" on-click=${(e: Event) => this._handleRowClick(e, row)}>
+                        <div class="cell icon">
+                            <zen-checkbox
+                                size="medium"
+                                on-change="${e => this._handleCheckbox(e, row)}"
+                                checked=${_selected.includes(row.id)}
+                            ></zen-checkbox>
+                        </div>
+                        ${repeat(cols, c => c, c => html`
+                            <div class="cell">${row[c]}</div>
+                        `)}
+                    </div>
+                `)}
+            </div>
         `;
     }
 
+    _didRender() {
+        super._didRender();
+        const rows = this.shadowRoot.querySelectorAll('.table .row:not(.header)');
+        rows.forEach((r, i) => {
+            const id = this._data[i].id;
+            r.classList.toggle('active', this.selected.includes(id));
+        });
+    }
 
-    private async _fetch() {
+
+    private async _get() {
         store.dispatch<any>(this._actions.get());
     }
 
+    private async _actionCreate() {
+        store.dispatch<any>(navigate(`/admin/${this._resPlural}/create`));
+    }
+
+    private async _actionEdit(id: string) {
+        if (!id) throw new Error('No ID specified');
+
+        store.dispatch<any>(navigate(`/admin/${this._resPlural}/${id}`));
+    }
+
+    private async _actionRemove() {
+        store.dispatch<any>(this._actions.remove(this.selected));
+        this.selected.forEach(this._unselect);
+    }
 
     private _updateActions() {
         const a = actions[upperFirst(this._resPlural)];
@@ -121,6 +166,34 @@ export default class ResourceTable extends connect(store)(LitElement) implements
         };
     }
 
+    private _updateButtons() {
+
+        const buttons = [];
+
+        const s = this.selected;
+        if (s.length >= 1) {
+            buttons.push({
+                icon: 'remove', text: 'Remove', color: 'red', size: 'medium',
+                onclick: this._actionRemove
+            });
+
+            if (s.length === 1) {
+                buttons.push({
+                    icon: 'edit', text: 'Edit', color: 'blue', size: 'medium',
+                    onclick: () => this._actionEdit(s[0])
+                });
+            }
+        } else {
+            buttons.push({
+                icon: 'add', text: 'Create', color: 'green', size: 'medium',
+                onclick: this._actionCreate
+            });
+        }
+
+
+        this._buttons = buttons;
+    }
+
 
     private _getColumns(columns: string[]) {
         if (columns.length) return columns;
@@ -130,14 +203,31 @@ export default class ResourceTable extends connect(store)(LitElement) implements
     }
 
     private _handleCheckbox(e: Event, select: 'all' | data) {
-
         if (select === 'all') {
             this.selected = this.selected.length ? [] : this._data.map(o => o.id);
         } else if (typeof select === 'object') {
             const add = (e.target as HTMLInputElement).checked;
-            if (add) this.selected.push(select.id);
-            else this.selected = this.selected.filter(i => i !== select.id);
+            if (add) {
+                const s = [...this.selected];
+                s.push(select.id);
+                this.selected = s;
+            } else this._unselect(select.id);
             this._requestRender();
         }
+    }
+
+    private _handleRowClick(e: Event, row: data) {
+        const t = e.target as HTMLElement;
+
+        // Disable opening a row if any rows are selected
+        if (this.selected.length) return;
+
+        // If not clicked on one of these elements
+        const exclude = ['zen-checkbox'];
+        if (!exclude.includes(t.tagName.toLowerCase())) this._actionEdit(row.id);
+    }
+
+    private _unselect(id: string) {
+        this.selected = this.selected.filter(i => i !== id);
     }
 }

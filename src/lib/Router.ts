@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {App} from 'actions';
 import {BASE_URI} from 'const';
-import matchPath, {MatchResultsParams} from 'lib/Path';
+import matchPath from 'lib/Path';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
@@ -12,6 +12,7 @@ export interface Route {
     path: string;
     exact?: boolean;
     element: string;
+    attributes?: {[prop: string]: string | number | boolean};
 }
 
 export interface RouterProps {
@@ -60,11 +61,11 @@ export default class Router extends connect(store)(LitElement) implements Router
     }
 
     _render({path, routes, base}: RouterProps) {
-        const pages = this._getRoutes(routes, base, path);
+        const pages = this._getRoutes(this.routes, base, path);
 
         if (!pages.length && this.notfound) {
             pages.push(
-                this._renderElement(this.notfound)
+                this._renderElement({element: this.notfound, path: ''})
             );
         }
 
@@ -75,25 +76,31 @@ export default class Router extends connect(store)(LitElement) implements Router
     _getRoutes(routes: Route[], base: string, path: string) {
         const r = [...routes]
             // Match each route against the current location
-            .map(r => {
-                const params = matchPath(path, {
+            .filter(r => {
+                return matchPath(path, {
                     path: this.base + r.path,
                     exact: r.exact,
                     strict: false
                 });
-                if (params) return {params: params.params, element: r.element};
+                // if (params) return {params: params.params, element: r.element};
             })
-            .filter(r => r)
             // Convert each valid route to a html template
-            .map(r => this._renderElement(r.element, r));
+            .map(r => this._renderElement(r));
 
         if (!r.length) return [];
         return this.switch ? [r[0]] : r;
     }
 
-    _renderElement(ele: string, params: MatchResultsParams) {
+    _renderElement(r: Route) {
+        let attrs = '';
+        if (r.attributes) {
+            attrs = Object.entries(r.attributes)
+                .map(([attr, val]) => `${attr}="${val}"`)
+                .join(' ');
+        }
+
         // TODO: Pass in props
-        const unsafe = `<${ele}></${ele}>`;
+        const unsafe = `<${r.element} ${attrs}></${r.element}>`;
         return html`${unsafeHTML(unsafe)}`;
     }
 }

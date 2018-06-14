@@ -8,8 +8,9 @@ interface props {
 
 @component('page-users-list')
 export default class PageUsersList extends LitElement implements props {
+    static columns = ['fname', 'lname', 'email'];
 
     _render(props: RouterProps) {
-        return html`<ui-resource-table resource="users"></ui-resource-table>`;
+        return html`<ui-resource-table resource="users" columns=${this.constructor.columns}></ui-resource-table>`;
     }
 }
