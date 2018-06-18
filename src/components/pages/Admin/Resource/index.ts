@@ -92,7 +92,15 @@ export default class PageResource extends connect(store)(Router) implements prop
         const edit = sr.querySelector('form-resource-edit');
 
         const getFields = (fields: string[]) => fields.map(f => {
-            const field = properties[f].asMutable({deep: true}) as Field;
+
+            let field = properties[f] as Field;
+            if (typeof field === 'string') field = {type: field};
+            else field = field.asMutable({deep: true});
+
+            if (field.type === 'uuid') {
+                field.type = 'text';
+                field.disabled = true;
+            }
 
             field.name = f;
             // @ts-ignore
