@@ -28,6 +28,7 @@ export default class AppRouter extends Router implements props {
 
     routes = [
         {path: '/login', element: 'page-login'},
+        {path: '/logout', element: 'page-logout'},
         {path: '/', element: 'page-admin'}
     ];
 
