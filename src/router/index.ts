@@ -36,15 +36,19 @@ export default class AppRouter extends Router implements props {
         // @ts-ignore Is correct props
         const page = super._render(props as RouterProps);
         const cssCenter = 'position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)';
-        if (props._loading) return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
+        if (props._loading && !props._verified) return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
         else return page;
     }
 
     _stateChanged(s: State) {
         super._stateChanged(s);
-        this._verified = Boolean(s.Auth.verified);
         this._verifyError = s.Auth.errors.verify;
-        this._loading = s.Auth.loading.verifying;
+        this._verified = Boolean(s.Auth.verified);
+        // TODO: Convert to a better structure
+        // Works around the flashing of showing the dashboard if not logged in
+        setTimeout(() => {
+            this._loading = s.Auth.loading.verifying;
+        }, 10);
     }
 
     _firstRendered() {

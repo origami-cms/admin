@@ -8,6 +8,8 @@ import {property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './resource-form-css';
+import {navigate} from 'actions/App';
+import {BASE_URI} from 'const';
 
 interface props {
     type?: 'create' | 'edit';
@@ -18,6 +20,7 @@ interface props {
     error: string | boolean;
     loading: boolean;
 }
+
 
 export default class FormResourceBase extends connect(store)(LitElement) implements props {
     @property
@@ -75,7 +78,7 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
     }
 
 
-    submit(e: { target: { values: object } }) {
+    async submit(e: { target: { values: object } }) {
         let type = this._typeUpper;
         if (type === 'Edit') type = 'Update';
 
@@ -90,11 +93,19 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
                 break;
 
             case 'Create':
-                store.dispatch<any>(
+                const res = await store.dispatch<any>(
                     // @ts-ignore Is a valid resource
                     (actions[this._resPluralUpper])
                         [`${this._resPlural}${type}`](e.target.values)
                 );
+                console.error(BASE_URI + this._resPlural + res.id);
+
+                if (res && res.id) {
+                    store.dispatch<any>(
+                        navigate(`${BASE_URI}/${this._resPlural}/${res.id}`)
+                    );
+                }
+
                 break;
         }
     }
