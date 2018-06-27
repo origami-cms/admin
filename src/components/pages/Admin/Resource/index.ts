@@ -94,9 +94,12 @@ export default class PageResource extends connect(store)(Router) implements prop
         const getFields = (fields: string[]) => fields.map(f => {
 
             let field = properties[f] as Field;
+            // @ts-ignore
             if (typeof field === 'string') field = {type: field};
+            // @ts-ignore
             else field = field.asMutable({deep: true});
 
+            // @ts-ignore
             if (field.type === 'uuid') {
                 field.type = 'text';
                 field.disabled = true;

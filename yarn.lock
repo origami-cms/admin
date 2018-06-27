@@ -1367,6 +1367,10 @@ deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
 
+deepmerge@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.1.tgz#e862b4e45ea0555072bf51e7fd0d9845170ae768"
+
 define-properties@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.1.2.tgz#83a73f2fea569898fb737193c8f873caf6d45c94"
@@ -2426,6 +2430,12 @@ ignore@^3.3.5:
   version "3.3.8"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.8.tgz#3f8e9c35d38708a3a7e0e9abb6c73e7ee7707b2b"
 
+import-from@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/import-from/-/import-from-2.1.0.tgz#335db7f2a7affd53aaa471d4b8021dee36b7f3b1"
+  dependencies:
+    resolve-from "^3.0.0"
+
 import-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"
@@ -2848,7 +2858,7 @@ jsonpointer@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-4.0.1.tgz#4fd92cb34e0e9db3c89c8622ecf51f9b978c6cb9"
 
-jsonwebtoken@^8.0.1:
+jsonwebtoken@^8.0.1, jsonwebtoken@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.3.0.tgz#056c90eee9a65ed6e6c72ddb0a1d325109aaf643"
   dependencies:
@@ -3632,6 +3642,17 @@ origami-core-lib@^0.3.4, origami-core-lib@^0.3.5:
   resolved "https://registry.yarnpkg.com/origami-core-lib/-/origami-core-lib-0.3.5.tgz#c04c8c09f6bd306dbbccf0c72ce16d5fdc222994"
   dependencies:
     dot-object "^1.7.0"
+
+origami-core-lib@^0.3.9:
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/origami-core-lib/-/origami-core-lib-0.3.9.tgz#ee5f589923674460f22623eb7b4c43ce463963e3"
+  dependencies:
+    bcrypt "^2.0.1"
+    deepmerge "^2.1.1"
+    dot-object "^1.7.0"
+    find-root "^1.1.0"
+    import-from "^2.1.0"
+    jsonwebtoken "^8.3.0"
 
 origami-core-server-statuses@^0.0.8:
   version "0.0.8"
@@ -4859,7 +4880,7 @@ router@blakeembrey/router#router-engine:
   resolved "https://codeload.github.com/blakeembrey/router/tar.gz/5eb68560e91b302251ff17a70cd1b6af1fc36d30"
   dependencies:
     array-flatten "2.0.0"
-    debug "~2.2.0"
+    debug "^3.1.0"
     methods "~1.1.2"
     parseurl "~1.3.1"
     path-to-regexp "0.1.7"

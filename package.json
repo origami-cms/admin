@@ -6,7 +6,8 @@
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:sass; webpack-cli",
+    "clean": "rm -rf build/",
+    "build": "yarn clean; yarn build:sass; webpack-cli",
     "build:sass": "sass-render src/components/**/*.scss --suffix=-css.ts",
     "watch:sass": "yarn build:sass -- -w",
     "watch": "webpack-cli --mode development -w",
@@ -47,6 +48,7 @@
     "zen-css": "^1.1.12"
   },
   "dependencies": {
+    "origami-core-lib": "^0.3.9",
     "origami-core-server": "^0.4.2"
   }
 }

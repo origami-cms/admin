@@ -1,11 +1,11 @@
 const express = require('express');
 const path = require('path');
-const {Route} = require('origami-core-server');
+const {Route} = require('origami-core-lib');
 
+const URI_PREFIX = '/admin'
 
-
-module.exports = (server, options) => {
-    server.static(path.resolve(__dirname, './build'), '/admin');
+module.exports = async (server, options) => {
+    server.static(path.resolve(__dirname, './build'), URI_PREFIX);
     const r = new Route('/admin/*')
         .position('post-render')
         .use(async (req, res, next) => {
@@ -15,4 +15,12 @@ module.exports = (server, options) => {
         });
 
     server.useRouter(r);
+
+
+    const controllers = new Route('*')
+    await controllers.include(path.resolve(__dirname, './controllers'));
+
+    server.useRouter(controllers);
 };
+
+module.exports.URI_PREFIX = URI_PREFIX;

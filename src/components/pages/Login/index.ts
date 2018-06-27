@@ -76,7 +76,7 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
         return html`
             ${CSS}
             <div class="center rounded text-center padding-large shadow-shade-1">
-                <img class="logo margin-b-large height-main" src="/admin/images/logo.svg"/>
+                <img class="logo margin-b-large height-main" src="/admin/images/logo"/>
                 <zen-form
                     fields=${fields}
                     on-submit=${this.submit}

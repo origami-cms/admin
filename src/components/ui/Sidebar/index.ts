@@ -39,7 +39,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
             ${CSS}
 
             <zen-link href='${BASE_URI}/' class="top-link display-b">
-                <img class="logo" src="${BASE_URI}/images/logo.svg" />
+                <img class="logo" src="${BASE_URI}/images/logo" />
             </zen-link>
 
             <div class="search position-r">
