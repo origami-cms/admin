@@ -57,6 +57,9 @@ export interface App {
     sidebar: {
         items: SidebarItem[]
     };
+    appSelector: {
+        open: boolean
+    };
 }
 
 export interface Apps {
@@ -84,6 +87,7 @@ export interface AppDetail {
 
 export interface SidebarItem {
     icon: string;
+    iconColor?: string;
     color: string;
     path: string;
     name: string;

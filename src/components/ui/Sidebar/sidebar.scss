@@ -57,6 +57,19 @@
         line-height: var(--sidebar-width);
         text-align: center;
         border-top: default('border-100');
+        transition: all calc(var(--transition-time) / 2);
+
+        zen-icon {
+            vertical-align: middle;
+            transition: all calc(var(--transition-time) / 2);
+        }
+
+        &:hover {
+            background-color: var(--color-hover);
+            zen-icon {
+                transform: scale(1.2);
+            }
+        }
     }
 
     zen-link.top-link, .search {

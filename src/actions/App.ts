@@ -7,6 +7,7 @@ export const APP_TABS_NEW = 'APP_TABS_NEW';
 export const APP_TABS_CLOSE = 'APP_TABS_CLOSE';
 export const APP_TABS_NAME = 'APP_TABS_NAME';
 export const APP_TITLE_SET = 'APP_TITLE_SET';
+export const APP_SELECTOR_SET = 'APP_SELECTOR_SET';
 
 
 export const getSidebarItems = () =>
@@ -54,7 +55,7 @@ export const getSidebarItems = () =>
             //     color: 'white',
             //     path: '/settings',
             //     name: 'Settings',
-            //     iconColor: 'grey-500'
+            //     iconColor: 'grey-700'
             // }
         ]});
     };
@@ -62,6 +63,7 @@ export const getSidebarItems = () =>
 
 export const titleSet = (title: string) =>
     (dispatch: Dispatch<any>) => dispatch({type: APP_TITLE_SET, title});
+
 
 export const navigate = (path: string) =>
     async (dispatch: Dispatch<any>) => {
@@ -72,4 +74,10 @@ export const navigate = (path: string) =>
         }
 
         dispatch({type: APP_PATH_UPDATE, path});
+    };
+
+
+export const toggleAppSelector = (open: boolean) =>
+    async (dispatch: Dispatch<any>) => {
+        dispatch({type: APP_SELECTOR_SET, open});
     };

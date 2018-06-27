@@ -5,8 +5,8 @@
 
     .table {
         display: grid;
-        grid-row-gap: var(--size-small);
-        --card-padding: var(--size-small);
+        grid-row-gap: var(--size-tiny);
+        --card-padding: var(--size-tiny);
 
         .row {
             position: relative;
