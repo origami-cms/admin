@@ -36,12 +36,18 @@
         margin-top: calc(2.5 * var(--size-tiny));
     }
 
-    h1, zen-icon[type="cross"], zen-input, ul.apps li {
+    h1, zen-icon[type="cross"], zen-input, ul.apps li, span.not-found {
         opacity: 0;
         animation-name: fade-up;
         animation-fill-mode: forwards;
         animation-duration: 0.35s;
         animation-timing-function: ease-out;
+    }
+
+    span.not-found {
+        display: inline-block;
+        animation-duration: 0.2s;
+        color: var(--color-grey-500);
     }
 
     .wrapper {

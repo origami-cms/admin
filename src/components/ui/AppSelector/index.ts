@@ -81,22 +81,17 @@ export default class Sidebar extends connect(store)(LitElement) implements props
 
 
     _render({_filtered, apps}: props) {
-        const _apps = _filtered.length ? _filtered : apps;
-        const aniDelay = 0.13;
-        const totalAniTime = 0.2;
+        let contents;
 
-        // TODO: Add click event listener to the list item and not the list
-        return html`
-            ${CSS}
-            <zen-icon type="cross" on-click=${this.close} color="grey-200" size="large"></zen-icon>
-            <h1>Applications</h1>
+        if (this.filter && !_filtered.length) {
+            contents = html`<span class="not-found">No apps found for '${this.filter}'. Try searching for something else.</span>`;
 
-            <div class="wrapper">
-                <zen-input icon="search"
-                    placeholder="Search for an app…"
-                    on-change="${(e: {target: {value: string}}) => this.filter = e.target.value}"
-                ></zen-input>
+        } else {
+            const _apps = _filtered.length ? _filtered : apps;
+            const aniDelay = 0.13;
+            const totalAniTime = 0.2;
 
+            contents = html`
                 <ul class="apps" on-click=${this.close}>
                     ${_apps.map((a, i) => {
                         return unsafeHTML(`
@@ -111,6 +106,23 @@ export default class Sidebar extends connect(store)(LitElement) implements props
                         `);
                     })}
                 </ul>
+            `;
+        }
+
+
+        // TODO: Add click event listener to the list item and not the list
+        return html`
+            ${CSS}
+            <zen-icon type="cross" on-click=${this.close} color="grey-200" size="large"></zen-icon>
+            <h1>Applications</h1>
+
+            <div class="wrapper">
+                <zen-input icon="search"
+                    placeholder="Search for an app…"
+                    on-change="${(e: {target: {value: string}}) => this.filter = e.target.value}"
+                ></zen-input>
+
+                ${contents}
             </div>
         `;
     }
