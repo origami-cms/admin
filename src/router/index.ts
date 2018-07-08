@@ -6,6 +6,7 @@ import {navigate} from 'actions/App';
 import {verify} from 'actions/Auth';
 import {State} from 'store';
 import {BASE_URI} from 'const';
+import {getTheme} from 'actions/Organization';
 
 interface props {
     _verified: boolean;
@@ -55,6 +56,7 @@ export default class AppRouter extends Router implements props {
     _firstRendered() {
         super._firstRendered();
         this._store.dispatch<any>(verify());
+        this._store.dispatch<any>(getTheme());
     }
 
     get _verifyError() {

@@ -50,13 +50,13 @@ export const getSidebarItems = () =>
             //     path: '/images',
             //     name: 'Images'
             // },
-            // {
-            //     icon: 'settings',
-            //     color: 'white',
-            //     path: '/settings',
-            //     name: 'Settings',
-            //     iconColor: 'grey-700'
-            // }
+            {
+                icon: 'settings',
+                color: 'white',
+                path: '/settings',
+                name: 'Settings',
+                iconColor: 'grey-700'
+            }
         ]});
     };
 

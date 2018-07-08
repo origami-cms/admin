@@ -13,23 +13,23 @@ export interface Routes {
 }
 
 interface props {
-    title?: string;
+    heading?: string;
 }
 
 
 @component('ui-header')
 export default class Header extends connect(store)(LitElement) implements props {
     @property
-    title?: string;
+    heading?: string;
 
     _stateChanged(state: State) {
-        this.title = state.App.page.title;
+        this.heading = state.App.page.title;
     }
 
-    _render({title}: props) {
+    _render({heading}: props) {
         return html`
             ${CSS}
-            <h1 class="display-ib">${title}</h1>
+            <h1 class="display-ib">${heading}</h1>
             <ui-header-notifications></ui-header-notifications>
             <ui-header-user></ui-header-user>
         `;

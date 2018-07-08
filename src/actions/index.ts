@@ -27,3 +27,9 @@ export const Setup = _Setup;
 import * as _Brokers from './Brokers';
 export const Brokers = _Brokers;
 
+import * as _Organization from './Organization';
+export const Organization = _Organization;
+
+import * as _Media from './Media';
+export const Media = _Media;
+

@@ -15,6 +15,7 @@ interface props {
 interface propsWithRouter  extends props, RouterProps {}
 
 export * from './Resource';
+export * from './Settings';
 export * from './Users';
 
 @component('page-admin')
@@ -28,6 +29,8 @@ export default class PageAdmin extends connect(store)(Router) implements props {
         {path: '/404', element: 'page-not-found', exact: true},
         {path: '/', element: 'page-dashboard', exact: true},
         {path: '/users', element: 'page-users'},
+        {path: '/settings', element: 'page-settings'},
+
         {path: '/brokers', element: 'page-resource', attributes: {resource: 'broker'}}
     ];
 

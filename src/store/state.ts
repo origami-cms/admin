@@ -12,6 +12,7 @@ export default interface State {
     Auth: Auth;
     Users: Users;
     Pages: Pages;
+    Organization: Organization;
 }
 export interface Loader {
     _loading: {
@@ -150,4 +151,14 @@ export interface User {
     fname: null | string;
     lname: null | string;
     email: null | string;
+}
+
+
+export interface Organization {
+    theme: OrganizationTheme;
+    logo: null | number;
+}
+export interface OrganizationTheme {
+    colorMain: string | false;
+    colorSecondary: string | false;
 }

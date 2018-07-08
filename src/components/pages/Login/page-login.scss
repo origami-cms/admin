@@ -6,6 +6,7 @@
 
     @extend %page;
     @extend %bg-waves;
+    --input-height: 6rem;
 
     &, * {
         @extend %reset;

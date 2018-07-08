@@ -16,6 +16,7 @@ export interface Routes {
 
 interface props {
     apps: SidebarItem[];
+    logo?: number;
 }
 
 
@@ -24,29 +25,34 @@ export default class Sidebar extends connect(store)(LitElement) implements props
     @property
     apps: SidebarItem[] = [];
 
+    @property
+    logo?: number;
+
     _stateChanged(state: State) {
         this.apps = state.App.sidebar.items;
+        if (state.Organization.logo) this.logo = state.Organization.logo;
     }
 
     _firstRendered() {
         store.dispatch<any>(getSidebarItems());
     }
 
-    _render({apps}: props) {
+    _render({apps, logo}: props) {
         const l = window.location.pathname;
+
 
         return html`
             ${CSS}
 
             <zen-link href='${BASE_URI}/' class="top-link display-b">
-                <img class="logo" src="${BASE_URI}/images/logo" />
+                <img class="logo" src="${BASE_URI}/images/logo?${logo}" />
             </zen-link>
 
             <div class="search position-r">
                 <zen-icon type="search" color="main" size="main" class="center"></zen-icon>
             </div>
 
-            <div class="apps-button" on-click=${() => store.dispatch<any>(toggleAppSelector(true))}>
+            <div class="apps-button" on-click=${()  => store.dispatch<any>(toggleAppSelector(true))}>
                 <zen-icon type="grid" size="main"></zen-icon>
             </div>
 

@@ -11,8 +11,6 @@ r.post(async (req, res, next) => {
         const media = store.model('media');
 
         // Validate the media exists...
-        console.log(req.body);
-
         const file = await media.find({id: req.body.logo});
         if (!file) throw new Error('Could not find media with id');
 

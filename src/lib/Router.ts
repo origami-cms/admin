@@ -9,6 +9,7 @@ import {connect} from 'pwa-helpers/connect-mixin';
 // @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
 import store, {State} from 'store';
+import {titleSet} from 'actions/App';
 
 export interface Route {
     path: string;
@@ -43,16 +44,20 @@ export default class Router extends connect(store)(LitElement) implements Router
     switch: boolean = true;
 
     protected _store = store;
+    private _elementCache = new Map();
+    private _routeCache = new Map();
 
 
     _stateChanged(state: State) {
-        this.path = state.App.page.path;
+        // tslint:disable-next-line
+        if (this.path != state.App.page.path) this.path = state.App.page.path;
     }
 
     _firstRendered() {
         // Setup to watch the location and bind to redux store
         installRouter(
             (location: Location) => {
+                store.dispatch<any>(titleSet(''));
                 store.dispatch(
                     // @ts-ignore
                     App.navigate(window.decodeURIComponent(location.pathname))
@@ -61,38 +66,49 @@ export default class Router extends connect(store)(LitElement) implements Router
         );
     }
 
-    _render({path, routes, base}: RouterProps) {
-        const pages = this._getRoutes(this.routes, base, path);
-
-        if (!pages.length && this.notfound) {
-            pages.push(
-                this._renderElement({element: this.notfound, path: ''})
-            );
-        }
-
-
-        return html`${pages}`;
+    _render() {
+        return this._getRoutes();
     }
 
-    _getRoutes(routes: Route[], base: string, path: string) {
-        const r = [...routes]
-            // Match each route against the current location
-            .filter(r => {
-                return matchPath(path, {
-                    path: this.base + r.path,
-                    exact: r.exact,
-                    strict: false
-                });
-                // if (params) return {params: params.params, element: r.element};
-            })
-            // Convert each valid route to a html template
-            .map(r => this._renderElement(r));
+    _getRoutes() {
+        // tslint:disable-next-line no-this-assignment
+        const {routes, base, path, notfound} = this;
+        let r = this._routeCache.get(path);
 
-        if (!r.length) return [];
-        return this.switch ? [r[0]] : r;
+        if (!r) {
+            r = routes
+                // Match each route against the current location
+                .filter(r => {
+                    return matchPath(path, {
+                        path: base + r.path,
+                        exact: r.exact,
+                        strict: false
+                    });
+                    // if (params) return {params: params.params, element: r.element};
+                })
+                // Convert each valid route to a html template
+                .map(r => this._renderElement(r));
+
+
+            if (!r.length && notfound) {
+                r.push(
+                    this._renderElement({element: notfound, path: ''})
+                );
+            }
+
+            if (r.length) r = this.switch ? [r[0]] : r;
+            const t = html`${r}`;
+            this._routeCache.set(path, t);
+            return t;
+
+        } else return r;
     }
+
 
     _renderElement(r: Route) {
+        // Lookup element in cache
+        if (this._elementCache.get(r)) return this._elementCache.get(r);
+
         let attrs = '';
         if (r.attributes) {
             attrs = Object.entries(r.attributes)
@@ -102,7 +118,9 @@ export default class Router extends connect(store)(LitElement) implements Router
 
         // TODO: Pass in props
         const unsafe = `<${r.element} ${attrs}></${r.element}>`;
-        return html`${unsafeHTML(unsafe)}`;
+        const route = html`${unsafeHTML(unsafe)}`;
+        this._elementCache.set(r, route);
+        return route;
     }
 }
 

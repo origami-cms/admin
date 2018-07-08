@@ -1,9 +1,7 @@
 import {html} from '@polymer/lit-element';
-import {getMe} from 'actions/Me';
-import Router, {RouterProps, Route} from 'lib/Router';
+import {titleSet} from 'lib/decorators';
+import Router, {Route, RouterProps} from 'lib/Router';
 import {component} from 'polymer3-decorators';
-import {connect} from 'pwa-helpers/connect-mixin';
-import store, {State} from 'store';
 import {Me} from 'store/state';
 import CSS from './page-settings-css';
 
@@ -11,34 +9,35 @@ interface props {
     me?: Me;
 }
 
-@component('page-admin')
-export default class PageAdmin extends connect(store)(Router) implements props {
+export * from './Organization';
+export * from './SettingsMenu';
+
+@component('page-settings')
+@titleSet('Settings')
+export default class PageAdmin extends Router implements props {
     me?: Me;
+    base = '/admin/settings';
 
     routes: Route[] = [
-        {path: '/404', element: 'page-not-found', exact: true},
-        {path: '/', element: 'page-dashboard', exact: true},
-        {path: '/users', element: 'page-users'},
-        {path: '/brokers', element: 'page-resource', attributes: {resource: 'broker'}}
+        {
+            path: '/organization',
+            element: 'page-settings-organization'
+        },
+        {
+            path: '/me',
+            element: 'page-settings-me'
+        }
     ];
 
-    notfound = 'page-not-found';
-
-    _stateChanged(s: State) {
-        this.me = s.Me;
-    }
-    _firstRendered() {
-        store.dispatch<any>(getMe());
-    }
-
     _render(props: RouterProps) {
-        const page = super._render(props);
+        const page = super._render();
 
         return html`
             ${CSS}
-            <ui-sidebar></ui-sidebar>
-            <ui-header></ui-header>
-            <main>${page}</main>
+            <page-settings-menu></page-settings-menu>
+            <section>
+                ${page}
+            </section>
         `;
     }
 }
