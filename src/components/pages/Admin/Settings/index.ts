@@ -5,7 +5,7 @@ import {component} from 'polymer3-decorators';
 import {Me} from 'store/state';
 import CSS from './page-settings-css';
 
-interface props {
+interface props extends RouterProps {
     me?: Me;
 }
 
@@ -29,7 +29,7 @@ export default class PageAdmin extends Router implements props {
         }
     ];
 
-    _render(props: RouterProps) {
+    _render(props: props) {
         const page = super._render();
 
         return html`

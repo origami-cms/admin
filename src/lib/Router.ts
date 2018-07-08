@@ -10,6 +10,7 @@ import {connect} from 'pwa-helpers/connect-mixin';
 import {installRouter} from 'pwa-helpers/router';
 import store, {State} from 'store';
 import {titleSet} from 'actions/App';
+import {TemplateResult} from '../../node_modules/lit-html';
 
 export interface Route {
     path: string;
@@ -66,7 +67,7 @@ export default class Router extends connect(store)(LitElement) implements Router
         );
     }
 
-    _render() {
+    _render(props?: any): TemplateResult {
         return this._getRoutes();
     }
 

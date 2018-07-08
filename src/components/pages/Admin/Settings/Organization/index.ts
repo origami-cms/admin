@@ -1,11 +1,12 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {setTheme, setLogo} from 'actions/Organization';
+import {setLogo, setTheme} from 'actions/Organization';
+import {Field, Form} from 'origami-zen';
 import {component, property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {OrganizationTheme} from 'store/state';
-
 import CSS from './organization-css';
+
 
 interface props {
     theme?: OrganizationTheme;
@@ -15,7 +16,7 @@ interface props {
 export class PageSettingsOrganization extends connect(store)(LitElement) implements props {
     @property
     theme?: OrganizationTheme;
-    static _formGeneral = [
+    static _formGeneral: Field[] = [
         {
             type: 'text',
             label: 'Organization name',
@@ -31,7 +32,7 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
             icon: 'web'
         }
     ];
-    static _formTheme = [
+    static _formTheme: Field[] = [
         {
             type: 'color',
             label: 'Main color',
@@ -45,6 +46,7 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
             width: 'half'
         },
         {
+            name: 'submit',
             type: 'submit',
             value: 'Save',
             icon: 'tick',
@@ -63,6 +65,10 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
     }
 
     _render({theme}: props) {
+        // @ts-ignore
+        const formG: Fields[] = this.constructor._formGeneral;
+        // @ts-ignore
+        const formT: Fields[] = this.constructor._formTheme;
 
         return html`
             ${CSS}
@@ -76,7 +82,7 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
                     ></ui-file-uploader>
                 </div>
                 <zen-form
-                    fields=${this.constructor._formGeneral}
+                    fields=${formG}
                 ></zen-form>
             </div>
 
@@ -86,20 +92,20 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
                 <h4>Theme</h4>
                 <zen-form
                     values=${theme}
-                    fields=${this.constructor._formTheme}
+                    fields=${formT}
                     on-submit=${this._saveTheme}
                 ></zen-form>
             </div>
         `;
     }
 
-    private _saveTheme(e: Event) {
+    private _saveTheme(e: {target: Form}) {
         const {colorMain, colorSecondary} = e.target.values;
 
         store.dispatch<any>(setTheme(colorMain, colorSecondary));
     }
 
-    private async _handleUpload(e) {
+    private async _handleUpload(e: CustomEvent) {
         if (e.detail && e.detail.id) {
             const setting = await store.dispatch<any>(setLogo(e.detail.id));
         }
