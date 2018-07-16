@@ -1,13 +1,12 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {login} from 'actions/Auth';
-import {navigate} from 'actions/App';
+import API from 'lib/API';
 import {Field, FormValues} from 'origami-zen';
+import {APIActions} from 'origami-zen/API';
 import {component, property} from 'polymer3-decorators';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './create-css';
-import {usersCreate, usersUpdate} from 'actions/Users';
 
 interface props {
     error: string | boolean;
@@ -26,6 +25,8 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
     @property
     values: FormValues = {};
 
+    private _actions = APIActions('users', API);
+
     constructor() {
         super();
         this.submit = this.submit.bind(this);
@@ -33,8 +34,8 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
 
 
     _stateChanged(s: State) {
-        this.error = s.Users._errors.post;
-        this.loading = Boolean(s.Users._loading.post);
+        this.error = s.resources.users._errors.post;
+        this.loading = Boolean(s.resources.users._loading.post);
     }
 
 
@@ -82,7 +83,7 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
 
 
     submit(e: {target: {values: object} }) {
-        store.dispatch<any>(usersCreate(e.target.values));
+        store.dispatch(this._actions.usersCreate(e.target.values));
     }
 
 

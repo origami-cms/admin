@@ -49,6 +49,10 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.29.tgz#a1e514adfbd92f03a224ba54d693111dbf1f3754"
 
+"@types/deepmerge@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/deepmerge/-/deepmerge-2.1.0.tgz#22f175e5cb55874fe818caa6fd50a1d98fc3d748"
+
 "@types/events@*":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
@@ -1433,6 +1437,13 @@ deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
 
+deepequal@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/deepequal/-/deepequal-0.0.1.tgz#76780fde807e837140819afc15888504fb6cf875"
+  dependencies:
+    fast-apply "*"
+    is-args "*"
+
 deepmerge@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.1.tgz#e862b4e45ea0555072bf51e7fd0d9845170ae768"
@@ -1883,6 +1894,10 @@ extsprintf@1.3.0:
 extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
+
+fast-apply@*:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/fast-apply/-/fast-apply-0.0.3.tgz#7791bb3f7f76b7064c0b73bc3e75bfad8553c861"
 
 fast-deep-equal@^1.0.0:
   version "1.1.0"
@@ -2616,6 +2631,10 @@ is-accessor-descriptor@^1.0.0:
   dependencies:
     kind-of "^6.0.0"
 
+is-args@*:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/is-args/-/is-args-0.0.1.tgz#8ca6e3ca557c3b36b3c62aa16a59539185380b16"
+
 is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
@@ -2928,6 +2947,10 @@ jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
+jsonml-ext@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/jsonml-ext/-/jsonml-ext-1.0.2.tgz#555ed9ccc72bcf38c3a6ed104e57a9d8687e70e6"
+
 jsonpointer@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-4.0.1.tgz#4fd92cb34e0e9db3c89c8622ecf51f9b978c6cb9"
@@ -3052,6 +3075,10 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lodash-es@^4.2.1:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.10.tgz#62cd7104cdf5dd87f235a837f0ede0e8e5117e05"
+
 lodash.assign@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
@@ -3120,7 +3147,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.x, lodash@~4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -3711,15 +3738,9 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-origami-core-lib@^0.3.4, origami-core-lib@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/origami-core-lib/-/origami-core-lib-0.3.5.tgz#c04c8c09f6bd306dbbccf0c72ce16d5fdc222994"
-  dependencies:
-    dot-object "^1.7.0"
-
-origami-core-lib@^0.3.9:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/origami-core-lib/-/origami-core-lib-0.3.10.tgz#8e3cfb0999547bde7aa8c13c43d59cf2e455abc5"
+origami-core-lib@^0.3.12:
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/origami-core-lib/-/origami-core-lib-0.3.12.tgz#182276aedc0618db016d0946f2b6f802025e9947"
   dependencies:
     "@types/express" "^4.11.1"
     bcrypt "^2.0.1"
@@ -3728,6 +3749,12 @@ origami-core-lib@^0.3.9:
     find-root "^1.1.0"
     import-from "^2.1.0"
     jsonwebtoken "^8.3.0"
+
+origami-core-lib@^0.3.4, origami-core-lib@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/origami-core-lib/-/origami-core-lib-0.3.5.tgz#c04c8c09f6bd306dbbccf0c72ce16d5fdc222994"
+  dependencies:
+    dot-object "^1.7.0"
 
 origami-core-server-statuses@^0.0.8:
   version "0.0.8"
@@ -3806,9 +3833,9 @@ origami-plugin-user-profiles@^1.0.0:
     mkdir-recursive "^0.4.0"
     request "^2.87.0"
 
-origami-zen@^0.3.19:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/origami-zen/-/origami-zen-0.3.19.tgz#e468c5f5b73d51e76f1442b9acaa8c08a0c79371"
+origami-zen@^0.3.20-alpha.9:
+  version "0.3.20-alpha.9"
+  resolved "https://registry.yarnpkg.com/origami-zen/-/origami-zen-0.3.20-alpha.9.tgz#054a82a455c6276ae9e70f94b94c635396f3e11c"
 
 os-browserify@^0.3.0:
   version "0.3.0"
@@ -4716,9 +4743,25 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-injector@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/redux-injector/-/redux-injector-0.1.0.tgz#423d3bbcd98fdc75f30191fd0fb9bc1c052d4769"
+  dependencies:
+    lodash "^4.x"
+    redux "^3.x"
+
 redux-thunk@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+
+redux@^3.x:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
+  dependencies:
+    lodash "^4.2.1"
+    lodash-es "^4.2.1"
+    loose-envify "^1.1.0"
+    symbol-observable "^1.0.3"
 
 redux@^4.0.0:
   version "4.0.0"
@@ -5481,7 +5524,7 @@ swap-case@^1.1.0:
     lower-case "^1.1.1"
     upper-case "^1.1.1"
 
-symbol-observable@^1.2.0:
+symbol-observable@^1.0.3, symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
 
@@ -6162,6 +6205,6 @@ z-schema@3.18.4:
   optionalDependencies:
     commander "^2.7.1"
 
-zen-css@^1.1.12:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.12.tgz#f1e05e02de58b09d0a0f870ad223dd706a89e156"
+zen-css@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.13.tgz#b39f8985d0a50f1347873d67df056603afc0e54c"

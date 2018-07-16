@@ -1,8 +1,9 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
-import {usersGet, usersUpdate} from 'actions/Users';
+import API from 'lib/API';
 import matchPath from 'lib/Path';
 import {Field} from 'origami-zen';
+import {APIActions} from 'origami-zen/API';
 import {component, property} from 'polymer3-decorators';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
@@ -52,6 +53,7 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
 
 
     private _redirecting: boolean = false;
+    private _actions = APIActions('users', API);
 
     constructor() {
         super();
@@ -60,24 +62,22 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
 
 
     _stateChanged(s: State) {
-        s.Users._loading.single;
-
         if (this.errorGet && !this._redirecting) {
             this._redirecting = true;
-            if (window.location.pathname !== '/admin/404') store.dispatch<any>(navigate('/admin/404'));
+            if (window.location.pathname !== '/admin/404') store.dispatch(navigate('/admin/404'));
             return;
         }
 
-        this.errorGet = s.Users._errors.get;
-        this.errorEdit = s.Users._errors.edit;
-        this.loadingEdit = Boolean(s.Users._loading.edit);
-        this.loadingGet = Boolean(s.Users._loading.single);
+        this.errorGet = s.resources.users._errors.get;
+        this.errorEdit = s.resources.users._errors.edit;
+        this.loadingEdit = Boolean(s.resources.users._loading.edit);
+        this.loadingGet = Boolean(s.resources.users._loading.single);
 
         const match = matchPath(s.App.page.path, '/admin/users/:userID');
         if (match) {
             // tslint:disable
             if (this.id != match.params.userID) this.id = match.params.userID;
-            const u = s.Users.users.find(u => u.id === this.id);
+            const u = s.resources.users.users.find((u: any) => u.id === this.id);
             if (u) this.user = u;
         }
     }
@@ -120,12 +120,12 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
 
 
     submit(e: {target: {values: object} }) {
-        store.dispatch<any>(usersUpdate(this.id, e.target.values));
+        store.dispatch(this._actions.usersUpdate(this.id, e.target.values));
     }
 
     _get() {
         if (!this.id) return;
-        if (!this.loadingGet) store.dispatch<any>(usersGet(this.id));
+        if (!this.loadingGet) store.dispatch(this._actions.usersGet(this.id));
     }
 
 

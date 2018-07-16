@@ -35,7 +35,7 @@ export default class FileUploader extends LitElement implements props {
         const files = e.target.files;
 
         if (files[0]) {
-            const {data} = await store.dispatch<any>(upload(files[0]));
+            const {data} = await store.dispatch(upload(files[0]));
             this.dispatchEvent(new CustomEvent('upload', {
                 detail: data
             }));

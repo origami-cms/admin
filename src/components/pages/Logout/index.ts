@@ -9,8 +9,8 @@ import store from 'store';
 export default class PageLogout extends LitElement {
     async connectedCallback() {
         super.connectedCallback();
-        await store.dispatch<any>(logout());
-        await store.dispatch<any>(navigate('/admin/login'));
+        await store.dispatch(logout());
+        await store.dispatch(navigate('/admin/login'));
     }
 
     _render() {

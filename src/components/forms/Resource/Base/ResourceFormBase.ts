@@ -1,15 +1,17 @@
 import {html, LitElement} from '@polymer/lit-element';
-import * as actions from 'actions';
+import {navigate} from 'actions/App';
+import {BASE_URI} from 'const';
 import {upperFirst} from 'lodash';
 import {Field, FormValues} from 'origami-zen';
-import pluralize, {singular} from 'pluralize';
+import {APIActions} from 'origami-zen/API';
+import pluralize from 'pluralize';
 import {property} from 'polymer3-decorators';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
+import API from 'lib/API';
 import CSS from './resource-form-css';
-import {navigate} from 'actions/App';
-import {BASE_URI} from 'const';
+
 
 interface props {
     type?: 'create' | 'edit';
@@ -43,11 +45,18 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
     values: FormValues = {};
 
     protected _store = store;
-    protected _actions = actions;
+    protected get _actions() {
+        if (!this._resPlural) return {};
+        return APIActions(this._resPlural, API);
+    }
 
 
     protected get _resPlural() {
         return pluralize(this.resource || '');
+    }
+
+    protected get _resSingular() {
+        return pluralize.singular(this.resource || '');
     }
 
     protected get _resPluralUpper() {
@@ -68,7 +77,7 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
     _stateChanged(s: State) {
         const type = this.type === 'create' ? 'post' : 'edit';
 
-        const res = s[this._resPluralUpper as keyof State];
+        const res = s.resources[this._resPlural];
         // @ts-ignore Is a resource
         if (!res._errors || !res._loading) throw new Error('Not a resource');
         // @ts-ignore Is a resource
@@ -84,24 +93,23 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
 
         switch (type) {
             case 'Update':
-                store.dispatch<any>(
+                store.dispatch(
                     // @ts-ignore Is a valid resource
-                    (actions[this._resPluralUpper])
+                    this._actions
                         // @ts-ignore
                         [`${this._resPlural}${type}`](this.id, e.target.values)
                 );
                 break;
 
             case 'Create':
-                const res = await store.dispatch<any>(
+                const res = await store.dispatch(
                     // @ts-ignore Is a valid resource
-                    (actions[this._resPluralUpper])
+                    this._actions
                         [`${this._resPlural}${type}`](e.target.values)
                 );
-                console.error(BASE_URI + this._resPlural + res.id);
 
                 if (res && res.id) {
-                    store.dispatch<any>(
+                    store.dispatch(
                         navigate(`${BASE_URI}/${this._resPlural}/${res.id}`)
                     );
                 }
@@ -123,7 +131,7 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
         return html`
             ${CSS}
             <div class="card shadow-main center-h">
-                <h3 class="margin-t-small">${this._typeUpper} a ${this.resource}</h3>
+                <h3 class="margin-t-small">${this._typeUpper} a ${this._resSingular}</h3>
                 <zen-form
                     error=${error}
                     fields=${f}

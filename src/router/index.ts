@@ -4,9 +4,10 @@ import {html} from '@polymer/lit-element';
 import {component, property} from 'polymer3-decorators';
 import {navigate} from 'actions/App';
 import {verify} from 'actions/Auth';
-import {State} from 'store';
+import store, {State} from 'store';
 import {BASE_URI} from 'const';
 import {getTheme} from 'actions/Organization';
+import {connect} from 'pwa-helpers/connect-mixin';
 
 interface props {
     _verified: boolean;
@@ -18,7 +19,8 @@ interface props {
 // Simple router for all main pages, and verifies token on page refresh.
 // Boots to login if invalid verification or no JWT
 @component('zen-app')
-export default class AppRouter extends Router implements props {
+export default class AppRouter extends connect(store)(Router) implements props {
+    name = 'base';
     notfound = 'page-not-found';
 
     _verified: boolean = false;
@@ -37,13 +39,13 @@ export default class AppRouter extends Router implements props {
     _render(props: props) {
         // @ts-ignore Is correct props
         const page = super._render(props as RouterProps);
+
         const cssCenter = 'position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)';
         if (props._loading && !props._verified) return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
         else return page;
     }
 
     _stateChanged(s: State) {
-        super._stateChanged(s);
         this._verifyError = s.Auth.errors.verify;
         this._verified = Boolean(s.Auth.verified);
         // TODO: Convert to a better structure
@@ -55,8 +57,8 @@ export default class AppRouter extends Router implements props {
 
     _firstRendered() {
         super._firstRendered();
-        this._store.dispatch<any>(verify());
-        this._store.dispatch<any>(getTheme());
+        store.dispatch(verify());
+        store.dispatch(getTheme());
     }
 
     get _verifyError() {
@@ -69,6 +71,7 @@ export default class AppRouter extends Router implements props {
         this.__verifyError = v;
         const url = `${BASE_URI}/login`;
 
-        if (v && this.path !== url) this._store.dispatch<any>(navigate(url));
+        // @ts-ignore path added from Router
+        if (v && this.path !== url) store.dispatch(navigate(url));
     }
 }

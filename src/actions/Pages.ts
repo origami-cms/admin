@@ -22,21 +22,21 @@ export const {
 
 
 export const pagesPropertiesGet = async (id: string) =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         const {data: properties} = await API.get(`/pages/${id}/properties`);
         dispatch({type: PAGE_PROPERTIES_SET, id, properties});
     };
 
 
 export const pagesDataUpdate = async(id: string, data: object) =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         await API.put(`/pages/${id}/properties`, data);
         dispatch({type: PAGE_DATA_SET, id, data});
     };
 
 
 export const pagesTreeGet = async(parent = '') =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         const {data: pages} = await API.get(`/pages/tree/${parent}`);
         dispatch({type: PAGES_TREE_SET, parent, pages});
     };

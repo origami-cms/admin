@@ -8,6 +8,6 @@ export default (title: string) =>
             _firstRendered = () => {
                 // @ts-ignore
                 super._firstRendered();
-                store.dispatch<any>(titleSet(title));
+                store.dispatch(titleSet(title));
             }
         };

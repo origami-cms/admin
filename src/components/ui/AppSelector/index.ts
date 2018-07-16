@@ -8,7 +8,7 @@ import {component, property} from 'polymer3-decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {SidebarItem} from 'store/state';
-import {bindAttributes} from '../../../../node_modules/origami-zen/packages/util/decorators';
+import {bindAttributes} from 'origami-zen/util/decorators';
 import CSS from './app-selector-css';
 
 
@@ -76,7 +76,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
 
 
     _firstRendered() {
-        store.dispatch<any>(getSidebarItems());
+        store.dispatch(getSidebarItems());
     }
 
 
@@ -142,7 +142,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
     }
 
     close() {
-        if (this.open) store.dispatch<any>(toggleAppSelector(false));
+        if (this.open) store.dispatch(toggleAppSelector(false));
     }
 }
 

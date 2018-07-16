@@ -1,10 +1,9 @@
-import {createStore, applyMiddleware, Store} from 'redux';
+import {applyMiddleware} from 'redux';
+import {createInjectStore} from 'redux-injector';
 import thunkMiddleware from 'redux-thunk';
-
 import MainReducer from '../reducers';
 
-// @ts-ignore
-export default createStore(
+export default createInjectStore(
     MainReducer,
     applyMiddleware(
         thunkMiddleware

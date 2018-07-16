@@ -62,7 +62,7 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
 
     submit(e: {target: {values: {email: string, password: string}}}) {
         const {email, password} = e.target.values;
-        store.dispatch<any>(login(email, password));
+        store.dispatch(login(email, password));
     }
 
     _render({error, values}: props) {
@@ -90,7 +90,7 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
     _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
         if (c.loggedIn) {
-            store.dispatch<any>(navigate('/admin/'));
+            store.dispatch(navigate('/admin/'));
         }
     }
 }

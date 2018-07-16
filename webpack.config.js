@@ -34,6 +34,12 @@ module.exports = {
             "const": path.resolve(__dirname, "./src/const.ts")
         }
     },
+    node: {
+        fs: 'empty',
+        child_process: 'empty',
+        module: 'empty',
+        'aws-sdk': 'empty'
+    },
     plugins: [
         new HTMLPlugin({
             template: './src/app.html'

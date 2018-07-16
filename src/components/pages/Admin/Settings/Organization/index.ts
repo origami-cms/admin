@@ -102,12 +102,12 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
     private _saveTheme(e: {target: Form}) {
         const {colorMain, colorSecondary} = e.target.values;
 
-        store.dispatch<any>(setTheme(colorMain, colorSecondary));
+        store.dispatch(setTheme(colorMain, colorSecondary));
     }
 
     private async _handleUpload(e: CustomEvent) {
         if (e.detail && e.detail.id) {
-            const setting = await store.dispatch<any>(setLogo(e.detail.id));
+            const setting = await store.dispatch(setLogo(e.detail.id));
         }
     }
 }

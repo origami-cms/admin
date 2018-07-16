@@ -9,7 +9,9 @@ import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './resource-table-css';
 import {ButtonOptions} from 'origami-zen/packages/components/ButtonGroup/ButtonGroup';
+import {APIActions} from 'origami-zen/API';
 import {navigate} from 'actions/App';
+import API from 'lib/API';
 
 
 type data = {
@@ -21,6 +23,7 @@ interface props {
     columns: string[];
     resource?: string;
     selected: string[];
+    uribase?: string;
     _resource?: string;
     _selected: string[];
     _data: data[];
@@ -32,6 +35,9 @@ interface props {
 export default class ResourceTable extends connect(store)(LitElement) implements props {
     @property
     columns: string[] = [];
+
+    @property
+    uribase?: string;
 
     @property
     get resource() {
@@ -80,7 +86,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
     private _stateChanged(s: State) {
         // @ts-ignore
-        this._data = s[upperFirst(this._resPlural)][this._resPlural].asMutable();
+        this._data = s.resources[this._resPlural][this._resPlural].asMutable();
     }
 
 
@@ -140,27 +146,29 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
 
     private async _get() {
-        store.dispatch<any>(this._actions.get());
+        store.dispatch(this._actions.get());
     }
 
     private async _actionCreate() {
-        store.dispatch<any>(navigate(`/admin/${this._resPlural}/create`));
+        const base = `/admin${this.uribase || `/${this._resPlural}`}`;
+        store.dispatch(navigate(`${base}/create`));
     }
 
     private async _actionEdit(id: string) {
         if (!id) throw new Error('No ID specified');
 
-        store.dispatch<any>(navigate(`/admin/${this._resPlural}/${id}`));
+        const base = `/admin${this.uribase || `/${this._resPlural}`}`;
+        store.dispatch(navigate(`${base}/${id}`));
     }
 
     private async _actionRemove() {
-        store.dispatch<any>(this._actions.remove(this.selected));
+        store.dispatch(this._actions.remove(this.selected));
         this.selected.forEach(this._unselect);
     }
 
     private _updateActions() {
-        // @ts-ignore
-        const a = actions[upperFirst(this._resPlural)];
+        const a = APIActions(this._resPlural, API);
+
         this._actions = {
             create: a[`${this._resPlural}Create`],
             get: a[`${this._resPlural}Get`],

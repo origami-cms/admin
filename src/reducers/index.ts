@@ -1,19 +1,14 @@
-import {combineReducers, AnyAction} from 'redux';
+import {APIReducer} from 'origami-zen/API';
+import App from './App';
+import Apps from './Apps';
+import Auth from './Auth';
+import Me from './Me';
+import Organization from './Organization';
+import Setup from './Setup';
 export {AnyAction} from 'redux';
 
 
-import {APIReducer} from '../../../zen/API';
-
-
-import Auth from './Auth';
-import App from './App';
-import Apps from './Apps';
-import Me from './Me';
-import Setup from './Setup';
-import Organization from './Organization';
-// import Pages from './Pages';
-
-export default combineReducers({
+export default {
     Auth,
     App,
     Apps,
@@ -21,7 +16,8 @@ export default combineReducers({
     Setup,
     Organization,
     // Pages,
-    Users: APIReducer('users'),
-    Brokers: APIReducer('brokers'),
+    resources: {
+        users: APIReducer('users'),
+    },
     Templates: APIReducer('templates', undefined, 'name')
-});
+};

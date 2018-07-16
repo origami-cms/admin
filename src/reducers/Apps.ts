@@ -1,51 +1,54 @@
-import {APPS_SET} from 'actions/Apps';
+import {APPS_SET, APP_SET, APPS_PAGE_SET, APPS_SCRIPT_SET} from 'actions/Apps';
+import deepmerge from 'deepmerge';
 import {AnyAction} from 'redux';
-import immutable, {ImmutableArray} from 'seamless-immutable';
-import {AppDetail, Apps} from 'store/state';
+import immutable from 'seamless-immutable';
+import {Apps} from 'store/state';
 
 
 const initialState = immutable<Apps>({
-    apps: []
+    apps: {}
 });
 
 
 export default (state = initialState, action: AnyAction) => {
-    const findIndexByName = (app: AppDetail) =>
-        state.asMutable().apps.findIndex(a => a.name === app.name);
+    const existingApp = state.apps[action.appName] || {};
 
     switch (action.type) {
         case APPS_SET:
-            // If there is no app, return state
-            if (!action.apps) return state;
+            // Wrap the apps in a {manifest} object
+            const apps = (Object.entries(action.apps).map(
+                ([name, manifest]) => ([
+                    name, {manifest, pages: {}},
+                ])
+            ) as [string, any][])
+            // Convert back to object
+            .reduce(
+                (_apps, [name, manifest]) => {
+                    _apps[name] = manifest;
+                    return _apps;
+                }, {} as {[name: string]: any});
 
-            let updated = state;
+            return state.set('apps', deepmerge(
+                state.set,
+                apps
+            ));
 
-            action.apps.forEach((app: AppDetail) => {
-                const existing = findIndexByName(app);
 
-                // If there is an existing app that matches the id,
-                // then update it
-                if (existing >= 0) {
-                    updated = updated.setIn(['apps', existing.toString()], {
-                        ...state.apps[existing],
-                        ...app
-                    });
+        case APP_SET:
+            const manifest = existingApp.manifest || {};
+            return state.setIn(['apps', action.appName, 'manifest'], deepmerge(
+                manifest,
+                action.app
+            ));
 
-                    // Otherwise merge the resource into the array
-                } else {
-                    updated = updated.merge({
-                        apps: [
-                            ...updated.apps as ImmutableArray<any>,
-                            app
-                        ]
-                    });
-                }
-            });
 
-            return updated;
-
+        case APPS_PAGE_SET:
+            if (existingApp) {
+                return state.setIn(['apps', action.appName, 'pages', action.path], action.tagName);
+            }
 
         default:
             return state;
+
     }
 };

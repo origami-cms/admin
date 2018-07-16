@@ -17,6 +17,9 @@ export default class FormResourceEdit extends FormResourceBase {
     }
     _id?: string;
 
+    @property
+    uri?: string;
+
     _redirecting: boolean = false;
     _errorGet: string | boolean = false;
     _errorEdit: string | boolean = false;
@@ -31,11 +34,11 @@ export default class FormResourceEdit extends FormResourceBase {
     _stateChanged(s: State) {
         super._stateChanged(s);
         // @ts-ignore
-        const res = s[this._resPluralUpper];
+        const res = s.resources[this._resPlural];
 
         if (this._errorGet && !this._redirecting) {
             this._redirecting = true;
-            if (window.location.pathname !== '/admin/404') store.dispatch<any>(navigate('/admin/404'));
+            if (window.location.pathname !== '/admin/404') store.dispatch(navigate('/admin/404'));
             return;
         }
 
@@ -44,7 +47,8 @@ export default class FormResourceEdit extends FormResourceBase {
         this._loadingEdit = Boolean(res._loading.edit);
         this._loadingGet = Boolean(res._loading.single);
 
-        const match = matchPath(s.App.page.path, `/admin/${this._resPlural}/:id`);
+        const match = matchPath(s.App.page.path, this.uri || `/admin/${this._resPlural}/:id`);
+
         if (match) {
             // tslint:disable
             if (this.id != match.params.id) this.id = match.params.id;
@@ -55,14 +59,10 @@ export default class FormResourceEdit extends FormResourceBase {
     }
 
     _get() {
-
         if (!this.id) return;
         if (!this._loadingGet) {
-            this._store.dispatch<any>(
-                // @ts-ignore Is a valid resource
-                (this._actions[this._resPluralUpper])
-                [`${this._resPlural}Get`](this.id)
-            );
+            // @ts-ignore Is a valid resource
+            store.dispatch(this._actions[`${this._resPlural}Get`](this.id))
         }
     }
 }

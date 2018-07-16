@@ -11,15 +11,9 @@ export const APP_SELECTOR_SET = 'APP_SELECTOR_SET';
 
 
 export const getSidebarItems = () =>
-    (dispatch: Dispatch<any>) => {
+    (dispatch: Dispatch) => {
         // TODO: Convert to endpoint
         dispatch({type: APP_SIDEBAR_ITEMS_SET, items: [
-            {
-                icon: 'home',
-                color: 'red',
-                path: '/brokers',
-                name: 'Brokers'
-            },
             // {
             //     icon: 'page',
             //     color: 'red',
@@ -62,11 +56,11 @@ export const getSidebarItems = () =>
 
 
 export const titleSet = (title: string) =>
-    (dispatch: Dispatch<any>) => dispatch({type: APP_TITLE_SET, title});
+    (dispatch: Dispatch) => dispatch({type: APP_TITLE_SET, title});
 
 
 export const navigate = (path: string) =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
 
         if (window.location.pathname !== path) {
             dispatchEvent(new PopStateEvent('popstate', {state: {}}));
@@ -78,6 +72,6 @@ export const navigate = (path: string) =>
 
 
 export const toggleAppSelector = (open: boolean) =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         dispatch({type: APP_SELECTOR_SET, open});
     };

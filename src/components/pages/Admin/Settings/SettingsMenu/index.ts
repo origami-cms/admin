@@ -1,4 +1,4 @@
-import {LitElement, html} from '@polymer/lit-element';
+import {html, LitElement} from '@polymer/lit-element';
 import {RouterProps} from 'lib/Router';
 import {component} from 'polymer3-decorators';
 import CSS from './page-settings-menu-css';

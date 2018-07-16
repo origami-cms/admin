@@ -29,17 +29,23 @@ export default class Sidebar extends connect(store)(LitElement) implements props
     logo?: number;
 
     _stateChanged(state: State) {
-        this.apps = state.App.sidebar.items;
+        const _apps = Object.entries(state.Apps.apps).map(([name, {manifest: a}]) => ({
+            icon: a.icon.type,
+            color: a.icon.color,
+            path: `/${name}`,
+            name: a.name
+        }));
+        this.apps = [..._apps, ...state.App.sidebar.items];
+
         if (state.Organization.logo) this.logo = state.Organization.logo;
     }
 
     _firstRendered() {
-        store.dispatch<any>(getSidebarItems());
+        store.dispatch(getSidebarItems());
     }
 
     _render({apps, logo}: props) {
         const l = window.location.pathname;
-
 
         return html`
             ${CSS}
@@ -52,7 +58,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
                 <zen-icon type="search" color="main" size="main" class="center"></zen-icon>
             </div>
 
-            <div class="apps-button" on-click=${()  => store.dispatch<any>(toggleAppSelector(true))}>
+            <div class="apps-button" on-click=${()  => store.dispatch(toggleAppSelector(true))}>
                 <zen-icon type="grid" size="main"></zen-icon>
             </div>
 

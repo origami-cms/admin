@@ -1,18 +1,21 @@
 import {ResourceState} from 'origami-zen/API';
+import {Origami} from 'origami-core-lib';
 
 export {ImmutableObject} from 'seamless-immutable';
 
 export default interface State {
     App: App;
     Apps: Apps;
-    Broker: Broker;
     Quote: QuoteWithLoader;
     Setup: Setup;
     Me: Me;
     Auth: Auth;
-    Users: Users;
     Pages: Pages;
     Organization: Organization;
+    resources: {
+        users: Users;
+        [name: string]: any
+    };
 }
 export interface Loader {
     _loading: {
@@ -64,26 +67,33 @@ export interface App {
 }
 
 export interface Apps {
-    apps: AppDetail[];
+    apps: {
+        [name: string]: AppDetail;
+    };
 }
 
 export interface AppDetail {
-    name: string;
-    icon: string;
-    path: string;
-    resources: {
-        name: string,
-        properties: {
-            [prop: string]: any
-        }
-    }[];
+    manifest: {
+        name: string;
+        icon: {
+            type: string;
+            color: string;
+        };
+        path: string;
+
+        resources?: {
+            name: string,
+            properties: {
+                [prop: string]: any
+            }
+        }[];
+
+        pages?: Origami.AppManifest[];
+    };
     pages: {
-        properties: {
-            listFields?: string[];
-            createFields?: string[];
-            editFields?: string[];
-        }
-    }[];
+        [path: string]: string // tag name of GeneratedAppPage
+    };
+
 }
 
 export interface SidebarItem {
@@ -92,22 +102,6 @@ export interface SidebarItem {
     color: string;
     path: string;
     name: string;
-}
-
-export interface BrokerDetails {
-    id: string | boolean;
-    bannerImage: string | boolean;
-    fontFamily: string | boolean;
-    logo: string | boolean;
-    colorMain: string | boolean;
-    colorNeutral: string | boolean;
-    colorSecondary: string | boolean;
-    avatarName?: string;
-    nextSteps?: string;
-}
-
-export interface Broker extends Loader {
-    broker: BrokerDetails;
 }
 
 export interface Quote {

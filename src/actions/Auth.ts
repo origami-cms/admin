@@ -22,7 +22,7 @@ import {
 
 
 export const login = (email: string, password: string) =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         dispatch({type: ME_EMAIL_SET, email});
         dispatch({type: AUTH_LOADING_SET_LOGGINGIN, loading: true});
         try {
@@ -45,7 +45,7 @@ export const login = (email: string, password: string) =>
     };
 
 export const verify = () =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         try {
             const {data} = await API.get('/auth/verify');
 
@@ -65,4 +65,4 @@ export const verify = () =>
 
 
 export const logout = () =>
-    (dispatch: Dispatch<any>) => dispatch({type: AUTH_LOGOUT});
+    (dispatch: Dispatch) => dispatch({type: AUTH_LOGOUT});

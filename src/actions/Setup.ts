@@ -8,13 +8,13 @@ export const SETUP_USER_SET = 'SETUP_USER_SET';
 
 
 export const isSetup = () =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         const {data} = await API.get(`/setup`);
         dispatch({type: SETUP_SET, setup: (data as {setup: boolean}).setup});
     };
 
 export const setupUser = (user: object) =>
-    async (dispatch: Dispatch<any>) => {
+    async (dispatch: Dispatch) => {
         dispatch({type: SETUP_LOADING_SET, loading: true});
 
         try {

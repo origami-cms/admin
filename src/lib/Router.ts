@@ -1,22 +1,22 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {App} from 'actions';
 import {BASE_URI} from 'const';
 import matchPath from 'lib/Path';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {property} from 'polymer3-decorators';
 // @ts-ignore
-import {connect} from 'pwa-helpers/connect-mixin';
-// @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
-import store, {State} from 'store';
-import {titleSet} from 'actions/App';
 import {TemplateResult} from '../../node_modules/lit-html';
+const deepequal = require('deepequal');
 
-export interface Route {
+export interface JSONElement {
+    element: string;
+    attributes?: { [prop: string]: string | number | boolean };
+    children?: JSONElement[];
+}
+
+export interface Route extends JSONElement {
     path: string;
     exact?: boolean;
-    element: string;
-    attributes?: {[prop: string]: string | number | boolean};
 }
 
 export interface RouterProps {
@@ -24,13 +24,11 @@ export interface RouterProps {
     routes: Route[];
     base: string;
     switch: boolean;
+    _path: string;
 }
 
 
-export default class Router extends connect(store)(LitElement) implements RouterProps {
-    @property
-    path: string = window.location.pathname;
-
+export default class Router extends LitElement implements RouterProps {
     @property
     routes: Route[] = [];
 
@@ -44,84 +42,103 @@ export default class Router extends connect(store)(LitElement) implements Router
     @property
     switch: boolean = true;
 
-    protected _store = store;
-    private _elementCache = new Map();
-    private _routeCache = new Map();
+    @property
+    _path: string = '';
+    private _pathsCache = new Map();
+    private _routesCache = new Map();
+    private _elementsCache = new Map();
+    private _activeRoutes: Route[] = [];
 
 
-    _stateChanged(state: State) {
-        // tslint:disable-next-line
-        if (this.path != state.App.page.path) this.path = state.App.page.path;
+    @property
+    get path() { return this._path; }
+    set path(v) {
+        if (v !== this._path) this._update(v);
     }
 
-    _firstRendered() {
-        // Setup to watch the location and bind to redux store
-        installRouter(
-            (location: Location) => {
-                store.dispatch<any>(titleSet(''));
-                store.dispatch(
-                    // @ts-ignore
-                    App.navigate(window.decodeURIComponent(location.pathname))
-                );
-            }
-        );
+    connectedCallback() {
+        super.connectedCallback();
+        this._timeoutPath();
+        // Setup the watcher for location changes
+        installRouter(this._timeoutPath.bind(this));
     }
+
 
     _render(props?: any): TemplateResult {
-        return this._getRoutes();
-    }
+        const cache = this._elementsCache.get(this._activeRoutes);
+        if (cache && cache.length) return cache[0];
 
-    _getRoutes() {
-        // tslint:disable-next-line no-this-assignment
-        const {routes, base, path, notfound} = this;
-        let r = this._routeCache.get(path);
-
-        if (!r) {
-            r = routes
-                // Match each route against the current location
-                .filter(r => {
-                    return matchPath(path, {
-                        path: base + r.path,
-                        exact: r.exact,
-                        strict: false
-                    });
-                    // if (params) return {params: params.params, element: r.element};
-                })
-                // Convert each valid route to a html template
-                .map(r => this._renderElement(r));
-
-
-            if (!r.length && notfound) {
-                r.push(
-                    this._renderElement({element: notfound, path: ''})
-                );
-            }
-
-            if (r.length) r = this.switch ? [r[0]] : r;
-            const t = html`${r}`;
-            this._routeCache.set(path, t);
-            return t;
-
-        } else return r;
+        return  html``;
     }
 
 
-    _renderElement(r: Route) {
-        // Lookup element in cache
-        if (this._elementCache.get(r)) return this._elementCache.get(r);
-
-        let attrs = '';
-        if (r.attributes) {
-            attrs = Object.entries(r.attributes)
-                .map(([attr, val]) => `${attr}="${val}"`)
-                .join(' ');
+    private _getRoutes(path: string = this.path) {
+        // Attempt to find routes in the cache by path lookup
+        if (this._pathsCache.has(path)) {
+            return this._pathsCache.get(path);
         }
 
-        // TODO: Pass in props
-        const unsafe = `<${r.element} ${attrs}></${r.element}>`;
-        const route = html`${unsafeHTML(unsafe)}`;
-        this._elementCache.set(r, route);
+        // Filter the routes to what's active, and save in the cache
+        const routes = this.routes.filter(r => {
+            return matchPath(path, {
+                path: this.base + r.path,
+                exact: r.exact,
+                strict: false
+            });
+        });
+
+        if (routes.length) {
+            this._pathsCache.set(path, routes);
+            this._elementsCache.set(
+                routes,
+                routes.map(
+                    this._createElement.bind(this)
+                )
+            );
+        }
+
+        return routes;
+    }
+
+
+    private _createElement(r: Route) {
+        const getHTML = (r: JSONElement) => {
+            let attrs = '';
+            if (r.attributes) {
+                attrs = Object.entries(r.attributes)
+                    .map(([attr, val]) => `${attr}= '${val}'`)
+                    .join(' ');
+            }
+
+            let children = '';
+            if (r.children) children = r.children.map(getHTML).join('');
+
+            // TODO: Pass in props
+            return ` <${r.element} ${attrs}> </${r.element}>`;
+        };
+
+        // Lookup element in cache
+        if (this._elementsCache.get(r)) return this._elementsCache.get(r);
+
+        const route = html`${unsafeHTML(getHTML(r))}`;
+        this._elementsCache.set(r, route);
         return route;
     }
-}
 
+
+    private _timeoutPath() {
+        setTimeout(() => {
+            this.path = window.location.pathname;
+        }, 10);
+    }
+
+
+    private _update(path: string = this.path) {
+        const newRoutes = this._getRoutes(path);
+        if (!deepequal(this._activeRoutes, newRoutes) || !this._activeRoutes.length) {
+            this._activeRoutes = newRoutes;
+            this._path = path;
+            this._requestRender();
+        }
+    }
+}
