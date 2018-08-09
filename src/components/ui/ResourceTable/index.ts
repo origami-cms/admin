@@ -1,17 +1,15 @@
 import {html, LitElement} from '@polymer/lit-element';
+import {navigate} from 'actions/App';
+import API from 'lib/API';
 import {repeat} from 'lit-html/lib/repeat';
-import * as actions from 'actions';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {upperFirst} from 'lodash';
+import {APIActions} from 'origami-zen/API';
+import {ButtonOptions} from 'origami-zen/packages/components/ButtonGroup/ButtonGroup';
 import pluralize from 'pluralize';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './resource-table-css';
-import {ButtonOptions} from 'origami-zen/packages/components/ButtonGroup/ButtonGroup';
-import {APIActions} from 'origami-zen/API';
-import {navigate} from 'actions/App';
-import API from 'lib/API';
 
 
 type data = {

@@ -1,11 +1,11 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import {BASE_URI} from 'const';
-import {upperFirst} from 'lodash';
+import lodash from 'lodash';
 import {Field, FormValues} from 'origami-zen';
 import {APIActions} from 'origami-zen/API';
 import pluralize from 'pluralize';
-import {property} from 'polymer3-decorators';
+import {property} from 'origami-zen/util';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
@@ -60,11 +60,11 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
     }
 
     protected get _resPluralUpper() {
-        return upperFirst(this._resPlural);
+        return lodash.upperFirst(this._resPlural);
     }
 
     protected get _typeUpper() {
-        return upperFirst(this.type);
+        return lodash.upperFirst(this.type);
     }
 
 

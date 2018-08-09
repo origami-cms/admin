@@ -2,11 +2,11 @@ import {html, LitElement} from '@polymer/lit-element';
 import {BASE_URI} from 'const';
 import matchPath from 'lib/Path';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {property} from 'polymer3-decorators';
+import {property} from 'origami-zen/util';
 // @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
-import {TemplateResult} from '../../node_modules/lit-html';
-const deepequal = require('deepequal');
+import {TemplateResult} from 'lit-html';
+import deepequal from 'deep-equal';
 
 export interface JSONElement {
     element: string;

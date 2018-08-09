@@ -12,7 +12,7 @@ const {
 } = actions;
 
 
-const initialState = immutable<App>({
+const initialState = immutable.from<App>({
     sidebar: {
         items: []
     },

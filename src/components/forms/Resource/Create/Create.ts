@@ -1,5 +1,5 @@
 import FormResourceBase from '../Base/ResourceFormBase';
-import {component} from 'polymer3-decorators';
+import {component} from 'origami-zen/util';
 
 @component('form-resource-create')
 export default class FormResourceEdit extends FormResourceBase {

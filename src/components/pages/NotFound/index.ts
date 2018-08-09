@@ -1,5 +1,5 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {component} from 'polymer3-decorators';
+import {component} from 'origami-zen/util';
 import CSS from './page-not-found-css';
 
 interface props {

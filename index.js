@@ -2,15 +2,16 @@ const express = require('express');
 const path = require('path');
 const {Route} = require('origami-core-lib');
 
-const URI_PREFIX = '/admin'
+const URI_PREFIX = '/admin';
+const PUBLIC = path.resolve(__dirname, './dist');
 
 module.exports = async (server, options) => {
-    server.static(path.resolve(__dirname, './build'), URI_PREFIX);
+    server.static(PUBLIC, URI_PREFIX);
     const r = new Route('/admin/*')
         .position('post-render')
         .use(async (req, res, next) => {
             const body = res.body || res.text || res.data || res.responseCode;
-            if (!res.headersSent && !body) res.sendFile(path.resolve(__dirname, 'build/index.html'));
+            if (!res.headersSent && !body) res.sendFile(path.resolve(PUBLIC, 'index.html'));
             else next();
         });
 

@@ -3,7 +3,7 @@ import {getSidebarItems, toggleAppSelector} from 'actions/App';
 import {BASE_URI} from 'const';
 import fuse from 'fuse.js';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';

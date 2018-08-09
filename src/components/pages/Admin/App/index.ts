@@ -1,12 +1,11 @@
+import {appGet, appGetPage} from 'actions/Apps';
+import deepequal from 'deep-equal';
 import Router from 'lib/Router';
-import {component, property} from 'polymer3-decorators';
+import {Origami} from 'origami-core-lib';
+import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {AppDetail} from 'store/state';
-import {appGet, appGetPage} from 'actions/Apps';
-import {html} from 'lit-html';
-import {Origami} from 'origami-core-lib';
-const deepequal = require('deepequal');
 
 
 interface props {

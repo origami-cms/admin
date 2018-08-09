@@ -1,6 +1,6 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {RouterProps} from 'lib/Router';
-import {component} from 'polymer3-decorators';
+import {component} from 'origami-zen/util';
 
 
 interface props {

@@ -1,11 +1,11 @@
-import {APPS_SET, APP_SET, APPS_PAGE_SET, APPS_SCRIPT_SET} from 'actions/Apps';
+import {APPS_PAGE_SET, APPS_SET, APP_SET} from 'actions/Apps';
 import deepmerge from 'deepmerge';
 import {AnyAction} from 'redux';
 import immutable from 'seamless-immutable';
 import {Apps} from 'store/state';
 
 
-const initialState = immutable<Apps>({
+const initialState = immutable.from<Apps>({
     apps: {}
 });
 

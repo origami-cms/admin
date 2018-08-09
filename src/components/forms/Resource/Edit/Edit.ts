@@ -1,5 +1,5 @@
 import FormResourceBase from '../Base/ResourceFormBase';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util';
 import store, {State} from 'store';
 import matchPath from 'lib/Path';
 import {navigate} from 'actions/App';

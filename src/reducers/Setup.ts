@@ -15,7 +15,7 @@ import {Setup} from 'store/state';
 export {ResourceState} from 'origami-zen/API';
 
 
-const initialState = immutable<Setup>({
+const initialState = immutable.from<Setup>({
     setup: false,
     user: false,
     errors: {

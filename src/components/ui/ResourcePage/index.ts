@@ -1,10 +1,10 @@
 import Router, {Route} from 'lib/Router';
-import {startCase} from 'lodash';
+import lodash from 'lodash';
 import {Field} from 'origami-zen';
-import pluralize from 'pluralize';
-import {component, property} from 'polymer3-decorators';
-import {injectReducer} from 'redux-injector';
 import {APIReducer} from 'origami-zen/API';
+import pluralize from 'pluralize';
+import {component, property} from 'origami-zen/util';
+import {injectReducer} from 'redux-injector';
 
 interface Schema {
     properties: {
@@ -106,7 +106,7 @@ export default class PageResource extends Router implements props {
 
             field.name = f;
             // @ts-ignore
-            field.placeholder = startCase(f);
+            field.placeholder = lodash.startCase(f);
             field.validate = {required: field.required};
             return field;
         });

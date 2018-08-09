@@ -2,9 +2,9 @@ import {ORG_THEME_SET, ORG_LOGO_SET} from 'actions/Organization';
 import {AnyAction} from 'redux';
 import immutable from 'seamless-immutable';
 import {Organization} from 'store/state';
-const color = require('color');
+import color from 'color';
 
-const initialState = immutable<Organization>({
+const initialState = immutable.from<Organization>({
     theme: {
         colorMain: false,
         colorSecondary: false

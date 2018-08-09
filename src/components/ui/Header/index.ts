@@ -1,5 +1,5 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './header-css';

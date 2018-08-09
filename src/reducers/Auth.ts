@@ -21,7 +21,7 @@ const {
 } = actions;
 
 
-const intitialState = immutable<Auth>({
+const intitialState = immutable.from<Auth>({
     verified: null,
     loggedIn: false,
     token: localStorage.getItem(LS_JWT),

@@ -1,4 +1,4 @@
-import {component} from 'polymer3-decorators';
+import {component} from 'origami-zen/util';
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './notifications-css';
 

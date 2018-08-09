@@ -2,7 +2,7 @@ import {html} from '@polymer/lit-element';
 import {getMe} from 'actions/Me';
 import {appsGet} from 'actions/Apps';
 import Router, {Route, RouterProps} from 'lib/Router';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {Me, AppDetail} from 'store/state';

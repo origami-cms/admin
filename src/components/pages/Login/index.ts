@@ -2,7 +2,7 @@ import {html, LitElement} from '@polymer/lit-element';
 import {login} from 'actions/Auth';
 import {navigate} from 'actions/App';
 import {Field, FormValues} from 'origami-zen';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util/decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './page-login-css';

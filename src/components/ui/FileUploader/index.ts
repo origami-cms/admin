@@ -2,7 +2,7 @@ import {LitElement} from '@polymer/lit-element';
 import {upload} from 'actions/Media';
 import {html} from 'lit-html/lib/lit-extended';
 import {InputFile} from 'origami-zen';
-import {component, property} from 'polymer3-decorators';
+import {component, property} from 'origami-zen/util';
 import store from 'store';
 
 import CSS from './file-uploader-css';

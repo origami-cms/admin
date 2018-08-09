@@ -1,6 +1,6 @@
 import {html} from '@polymer/lit-element';
 import Router, {RouterProps} from 'lib/Router';
-import {component} from 'polymer3-decorators';
+import {component} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store from 'store';
 import CSS from './page-users-css';
