@@ -1,5 +1,5 @@
 import API from 'lib/API';
-import {APIActions, APIResponse} from 'origami-zen/API';
+import {APIActions, APIResponse} from 'origami-zen/lib/API';
 import {Dispatch} from 'redux';
 import {Page} from 'store/state';
 

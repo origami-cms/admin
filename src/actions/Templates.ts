@@ -1,4 +1,4 @@
-import {APIActions} from 'origami-zen/API';
+import {APIActions} from 'origami-zen/lib/API';
 import API from 'lib/API';
 
 export const TEMPLATES_SET = 'TEMPLATES_SET';

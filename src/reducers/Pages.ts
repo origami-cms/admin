@@ -4,7 +4,7 @@ const {
 } = actions;
 
 import {find} from 'lodash';
-import {APIReducer, ResourceState} from 'origami-zen/API';
+import {APIReducer, ResourceState} from 'origami-zen/lib/API';
 import {AnyAction} from 'redux';
 export {AnyAction} from 'redux';
 import immutable, {ImmutableArray, ImmutableObject, ImmutableObjectMixin} from 'seamless-immutable';

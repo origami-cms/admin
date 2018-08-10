@@ -3,7 +3,7 @@ import {navigate} from 'actions/App';
 import API from 'lib/API';
 import matchPath from 'lib/Path';
 import {Field} from 'origami-zen';
-import {APIActions} from 'origami-zen/API';
+import {APIActions} from 'origami-zen/lib/API';
 import {component, property} from 'origami-zen/util';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';

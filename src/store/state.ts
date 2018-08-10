@@ -1,4 +1,4 @@
-import {ResourceState} from 'origami-zen/API';
+import {ResourceState} from 'origami-zen/lib/API';
 import {Origami} from 'origami-core-lib';
 
 export {ImmutableObject} from 'seamless-immutable';

@@ -1,7 +1,7 @@
 import Router, {Route} from 'lib/Router';
 import lodash from 'lodash';
 import {Field} from 'origami-zen';
-import {APIReducer} from 'origami-zen/API';
+import {APIReducer} from 'origami-zen/lib/API';
 import pluralize from 'pluralize';
 import {component, property} from 'origami-zen/util';
 import {injectReducer} from 'redux-injector';

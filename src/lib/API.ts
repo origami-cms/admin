@@ -1,5 +1,5 @@
 import {SERVER_API} from '../const';
-import {API} from 'origami-zen/API';
+import {API} from 'origami-zen/lib/API';
 
 const api = new API(SERVER_API, 'Authorization');
 

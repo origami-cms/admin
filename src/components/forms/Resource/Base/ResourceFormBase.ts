@@ -3,7 +3,7 @@ import {navigate} from 'actions/App';
 import {BASE_URI} from 'const';
 import lodash from 'lodash';
 import {Field, FormValues} from 'origami-zen';
-import {APIActions} from 'origami-zen/API';
+import {APIActions} from 'origami-zen/lib/API';
 import pluralize from 'pluralize';
 import {property} from 'origami-zen/util';
 // @ts-ignore

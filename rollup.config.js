@@ -31,7 +31,7 @@ export default {
     output: {
         file: path.resolve(DIST, 'app.js'),
         format: 'iife',
-        sourcemap: true
+        // sourcemap: true
     },
     plugins: [
 

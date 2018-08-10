@@ -3,7 +3,7 @@ import {navigate} from 'actions/App';
 import API from 'lib/API';
 import {repeat} from 'lit-html/lib/repeat';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {APIActions} from 'origami-zen/API';
+import {APIActions} from 'origami-zen/lib/API';
 import {ButtonOptions} from 'origami-zen/packages/components/ButtonGroup/ButtonGroup';
 import pluralize from 'pluralize';
 import {component, property} from 'origami-zen/util';

@@ -12,7 +12,7 @@ const {
 import {AnyAction} from 'redux';
 import immutable, {ImmutableObject} from 'seamless-immutable';
 import {Setup} from 'store/state';
-export {ResourceState} from 'origami-zen/API';
+export {ResourceState} from 'origami-zen/lib/API';
 
 
 const initialState = immutable.from<Setup>({
