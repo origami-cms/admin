@@ -1,24 +1,17 @@
-import {Auth as actions} from 'actions';
+import {
+    AUTH_CLEAR,
+    AUTH_LOADING_SET_LOGGINGIN,
+    AUTH_LOADING_SET_VERIFYING,
+    AUTH_LOGIN,
+    AUTH_LOGIN_FAILED,
+    AUTH_LOGOUT,
+    AUTH_VERIFIED,
+    AUTH_VERIFIED_FAILED
+} from 'actions/Auth';
 import {LS_EMAIL, LS_JWT} from 'const';
 import {AnyAction} from 'redux';
 import immutable from 'seamless-immutable';
 import {Auth} from 'store/state';
-
-
-const {
-    AUTH_LOADING_SET_VERIFYING,
-    AUTH_LOADING_SET_LOGGINGIN,
-
-    AUTH_CLEAR,
-
-    AUTH_VERIFIED,
-    AUTH_VERIFIED_FAILED,
-
-    AUTH_LOGIN,
-    AUTH_LOGIN_FAILED,
-
-    AUTH_LOGOUT
-} = actions;
 
 
 const intitialState = immutable.from<Auth>({

@@ -1,6 +1,9 @@
+import '@webcomponents/webcomponentsjs'
+
 import 'origami-zen';
-import './styles/app.scss';
+import '../src/styles/app.scss';
 import './const';
+import './OrigamiAdmin';
 import './components';
 import './store';
 import './router';

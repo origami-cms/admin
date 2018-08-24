@@ -1,6 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {setLogo, setTheme} from 'actions/Organization';
-import {Field, Form} from 'origami-zen';
+import Form from 'origami-zen/components/Form/Form';
+import {Field} from 'origami-zen/lib/FormValidator/FormFieldTypes';
 import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';

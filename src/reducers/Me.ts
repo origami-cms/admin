@@ -1,9 +1,8 @@
-import {Me as actions} from 'actions';
+import {ME_EMAIL_SET, ME_SET} from 'actions/Me';
 import {LS_EMAIL} from 'const';
 import {AnyAction} from 'redux';
 import immutable, {ImmutableObject} from 'seamless-immutable';
 import {Me} from 'store/state';
-const {ME_EMAIL_SET, ME_SET} = actions;
 
 
 const initialState = immutable.from({

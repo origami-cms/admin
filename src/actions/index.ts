@@ -12,9 +12,6 @@ export const Apps = _Apps;
 import * as _Pages from './Pages';
 export const Pages = _Pages;
 
-import * as _Templates from './Templates';
-export const Templates = _Templates;
-
 import * as _Me from './Me';
 export const Me = _Me;
 

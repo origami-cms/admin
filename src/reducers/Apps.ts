@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge';
 import {AnyAction} from 'redux';
 import immutable from 'seamless-immutable';
 import {Apps} from 'store/state';
+import { BASE_URI } from 'const';
 
 
 const initialState = immutable.from<Apps>({
@@ -35,7 +36,11 @@ export default (state = initialState, action: AnyAction) => {
 
 
         case APP_SET:
-            const manifest = existingApp.manifest || {};
+            let manifest = existingApp.manifest || {};
+            // Stop pages from being loaded multiple times
+            // @ts-ignore
+            if (manifest.pages) manifest = manifest.set('pages', []);
+
             return state.setIn(['apps', action.appName, 'manifest'], deepmerge(
                 manifest,
                 action.app

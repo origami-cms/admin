@@ -1,5 +1,5 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {Field} from 'origami-zen';
+import {Field} from 'origami-zen/lib/FormValidator/FormFieldTypes';
 import {component} from 'origami-zen/util';
 
 

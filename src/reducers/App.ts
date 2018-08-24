@@ -1,16 +1,8 @@
-import {App as actions} from 'actions';
+import {APP_SELECTOR_SET, APP_TITLE_SET, APP_PATH_UPDATE, APP_SIDEBAR_ITEMS_SET, APP_ACTIONS_SET} from 'actions/App';
 import {TITLE_PREFIX} from 'const';
 import {AnyAction} from 'redux';
 import immutable from 'seamless-immutable';
 import {App} from 'store/state';
-import {APP_SELECTOR_SET} from 'actions/App';
-
-const {
-    APP_SIDEBAR_ITEMS_SET,
-    APP_TITLE_SET,
-    APP_PATH_UPDATE
-} = actions;
-
 
 const initialState = immutable.from<App>({
     sidebar: {
@@ -18,7 +10,8 @@ const initialState = immutable.from<App>({
     },
     page: {
         title: '',
-        path: window.location.pathname
+        path: window.location.pathname,
+        actions: []
     },
     appSelector: {
         open: false
@@ -36,8 +29,10 @@ export default (state = initialState, action: AnyAction) => {
 
         case APP_TITLE_SET:
             document.title = TITLE_PREFIX + action.title;
-
             return state.setIn(['page', 'title'], action.title);
+
+        case APP_ACTIONS_SET:
+            return state.setIn(['page', 'actions'], action.actions);
 
         case APP_SELECTOR_SET:
             return state.setIn(['appSelector', 'open'], action.open);

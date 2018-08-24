@@ -1,5 +1,6 @@
 import {ResourceState} from 'origami-zen/lib/API';
 import {Origami} from 'origami-core-lib';
+import {ButtonOptions} from 'origami-zen/components/ButtonGroup/ButtonGroup';
 
 export {ImmutableObject} from 'seamless-immutable';
 
@@ -56,7 +57,8 @@ export interface Auth {
 export interface App {
     page: {
         title: string,
-        path: string
+        path: string,
+        actions: ButtonOptions[]
     };
     sidebar: {
         items: SidebarItem[]
@@ -73,23 +75,8 @@ export interface Apps {
 }
 
 export interface AppDetail {
-    manifest: {
-        name: string;
-        icon: {
-            type: string;
-            color: string;
-        };
-        path: string;
+    manifest: Origami.AppManifest;
 
-        resources?: {
-            name: string,
-            properties: {
-                [prop: string]: any
-            }
-        }[];
-
-        pages?: Origami.AppManifest[];
-    };
     pages: {
         [path: string]: string // tag name of GeneratedAppPage
     };

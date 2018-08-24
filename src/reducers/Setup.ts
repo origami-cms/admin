@@ -1,13 +1,9 @@
 import {
-    Setup as actions
-} from 'actions';
-
-const {
     SETUP_USER_ERROR_SET,
     SETUP_LOADING_SET,
     SETUP_SET,
     SETUP_USER_SET
-} = actions;
+} from 'actions/Setup';
 
 import {AnyAction} from 'redux';
 import immutable, {ImmutableObject} from 'seamless-immutable';

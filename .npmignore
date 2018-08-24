@@ -7,4 +7,5 @@ tslint.json
 node_modules
 src/
 .vscode
+.tsbuild
 /.*_cache

@@ -2,7 +2,7 @@ import {html, LitElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import API from 'lib/API';
 import matchPath from 'lib/Path';
-import {Field} from 'origami-zen';
+import {Field} from 'origami-zen/lib/FormValidator/FormFieldTypes';
 import {APIActions} from 'origami-zen/lib/API';
 import {component, property} from 'origami-zen/util';
 // @ts-ignore

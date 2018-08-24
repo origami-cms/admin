@@ -5,8 +5,8 @@ import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {property} from 'origami-zen/util';
 // @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
-import {TemplateResult} from 'lit-html';
 import deepequal from 'deep-equal';
+import {TemplateResult} from 'lit-html';
 
 export interface JSONElement {
     element: string;
@@ -64,7 +64,7 @@ export default class Router extends LitElement implements RouterProps {
     }
 
 
-    _render(props?: any): TemplateResult {
+    _render(props?: any) {
         const cache = this._elementsCache.get(this._activeRoutes);
         if (cache && cache.length) return cache[0];
 
@@ -138,7 +138,7 @@ export default class Router extends LitElement implements RouterProps {
         if (!deepequal(this._activeRoutes, newRoutes) || !this._activeRoutes.length) {
             this._activeRoutes = newRoutes;
             this._path = path;
-            this._requestRender();
+            this.requestRender();
         }
     }
 }

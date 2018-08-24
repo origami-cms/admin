@@ -1,7 +1,4 @@
-import {Pages as actions} from 'actions';
-const {
-    PAGES_TREE_SET, PAGE_DATA_SET, PAGE_PROPERTIES_SET
-} = actions;
+import {PAGES_TREE_SET, PAGE_DATA_SET, PAGE_PROPERTIES_SET} from 'actions/Pages';
 
 import {find} from 'lodash';
 import {APIReducer, ResourceState} from 'origami-zen/lib/API';

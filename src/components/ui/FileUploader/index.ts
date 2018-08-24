@@ -1,7 +1,7 @@
 import {LitElement} from '@polymer/lit-element';
 import {upload} from 'actions/Media';
 import {html} from 'lit-html/lib/lit-extended';
-import {InputFile} from 'origami-zen';
+import InputFile from 'origami-zen/components/InputFile/InputFile';
 import {component, property} from 'origami-zen/util';
 import store from 'store';
 

@@ -1,6 +1,5 @@
 import API from 'lib/API';
-import {Dispatch} from 'redux';
-import State from 'store/state';
+import { Dispatch } from 'redux';
 
 export const ME_SET = 'ME_SET';
 export const ME_EMAIL_SET = 'ME_EMAIL_SET';

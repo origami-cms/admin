@@ -1,6 +1,7 @@
 import {html} from '@polymer/lit-element';
 import {titleSet} from 'lib/decorators';
 import Router, {Route, RouterProps} from 'lib/Router';
+import {TemplateResult} from 'lit-html';
 import {component} from 'origami-zen/util';
 import {Me} from 'store/state';
 import CSS from './page-settings-css';

@@ -65,7 +65,7 @@ export default class PageAdmin extends connect(store)(Router) implements props {
         // @ts-ignore Added from Router
         this._getRoutes();
         // @ts-ignore Added from Router
-        this._requestRender();
+        this.requestRender();
     }
 
     _render(props: propsWithRouter) {

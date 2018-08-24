@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux';
 import API from 'lib/API';
 import {Origami} from 'origami-core-lib';
-import AppGenerator from 'lib/AppGenerator';
+import AppGenerator from 'lib/AppGenerator/index';
 
 export const APPS_SET = 'APPS_SET';
 export const APP_SET = 'APP_SET';
@@ -43,7 +43,8 @@ export const appGetPage = (appName: string, page: Origami.AppManifestPage) =>
             });
         }
 
-        const scripts = await Promise.all(scriptPromises);
+        const scripts = (await Promise.all(scriptPromises)).filter(s => s);
+
 
         const tagName = AppGenerator.generate(appName, page.page, content, scripts);
         dispatch({type: APPS_PAGE_SET, appName, path: page.path, tagName});

@@ -5,3 +5,4 @@ export {default as ResourcePage} from './ResourcePage';
 export {default as ResourceTable} from './ResourceTable';
 export {default as AppSelector} from './AppSelector';
 export {default as FileUploader} from './FileUploader';
+export {default as SideMenu} from './SideMenu';

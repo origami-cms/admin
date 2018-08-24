@@ -1,4 +1,5 @@
 import {Dispatch} from 'redux';
+import {ButtonOptions} from 'origami-zen/components/ButtonGroup/ButtonGroup';
 
 
 export const APP_SIDEBAR_ITEMS_SET = 'APP_JEWEL_ITEMS_SET';
@@ -7,6 +8,7 @@ export const APP_TABS_NEW = 'APP_TABS_NEW';
 export const APP_TABS_CLOSE = 'APP_TABS_CLOSE';
 export const APP_TABS_NAME = 'APP_TABS_NAME';
 export const APP_TITLE_SET = 'APP_TITLE_SET';
+export const APP_ACTIONS_SET = 'APP_ACTIONS_SET';
 export const APP_SELECTOR_SET = 'APP_SELECTOR_SET';
 
 
@@ -57,6 +59,9 @@ export const getSidebarItems = () =>
 
 export const titleSet = (title: string) =>
     (dispatch: Dispatch) => dispatch({type: APP_TITLE_SET, title});
+
+export const pageActionsSet = (actions: ButtonOptions) =>
+    (dispatch: Dispatch) => dispatch({type: APP_ACTIONS_SET, actions});
 
 
 export const navigate = (path: string) =>

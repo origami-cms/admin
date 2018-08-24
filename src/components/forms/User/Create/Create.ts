@@ -1,6 +1,6 @@
 import {html, LitElement} from '@polymer/lit-element';
 import API from 'lib/API';
-import {Field, FormValues} from 'origami-zen';
+import {Field, FormValues} from 'origami-zen/lib/FormValidator/FormFieldTypes';
 import {APIActions} from 'origami-zen/lib/API';
 import {component, property} from 'origami-zen/util';
 // @ts-ignore

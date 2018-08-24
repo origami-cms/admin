@@ -1,10 +1,13 @@
 import Router, {Route} from 'lib/Router';
 import lodash from 'lodash';
-import {Field} from 'origami-zen';
 import {APIReducer} from 'origami-zen/lib/API';
-import pluralize from 'pluralize';
+import {Field} from 'origami-zen/lib/FormValidator/FormFieldTypes';
 import {component, property} from 'origami-zen/util';
+import pluralize from 'pluralize';
 import {injectReducer} from 'redux-injector';
+import ResourceTable from '../ResourceTable';
+import FormResourceCreate from '../../forms/Resource/Create/Create';
+import FormResourceEdit from '../../forms/Resource/Edit/Edit';
 
 interface Schema {
     properties: {
@@ -20,6 +23,9 @@ interface props {
     model?: Schema;
     base: string;
     uribase?: string;
+    listElement: string;
+    editElement: string;
+    createElement: string;
 }
 
 @component('ui-resource-page')
@@ -43,24 +49,34 @@ export default class PageResource extends Router implements props {
     uribase?: string;
 
     @property
+    listElement: string = 'ui-resource-table';
+
+    @property
+    editElement: string = 'form-resource-edit';
+
+    @property
+    createElement: string = 'form-resource-create';
+
+
+    @property
     get routes(): Route[] {
         if (!this.resource) return [];
         const base = this.uribase || `/${this._resPlural}`;
         return [
             {
                 path: `${base}`,
-                element: `ui-resource-table`,
+                element: this.listElement,
                 exact: true,
                 attributes: {resource: this.resource, uribase: base}
             },
             {
                 path: `${base}/create`,
-                element: `form-resource-create`,
+                element: this.createElement,
                 attributes: {resource: this.resource}
             },
             {
                 path: `${base}/:id`,
-                element: `form-resource-edit`,
+                element: this.editElement,
                 attributes: {resource: this.resource, uri: `/admin${base}/:id`}
             }
         ];
@@ -77,6 +93,7 @@ export default class PageResource extends Router implements props {
         injectReducer(`resources.${this._resPlural}`, APIReducer(this._resPlural));
     }
 
+
     _didRender() {
         const {fieldsList, fieldsCreate, fieldsEdit, model} = this;
         if (!model) return;
@@ -85,10 +102,14 @@ export default class PageResource extends Router implements props {
 
 
         // @ts-ignore Shadow root exists
-        const sr = this.shadowRoot;
-        const list = sr.querySelector('ui-resource-table');
-        const create = sr.querySelector('form-resource-create');
-        const edit = sr.querySelector('form-resource-edit');
+        const sr = this.shadowRoot as ShadowRoot;
+        // @ts-ignore
+        const list = sr.querySelector(this.listElement) as ResourceTable;
+        // @ts-ignore
+        const create = sr.querySelector(this.createElement) as FormResourceCreate;
+        // @ts-ignore
+        const edit = sr.querySelector(this.editElement) as FormResourceEdit;
+
 
         const getFields = (fields: string[]) => fields.map(f => {
 
@@ -106,13 +127,13 @@ export default class PageResource extends Router implements props {
 
             field.name = f;
             // @ts-ignore
-            field.placeholder = lodash.startCase(f);
+            if (!field.placeholder) field.placeholder = lodash.startCase(f);
             field.validate = {required: field.required};
             return field;
         });
 
 
-        if (list) list.columns = fieldsList;
+        if (list && fieldsList) list.columns = fieldsList;
         if (create && fieldsCreate) create.fields = getFields(fieldsCreate);
         if (edit && fieldsEdit) edit.fields = getFields(fieldsEdit);
     }

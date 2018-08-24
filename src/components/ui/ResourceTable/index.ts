@@ -4,7 +4,7 @@ import API from 'lib/API';
 import {repeat} from 'lit-html/lib/repeat';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {APIActions} from 'origami-zen/lib/API';
-import {ButtonOptions} from 'origami-zen/packages/components/ButtonGroup/ButtonGroup';
+import {ButtonOptions} from 'origami-zen/components/ButtonGroup/ButtonGroup';
 import pluralize from 'pluralize';
 import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
@@ -94,12 +94,9 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
 
     _render({_data, columns, _selected = [], _buttons}: props) {
-
-        const cols = this._getColumns(columns);
-
+        const cols = this._getColumns(this.columns);
         return html`
             ${CSS}
-            <style>:host{--cols: ${cols.length}}</style>
             <zen-button-group buttons=${_buttons}></zen-button-group>
             <div class="table">
                 <div class="row header">
@@ -140,6 +137,10 @@ export default class ResourceTable extends connect(store)(LitElement) implements
             const id = this._data[i].id;
             r.classList.toggle('active', this.selected.includes(id));
         });
+
+        const cols = this._getColumns(this.columns);
+        // @ts-ignore
+        this.style.setProperty('--cols', cols.length)
     }
 
 
@@ -222,7 +223,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                 this.selected = s;
             } else this._unselect(select.id);
             // @ts-ignore Is just protected
-            this._requestRender();
+            this.requestRender();
         }
     }
 

@@ -18,6 +18,5 @@ export default {
     // Pages,
     resources: {
         users: APIReducer('users'),
-    },
-    Templates: APIReducer('templates', undefined, 'name')
+    }
 };

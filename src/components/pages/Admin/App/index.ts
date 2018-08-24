@@ -6,6 +6,8 @@ import {component, property} from 'origami-zen/util';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {AppDetail} from 'store/state';
+import { html } from '@polymer/lit-element';
+import CSS from './page-app-css';
 
 
 interface props {
@@ -30,6 +32,19 @@ export default class PageResource extends connect(store)(Router) implements prop
     }
     set routes(v) {}
 
+    get sidemenu() {
+
+        if (this.app && this.app.manifest.sidemenu) {
+            const links = this.app.manifest.pages!.map(p => ({
+                icon: p.icon,
+                to: p.path,
+                text: p.title
+            }));
+            return html`<ui-side-menu links=${links}></ui-side-menu>`;
+
+        } return null;
+    }
+
     async _firstRendered() {
         if (!this.appName) throw new Error('page-app needs a appName property');
         const app = await store.dispatch(appGet(this.appName)) as Origami.AppManifest;
@@ -45,6 +60,16 @@ export default class PageResource extends connect(store)(Router) implements prop
 
         // @ts-ignore Added by router
         this._update();
+    }
+
+    _render(props: any) {
+        const page = super._render(props);
+
+        return html`
+            ${CSS}
+            ${this.sidemenu}
+            <section>${page}</section>
+        `;
     }
 
 

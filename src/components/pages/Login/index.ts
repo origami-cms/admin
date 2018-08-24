@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {login} from 'actions/Auth';
 import {navigate} from 'actions/App';
-import {Field, FormValues} from 'origami-zen';
+import {Field, FormValues} from '../../../../node_modules/origami-zen/lib/FormValidator/FormFieldTypes';
 import {component, property} from 'origami-zen/util/decorators';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
