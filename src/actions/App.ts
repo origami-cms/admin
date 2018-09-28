@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {ButtonOptions} from 'origami-zen/components/ButtonGroup/ButtonGroup';
+import {ButtonOptions} from '@origamijs/zen';
 
 
 export const APP_SIDEBAR_ITEMS_SET = 'APP_JEWEL_ITEMS_SET';

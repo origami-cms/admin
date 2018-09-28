@@ -1,7 +1,7 @@
 import {PAGES_TREE_SET, PAGE_DATA_SET, PAGE_PROPERTIES_SET} from 'actions/Pages';
 
 import {find} from 'lodash';
-import {APIReducer, ResourceState} from 'origami-zen/lib/API';
+import {APIReducer, ResourceState} from '@origamijs/zen-lib/lib/API';
 import {AnyAction} from 'redux';
 export {AnyAction} from 'redux';
 import immutable, {ImmutableArray, ImmutableObject, ImmutableObjectMixin} from 'seamless-immutable';

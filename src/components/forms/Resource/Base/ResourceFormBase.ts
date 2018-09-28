@@ -2,10 +2,10 @@ import {html, LitElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import {BASE_URI} from 'const';
 import lodash from 'lodash';
-import {Field, FormValues} from 'origami-zen/lib/FormValidator/FormFieldTypes';
-import {APIActions} from 'origami-zen/lib/API';
+import {Field, FormValues} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import {APIActions} from '@origamijs/zen-lib/lib/API';
 import pluralize from 'pluralize';
-import {property} from 'origami-zen/util';
+import {property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';

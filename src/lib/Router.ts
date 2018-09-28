@@ -2,7 +2,7 @@ import {html, LitElement} from '@polymer/lit-element';
 import {BASE_URI} from 'const';
 import matchPath from 'lib/Path';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {property} from 'origami-zen/util';
+import {property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
 import deepequal from 'deep-equal';

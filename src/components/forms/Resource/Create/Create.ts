@@ -1,5 +1,5 @@
 import FormResourceBase from '../Base/ResourceFormBase';
-import {component} from 'origami-zen/util';
+import {component} from '@origamijs/zen-lib';
 
 @component('form-resource-create')
 export default class FormResourceCreate extends FormResourceBase {

@@ -3,12 +3,12 @@ import {getSidebarItems, toggleAppSelector} from 'actions/App';
 import {BASE_URI} from 'const';
 import fuse from 'fuse.js';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {SidebarItem} from 'store/state';
-import {bindAttributes} from 'origami-zen/util/decorators';
+import {bindAttributes} from '@origamijs/zen-lib/lib/decorators';
 import CSS from './app-selector-css';
 
 

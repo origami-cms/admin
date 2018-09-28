@@ -29,7 +29,11 @@ r.post(async (req, res, next) => {
 
         const settings = store.model('setting');
 
-        res.data = (await settings.update({setting: 'admin.theme'}, {value: req.body})).value;
+        res.data = (await settings.update(
+            {setting: 'admin.theme'},
+            {value: req.body},
+            {upsert: true}
+        )).value;
         next();
 
     } catch (e) {

@@ -1,6 +1,6 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {RouterProps} from 'lib/Router';
-import {component} from 'origami-zen/util';
+import {component} from '@origamijs/zen-lib';
 import CSS from './page-settings-menu-css';
 
 interface Link {

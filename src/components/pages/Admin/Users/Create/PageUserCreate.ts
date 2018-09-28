@@ -1,6 +1,6 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {Field} from 'origami-zen/lib/FormValidator/FormFieldTypes';
-import {component} from 'origami-zen/util';
+import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import {component} from '@origamijs/zen-lib';
 
 
 interface props {

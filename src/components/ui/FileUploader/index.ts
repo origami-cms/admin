@@ -1,8 +1,8 @@
 import {LitElement} from '@polymer/lit-element';
 import {upload} from 'actions/Media';
 import {html} from 'lit-html/lib/lit-extended';
-import InputFile from 'origami-zen/components/InputFile/InputFile';
-import {component, property} from 'origami-zen/util';
+import {InputFile} from '@origamijs/zen';
+import {component, property} from '@origamijs/zen-lib';
 import store from 'store';
 
 import CSS from './file-uploader-css';

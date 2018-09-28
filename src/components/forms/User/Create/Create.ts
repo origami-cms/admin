@@ -1,8 +1,8 @@
 import {html, LitElement} from '@polymer/lit-element';
 import API from 'lib/API';
-import {Field, FormValues} from 'origami-zen/lib/FormValidator/FormFieldTypes';
-import {APIActions} from 'origami-zen/lib/API';
-import {component, property} from 'origami-zen/util';
+import {Field, FormValues} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import {APIActions} from '@origamijs/zen-lib/lib/API';
+import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';

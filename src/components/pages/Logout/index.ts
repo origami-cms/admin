@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import {logout} from 'actions/Auth';
-import {component} from 'origami-zen/util';
+import {component} from '@origamijs/zen-lib';
 import store from 'store';
 
 

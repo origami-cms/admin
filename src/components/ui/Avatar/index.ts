@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './avatar-css';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 
 interface props {
     user?: string;

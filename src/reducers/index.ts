@@ -1,4 +1,4 @@
-import {APIReducer} from 'origami-zen/lib/API';
+import {APIReducer} from '@origamijs/zen-lib/lib/API';
 import App from './App';
 import Apps from './Apps';
 import Auth from './Auth';

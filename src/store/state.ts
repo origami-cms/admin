@@ -1,6 +1,6 @@
-import {ResourceState} from 'origami-zen/lib/API';
+import {ResourceState} from '@origamijs/zen-lib/lib/API';
 import {Origami} from 'origami-core-lib';
-import {ButtonOptions} from 'origami-zen/components/ButtonGroup/ButtonGroup';
+import {ButtonOptions} from '@origamijs/zen';
 
 export {ImmutableObject} from 'seamless-immutable';
 

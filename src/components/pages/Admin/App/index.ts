@@ -2,13 +2,12 @@ import {appGet, appGetPage} from 'actions/Apps';
 import deepequal from 'deep-equal';
 import Router from 'lib/Router';
 import {Origami} from 'origami-core-lib';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {AppDetail} from 'store/state';
 import { html } from '@polymer/lit-element';
 import CSS from './page-app-css';
-
 
 interface props {
     appName?: string;
@@ -46,6 +45,8 @@ export default class PageResource extends connect(store)(Router) implements prop
     }
 
     async _firstRendered() {
+        console.log('setting up page-app');
+
         if (!this.appName) throw new Error('page-app needs a appName property');
         const app = await store.dispatch(appGet(this.appName)) as Origami.AppManifest;
 

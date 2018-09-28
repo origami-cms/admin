@@ -1,4 +1,4 @@
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './header-user-css';
 // @ts-ignore

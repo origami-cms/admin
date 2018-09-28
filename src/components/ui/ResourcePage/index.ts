@@ -1,8 +1,8 @@
 import Router, {Route} from 'lib/Router';
 import lodash from 'lodash';
-import {APIReducer} from 'origami-zen/lib/API';
-import {Field} from 'origami-zen/lib/FormValidator/FormFieldTypes';
-import {component, property} from 'origami-zen/util';
+import {APIReducer} from '@origamijs/zen-lib/lib/API';
+import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import {component, property} from '@origamijs/zen-lib';
 import pluralize from 'pluralize';
 import {injectReducer} from 'redux-injector';
 import ResourceTable from '../ResourceTable';

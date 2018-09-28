@@ -2,7 +2,7 @@ import {html, LitElement} from '@polymer/lit-element';
 import {getSidebarItems, toggleAppSelector} from 'actions/App';
 import {BASE_URI} from 'const';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
@@ -55,11 +55,11 @@ export default class Sidebar extends connect(store)(LitElement) implements props
             </zen-link>
 
             <div class="search position-r">
-                <zen-icon type="search" color="main" size="main" class="center"></zen-icon>
+                <zen-icon type="search" color="grey-300" size="main" class="center"></zen-icon>
             </div>
 
             <div class="apps-button" on-click=${()  => store.dispatch(toggleAppSelector(true))}>
-                <zen-icon type="grid" size="main"></zen-icon>
+                <zen-icon type="grid" size="main" color="grey-300"></zen-icon>
             </div>
 
             <ul class="apps">

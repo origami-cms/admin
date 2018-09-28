@@ -1,9 +1,9 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './header-css';
-import {ButtonOptions} from 'origami-zen/components/ButtonGroup/ButtonGroup';
+import {ButtonOptions} from '@origamijs/zen';
 
 export * from './Notifications';
 export * from './User';

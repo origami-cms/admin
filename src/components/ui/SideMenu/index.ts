@@ -1,5 +1,5 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 import CSS from './side-menu-css';
 import { BASE_URI } from 'const';
 

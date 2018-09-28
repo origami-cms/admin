@@ -26,7 +26,7 @@ export default {
             "actions": path.resolve(__dirname, "./.tsbuild/actions"),
             "lib/decorators": path.resolve(__dirname, "./.tsbuild/lib/decorators/index.js"),
             "lib": path.resolve(__dirname, "./.tsbuild/lib"),
-            "util": path.resolve(__dirname, "./node_modules/origami-zen/util/"),
+            "util": path.resolve(__dirname, "./node_modules/@origamijs/zen-lib/lib/"),
             "store": path.resolve(__dirname, "./.tsbuild/store/index.js"),
             "store/state": path.resolve(__dirname, "./.tsbuild/store/state.js"),
             "const": path.resolve(__dirname, "./.tsbuild/const.js")

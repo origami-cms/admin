@@ -1,7 +1,7 @@
 // tslint:disable variable-name
 import Router, {RouterProps} from 'lib/Router';
 import {html} from '@polymer/lit-element';
-import {component, property} from 'origami-zen/util';
+import {component, property} from '@origamijs/zen-lib';
 import {navigate} from 'actions/App';
 import {verify} from 'actions/Auth';
 import store, {State} from 'store';
