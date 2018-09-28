@@ -2,7 +2,7 @@ import {html, LitElement} from '@polymer/lit-element';
 import {getSidebarItems, toggleAppSelector} from 'actions/App';
 import {BASE_URI} from 'const';
 import fuse from 'fuse.js';
-import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
@@ -80,7 +80,8 @@ export default class Sidebar extends connect(store)(LitElement) implements props
     }
 
 
-    _render({_filtered, apps}: props) {
+    render() {
+        const {_filtered, apps}  = this;
         let contents;
 
         if (this.filter && !_filtered.length) {
@@ -127,7 +128,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
         `;
     }
 
-    private _didRender() {
+    private updated() {
         // @ts-ignore Shadow root exists
         if (this.open) this.shadowRoot.querySelector('zen-input').focus();
     }

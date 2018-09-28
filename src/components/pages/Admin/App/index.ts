@@ -63,8 +63,8 @@ export default class PageResource extends connect(store)(Router) implements prop
         this._update();
     }
 
-    _render(props: any) {
-        const page = super._render(props);
+    render(props: any) {
+        const page = super.render(props);
 
         return html`
             ${CSS}

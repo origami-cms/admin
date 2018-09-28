@@ -65,7 +65,8 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
         store.dispatch(login(email, password));
     }
 
-    _render({error, values}: props) {
+    render() {
+        const {error, values} = this;
         const v = {
             ...{email: this._email},
             ...values

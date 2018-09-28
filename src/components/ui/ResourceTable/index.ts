@@ -1,8 +1,8 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import API from 'lib/API';
-import {repeat} from 'lit-html/lib/repeat';
-import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import { repeat } from 'lit-html/directives/repeat';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import {APIActions} from '@origamijs/zen-lib/lib/API';
 import {ButtonOptions} from '@origamijs/zen';
 import pluralize from 'pluralize';
@@ -93,7 +93,9 @@ export default class ResourceTable extends connect(store)(LitElement) implements
     }
 
 
-    _render({_data, columns, _selected = [], _buttons}: props) {
+    render() {
+        const {_data, _selected = [], _buttons} = this;
+
         const cols = this._getColumns(this.columns);
         return html`
             ${CSS}
@@ -129,8 +131,8 @@ export default class ResourceTable extends connect(store)(LitElement) implements
         `;
     }
 
-    _didRender() {
-        super._didRender();
+    updated() {
+        super.updated();
         // @ts-ignore Shadow root exists
         const rows = this.shadowRoot.querySelectorAll('.table .row:not(.header)');
         (Array.from(rows) as HTMLElement[]).forEach((r, i) => {
@@ -140,7 +142,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
         const cols = this._getColumns(this.columns);
         // @ts-ignore
-        this.style.setProperty('--cols', cols.length)
+        this.style.setProperty('--cols', cols.length);
     }
 
 
@@ -223,7 +225,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                 this.selected = s;
             } else this._unselect(select.id);
             // @ts-ignore Is just protected
-            this.requestRender();
+            this.requestUpdate();
         }
     }
 

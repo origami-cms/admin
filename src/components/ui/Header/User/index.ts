@@ -18,7 +18,7 @@ export default class HeaderUser extends connect(store)(LitElement) implements pr
         this.user = s.Me.id;
     }
 
-    _render({user}: props) {
-        return html`${CSS}<ui-avatar user=${user}>`;
+    render() {
+        return html`${CSS}<ui-avatar user=${this.user}>`;
     }
 }

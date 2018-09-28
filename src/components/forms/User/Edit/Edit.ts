@@ -129,7 +129,8 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
     }
 
 
-    _render({errorEdit, user}: props) {
+    render() {
+        const {errorEdit, user} = this;
         if (!user) return html``;
 
         return html`

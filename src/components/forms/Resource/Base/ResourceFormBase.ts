@@ -119,7 +119,8 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
     }
 
 
-    _render({error, values, fields, resource}: props) {
+    render() {
+        const {error, values, fields} = this;
         const f = [...fields, {
             type: 'submit',
             name: '',

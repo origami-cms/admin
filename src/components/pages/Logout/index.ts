@@ -13,7 +13,7 @@ export default class PageLogout extends LitElement {
         await store.dispatch(navigate('/admin/login'));
     }
 
-    _render() {
+    render() {
         const cssCenter = 'position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)';
         return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
     }

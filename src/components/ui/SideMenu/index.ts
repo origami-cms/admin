@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {component, property} from '@origamijs/zen-lib';
 import CSS from './side-menu-css';
-import { BASE_URI } from 'const';
+import {BASE_URI} from 'const';
 
 
 export interface Link {
@@ -20,12 +20,15 @@ export default class SideMenu extends LitElement {
     @property
     links: Link[] = [];
 
-    _render({links}: SettingsMenuProps) {
+    render() {
+        let {links} = this;
         // Prefix all links with BASE_URI
-        if (links) links = links.map(l => ({
-            ...l,
-            ...{to: !l.to!.startsWith(BASE_URI) ? BASE_URI + l.to : l.to}
-        }));
+        if (links) {
+                links = links.map(l => ({
+                ...l,
+                ...{to: !l.to!.startsWith(BASE_URI) ? BASE_URI + l.to : l.to}
+            }));
+        }
         return html`
             ${CSS}
             <ul>

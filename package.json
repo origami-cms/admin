@@ -21,7 +21,7 @@
     "start": "yarn watch & yarn watch:sass & yarn serve"
   },
   "devDependencies": {
-    "@polymer/lit-element": "^0.5.2",
+    "@polymer/lit-element": "^0.6.1",
     "@types/color": "^3.0.0",
     "@types/deep-equal": "^1.0.1",
     "@types/deepmerge": "^2.1.0",
@@ -37,7 +37,7 @@
     "fuse.js": "^3.2.1",
     "gzip-all": "^1.0.0",
     "http-status-codes": "^1.3.0",
-    "lit-html": "^0.10.0",
+    "lit-html": "^0.11.4",
     "lodash": "^4.17.10",
     "origami-rollup-config": "^1.0.0",
     "origami-zen": "^0.3.20-alpha.9",

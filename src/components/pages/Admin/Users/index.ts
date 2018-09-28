@@ -23,8 +23,8 @@ export default class PageUsers extends connect(store)(Router) implements props {
 
     _stateChanged() {}
 
-    _render(props: RouterProps) {
-        const content = super._render(props);
+    render(props: RouterProps) {
+        const content = super.render(props);
         return html`
             ${CSS}
             ${content}

@@ -11,10 +11,10 @@ export default class UserAvatar extends LitElement implements props{
     @property
     user?: string;
 
-    _render({user}: props) {
+    render() {
         return html`
             ${CSS}
-            <img src=${`/content/profiles/${user}`} />
+            <img src=${`/content/profiles/${this.user}`} />
         `;
     }
 }

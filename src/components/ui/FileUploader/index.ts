@@ -1,6 +1,5 @@
-import {LitElement} from '@polymer/lit-element';
+import {LitElement, html} from '@polymer/lit-element';
 import {upload} from 'actions/Media';
-import {html} from 'lit-html/lib/lit-extended';
 import {InputFile} from '@origamijs/zen';
 import {component, property} from '@origamijs/zen-lib';
 import store from 'store';
@@ -21,12 +20,12 @@ export default class FileUploader extends LitElement implements props {
         this._handleChange = this._handleChange.bind(this);
     }
 
-    _render({placeholder}: props) {
+    render() {
         return html`
             ${CSS}
             <zen-input-file
                 on-change=${this._handleChange}
-                placeholder=${placeholder}
+                placeholder=${this.placeholder}
             ></zen-input-file>
         `;
     }

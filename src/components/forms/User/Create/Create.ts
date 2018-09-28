@@ -87,7 +87,8 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
     }
 
 
-    _render({error, values}: props) {
+    render() {
+        const {error, values} = this;
         return html`
             ${CSS}
             <div class="card shadow-main center-h">

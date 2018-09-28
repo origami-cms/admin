@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {getSidebarItems, toggleAppSelector} from 'actions/App';
 import {BASE_URI} from 'const';
-import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
@@ -44,7 +44,8 @@ export default class Sidebar extends connect(store)(LitElement) implements props
         store.dispatch(getSidebarItems());
     }
 
-    _render({apps, logo}: props) {
+    render() {
+        const {apps, logo} = this;
         const l = window.location.pathname;
 
         return html`

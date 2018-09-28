@@ -7,7 +7,7 @@ interface props {
 
 @component('page-not-found')
 export default class PageNotFound extends LitElement implements props {
-    _render({}: props) {
+    render() {
         return html`
             ${CSS}
             <h1>Page not found</h1>

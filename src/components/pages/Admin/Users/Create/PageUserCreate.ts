@@ -43,7 +43,7 @@ export default class PageUsersList extends LitElement implements props {
         ];
     }
 
-    _render({}) {
+    render() {
         return html`<form-resource-create resource="user" fields=${this.fields}></form-resource-create>`;
     }
 }

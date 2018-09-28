@@ -30,7 +30,7 @@ export default class SettingsMenu extends LitElement implements props {
         }
     ];
 
-    _render(props: propsWithRouter) {
+    render() {
         // @ts-ignore
         return html`
             ${CSS}

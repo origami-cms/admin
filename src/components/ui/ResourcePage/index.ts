@@ -94,7 +94,7 @@ export default class PageResource extends Router implements props {
     }
 
 
-    _didRender() {
+    updated() {
         const {fieldsList, fieldsCreate, fieldsEdit, model} = this;
         if (!model) return;
 

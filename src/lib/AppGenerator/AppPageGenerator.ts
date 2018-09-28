@@ -1,6 +1,5 @@
-import {LitElement} from '@polymer/lit-element';
-import {html} from 'lit-html/lib/lit-extended';
-import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import {LitElement, html} from '@polymer/lit-element';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
 export default (tagName: string, content: string, scripts: string[] = []) => {
     class GeneratedAppPage extends LitElement {
@@ -14,7 +13,7 @@ export default (tagName: string, content: string, scripts: string[] = []) => {
             });
         }
 
-        _render() {
+        render() {
             return html`
                 ${unsafeHTML(content)}
             `;

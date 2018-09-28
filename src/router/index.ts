@@ -35,13 +35,12 @@ export default class AppRouter extends connect(store)(Router) implements props {
         {path: '/', element: 'page-admin'}
     ];
 
-    // @ts-ignore Is correct props
-    _render(props: props) {
-        // @ts-ignore Is correct props
-        const page = super._render(props as RouterProps);
+    render() {
+        const page = super.render();
+        return page;
 
         const cssCenter = 'position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)';
-        if (props._loading && !props._verified) return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
+        if (this._loading && !this._verified) return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
         else return page;
     }
 

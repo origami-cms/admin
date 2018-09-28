@@ -65,7 +65,8 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
         this.theme = s.Organization.theme;
     }
 
-    _render({theme}: props) {
+    render() {
+        const {theme} = this;
         // @ts-ignore
         const formG: Fields[] = this.constructor._formGeneral;
         // @ts-ignore

@@ -65,11 +65,11 @@ export default class PageAdmin extends connect(store)(Router) implements props {
         // @ts-ignore Added from Router
         this._getRoutes();
         // @ts-ignore Added from Router
-        this.requestRender();
+        this.requestUpdate();
     }
 
-    _render(props: propsWithRouter) {
-        const page = super._render(props);
+    render() {
+        const page = super.render();
 
         // @ts-ignore
         return html`
@@ -77,7 +77,7 @@ export default class PageAdmin extends connect(store)(Router) implements props {
             <ui-sidebar></ui-sidebar>
             <ui-header></ui-header>
             <main>${page}</main>
-            <ui-app-selector open=${props._appSelectorOpen}> </ui-app-selector>
+            <ui-app-selector open=${this._appSelectorOpen}> </ui-app-selector>
         `;
     }
 }

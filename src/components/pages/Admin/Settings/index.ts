@@ -30,8 +30,8 @@ export default class PageAdmin extends Router implements props {
         }
     ];
 
-    _render(props: props) {
-        const page = super._render();
+    render(props: props) {
+        const page = super.render();
 
         return html`
             ${CSS}

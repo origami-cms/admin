@@ -27,12 +27,12 @@ export default class Header extends connect(store)(LitElement) implements props 
         this.actions = state.App.page.actions;
     }
 
-    _render({heading, actions}: props) {
+    render() {
         return html`
             ${CSS}
-            <h1 class="display-ib">${heading}</h1>
-            ${actions.length
-                ? html`<zen-button-group buttons=${actions}></zen-button-group>`
+            <h1 class="display-ib">${this.heading}</h1>
+            ${this.actions.length
+                ? html`<zen-button-group buttons=${this.actions}></zen-button-group>`
                 : null
             }
             <ui-header-notifications></ui-header-notifications>

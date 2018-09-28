@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {BASE_URI} from 'const';
 import matchPath from 'lib/Path';
-import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import {property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {installRouter} from 'pwa-helpers/router';
@@ -64,9 +64,10 @@ export default class Router extends LitElement implements RouterProps {
     }
 
 
-    _render(props?: any) {
+    render() {
         const cache = this._elementsCache.get(this._activeRoutes);
         if (cache && cache.length) return cache[0];
+
 
         return  html``;
     }
@@ -138,7 +139,7 @@ export default class Router extends LitElement implements RouterProps {
         if (!deepequal(this._activeRoutes, newRoutes) || !this._activeRoutes.length) {
             this._activeRoutes = newRoutes;
             this._path = path;
-            this.requestRender();
+            this.requestUpdate();
         }
     }
 }
