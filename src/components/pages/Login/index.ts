@@ -80,7 +80,7 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
                 <img class="logo margin-b-large height-main" src="/admin/images/logo"/>
                 <zen-form
                     .fields=${fields}
-                    on-submit=${this.submit}
+                    @submit=${this.submit}
                     .error=${error}
                     .values=${v}
                 />
@@ -88,10 +88,9 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
         `;
     }
 
-    _propertiesChanged(p: props, c: props, o: props) {
-        super._propertiesChanged(p, c, o);
-        if (c.loggedIn) {
-            store.dispatch(navigate('/admin/'));
-        }
+    updated(p: any) {
+        super.updated(p);
+
+        if (this.loggedIn) store.dispatch(navigate('/admin/'));
     }
 }

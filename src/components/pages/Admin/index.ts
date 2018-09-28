@@ -13,8 +13,6 @@ interface props {
     _appSelectorOpen: boolean;
 }
 
-interface propsWithRouter extends props, RouterProps { }
-
 export * from './App';
 export * from './Settings';
 export * from './Users';

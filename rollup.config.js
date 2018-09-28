@@ -16,7 +16,8 @@ export default {
     input: path.resolve(__dirname, './.tsbuild/app.js'),
     output: {
         format: 'iife',
-        file: 'dist/app.js'
+        file: 'dist/app.js',
+        sourcemap: true
     },
     plugins: [
         replace({

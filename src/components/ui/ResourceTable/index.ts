@@ -105,7 +105,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                     <div class="cell icon">
                         <zen-checkbox
                             size="medium"
-                            on-change=${(e: Event) => this._handleCheckbox(e, 'all')}
+                            @change=${(e: Event) => this._handleCheckbox(e, 'all')}
                         ></zen-checkbox>
                     </div>
                     ${unsafeHTML(cols.map(c => `
@@ -114,11 +114,11 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                 </div>
 
                 ${repeat(_data, (r: data) => r.id, (row: data) => html`
-                    <div class="row" on-click=${(e: Event) => this._handleRowClick(e, row)}>
+                    <div class="row"@click=${(e: Event) => this._handleRowClick(e, row)}>
                         <div class="cell icon">
                             <zen-checkbox
                                 size="medium"
-                                on-change="${(e: Event) => this._handleCheckbox(e, row)}"
+                                @change="${(e: Event) => this._handleCheckbox(e, row)}"
                                 .checked=${_selected.includes(row.id)}
                             ></zen-checkbox>
                         </div>

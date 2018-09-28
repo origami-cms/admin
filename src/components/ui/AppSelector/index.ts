@@ -93,7 +93,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
             const totalAniTime = 0.2;
 
             contents = html`
-                <ul class="apps" on-click=${this.close}>
+                <ul class="apps"@click=${this.close}>
                     ${_apps.map((a, i) => {
                         return unsafeHTML(`
                             <li style="animation-delay: ${(i / _apps.length) * totalAniTime + aniDelay}s">
@@ -114,13 +114,13 @@ export default class Sidebar extends connect(store)(LitElement) implements props
         // TODO: Add click event listener to the list item and not the list
         return html`
             ${CSS}
-            <zen-icon type="cross" on-click=${this.close} color="grey-200" size="large"></zen-icon>
+            <zen-icon type="cross"@click=${this.close} color="grey-200" size="large"></zen-icon>
             <h1>Applications</h1>
 
             <div class="wrapper">
                 <zen-input icon="search"
                     placeholder="Search for an app…"
-                    on-change="${(e: {target: {value: string}}) => this.filter = e.target.value}"
+                    @change="${(e: {target: {value: string}}) => this.filter = e.target.value}"
                 ></zen-input>
 
                 ${contents}

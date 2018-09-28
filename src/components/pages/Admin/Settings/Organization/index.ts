@@ -80,7 +80,7 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
                     <zen-button color="blue" icon="upload">Update logo</zen-button>
                     <ui-file-uploader
                         placeholder="/admin/images/logo"
-                        on-upload=${this._handleUpload}
+                        @upload=${this._handleUpload}
                     ></ui-file-uploader>
                 </div>
                 <zen-form
@@ -95,7 +95,7 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
                 <zen-form
                     .values=${theme}
                     .fields=${formT}
-                    on-submit=${this._saveTheme}
+                    @submit=${this._saveTheme}
                 ></zen-form>
             </div>
         `;

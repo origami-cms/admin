@@ -137,8 +137,8 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
                     .error=${error}
                     .fields=${f}
                     .values=${values}
-                    on-change=${(e: {target: {values: object}}) => this.values = e.target.values}
-                    on-submit=${this.submit}
+                    @change=${(e: {target: {values: object}}) => this.values = e.target.values}
+                    @submit=${this.submit}
                 ></zen-form>
             </div>
         `;

@@ -144,8 +144,8 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
                     .error=${errorEdit}
                     .fields=${this.fields}
                     .values=${user}
-                    on-change=${(e: {target: {values: User}}) => this.user = e.target.values}
-                    on-submit=${this.submit}
+                    @change=${(e: {target: {values: User}}) => this.user = e.target.values}
+                    @submit=${this.submit}
                 ></zen-form>
             </div>
         `;

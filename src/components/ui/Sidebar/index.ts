@@ -59,7 +59,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
                 <zen-icon type="search" color="grey-300" size="main" class="center"></zen-icon>
             </div>
 
-            <div class="apps-button" on-click=${()  => store.dispatch(toggleAppSelector(true))}>
+            <div class="apps-button"@click=${()  => store.dispatch(toggleAppSelector(true))}>
                 <zen-icon type="grid" size="main" color="grey-300"></zen-icon>
             </div>
 
