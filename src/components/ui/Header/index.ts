@@ -32,7 +32,7 @@ export default class Header extends connect(store)(LitElement) implements props 
             ${CSS}
             <h1 class="display-ib">${this.heading}</h1>
             ${this.actions.length
-                ? html`<zen-button-group buttons=${this.actions}></zen-button-group>`
+                ? html`<zen-button-group .buttons=${this.actions}></zen-button-group>`
                 : null
             }
             <ui-header-notifications></ui-header-notifications>

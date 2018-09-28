@@ -84,7 +84,7 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
                     ></ui-file-uploader>
                 </div>
                 <zen-form
-                    fields=${formG}
+                    .fields=${formG}
                 ></zen-form>
             </div>
 
@@ -93,8 +93,8 @@ export class PageSettingsOrganization extends connect(store)(LitElement) impleme
             <div class="theme">
                 <h4>Theme</h4>
                 <zen-form
-                    values=${theme}
-                    fields=${formT}
+                    .values=${theme}
+                    .fields=${formT}
                     on-submit=${this._saveTheme}
                 ></zen-form>
             </div>

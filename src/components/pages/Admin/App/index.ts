@@ -39,7 +39,7 @@ export default class PageResource extends connect(store)(Router) implements prop
                 to: p.path,
                 text: p.title
             }));
-            return html`<ui-side-menu links=${links}></ui-side-menu>`;
+            return html`<ui-side-menu .links=${links}></ui-side-menu>`;
 
         } return null;
     }

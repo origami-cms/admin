@@ -19,6 +19,6 @@ export default class HeaderUser extends connect(store)(LitElement) implements pr
     }
 
     render() {
-        return html`${CSS}<ui-avatar user=${this.user}>`;
+        return html`${CSS}<ui-avatar .user=${this.user}>`;
     }
 }

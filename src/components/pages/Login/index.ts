@@ -79,10 +79,10 @@ export default class PageLogin extends connect(store)(LitElement) implements pro
             <div class="center rounded text-center padding-large shadow-shade-1">
                 <img class="logo margin-b-large height-main" src="/admin/images/logo"/>
                 <zen-form
-                    fields=${fields}
+                    .fields=${fields}
                     on-submit=${this.submit}
-                    error=${error}
-                    values=${v}
+                    .error=${error}
+                    .values=${v}
                 />
             </div>
         `;

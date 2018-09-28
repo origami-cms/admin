@@ -134,9 +134,9 @@ export default class FormResourceBase extends connect(store)(LitElement) impleme
             <div class="card shadow-main center-h">
                 <h3 class="margin-t-small">${this._typeUpper} a ${this._resSingular}</h3>
                 <zen-form
-                    error=${error}
-                    fields=${f}
-                    values=${values}
+                    .error=${error}
+                    .fields=${f}
+                    .values=${values}
                     on-change=${(e: {target: {values: object}}) => this.values = e.target.values}
                     on-submit=${this.submit}
                 ></zen-form>

@@ -40,7 +40,7 @@ export default class AppRouter extends connect(store)(Router) implements props {
         return page;
 
         const cssCenter = 'position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)';
-        if (this._loading && !this._verified) return html`<zen-loading style=${cssCenter} size="large"></zen-loading>`;
+        if (this._loading && !this._verified) return html`<zen-loading .style=${cssCenter} size="large"></zen-loading>`;
         else return page;
     }
 

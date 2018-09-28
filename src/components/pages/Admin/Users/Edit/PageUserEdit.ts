@@ -37,6 +37,6 @@ export default class PageUsersEdit extends LitElement implements props {
     }
 
     render() {
-        return html`<form-resource-edit resource="user" fields=${this.fields}></form-resource-edit>`;
+        return html`<form-resource-edit resource="user" .fields=${this.fields}></form-resource-edit>`;
     }
 }

@@ -77,7 +77,7 @@ export default class PageAdmin extends connect(store)(Router) implements props {
             <ui-sidebar></ui-sidebar>
             <ui-header></ui-header>
             <main>${page}</main>
-            <ui-app-selector open=${this._appSelectorOpen}> </ui-app-selector>
+            <ui-app-selector .open=${this._appSelectorOpen}> </ui-app-selector>
         `;
     }
 }

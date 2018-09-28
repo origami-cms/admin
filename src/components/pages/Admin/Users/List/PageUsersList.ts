@@ -12,6 +12,6 @@ export default class PageUsersList extends LitElement implements props {
 
     render() {
         // @ts-ignore
-        return html`<ui-resource-table resource="users" columns=${this.constructor.columns}></ui-resource-table>`;
+        return html`<ui-resource-table resource="users" .columns=${this.constructor.columns}></ui-resource-table>`;
     }
 }

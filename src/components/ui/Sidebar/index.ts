@@ -51,9 +51,9 @@ export default class Sidebar extends connect(store)(LitElement) implements props
         return html`
             ${CSS}
 
-            <zen-link href='${BASE_URI}/' class="top-link display-b">
-                <img class="logo" src="${BASE_URI}/images/logo?${logo}" />
-            </zen-link>
+            <a href='${BASE_URI}/' class="top-link display-b">
+                <img class="logo" src=${BASE_URI}/images/logo?${logo} />
+            </a>
 
             <div class="search position-r">
                 <zen-icon type="search" color="grey-300" size="main" class="center"></zen-icon>
@@ -67,11 +67,11 @@ export default class Sidebar extends connect(store)(LitElement) implements props
                 ${apps.map(a => {
                     return unsafeHTML(`
                         <li class="position-r">
-                            <zen-link class="cover" href=${BASE_URI + a.path}>
+                            <a class="cover" href=${BASE_URI + a.path}>
                                 <div class="app rounded gradient-${a.color}">
-                                    <zen-icon type=${a.icon} color="${a.iconColor || 'white'}" class="center" size="main"></zen-icon>
+                                    <zen-icon .type=${a.icon} color=${a.iconColor || 'white'} class="center" size="main"></zen-icon>
                                 </div>
-                            </zen-link>
+                            </a>
                         </li>
                     `);
                 })}

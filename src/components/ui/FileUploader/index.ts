@@ -25,7 +25,7 @@ export default class FileUploader extends LitElement implements props {
             ${CSS}
             <zen-input-file
                 on-change=${this._handleChange}
-                placeholder=${this.placeholder}
+                .placeholder=${this.placeholder}
             ></zen-input-file>
         `;
     }

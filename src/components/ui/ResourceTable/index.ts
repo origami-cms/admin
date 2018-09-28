@@ -99,7 +99,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
         const cols = this._getColumns(this.columns);
         return html`
             ${CSS}
-            <zen-button-group buttons=${_buttons}></zen-button-group>
+            <zen-button-group .buttons=${_buttons}></zen-button-group>
             <div class="table">
                 <div class="row header">
                     <div class="cell icon">
@@ -119,7 +119,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                             <zen-checkbox
                                 size="medium"
                                 on-change="${(e: Event) => this._handleCheckbox(e, row)}"
-                                checked=${_selected.includes(row.id)}
+                                .checked=${_selected.includes(row.id)}
                             ></zen-checkbox>
                         </div>
                         ${repeat(cols, c => c, c => html`

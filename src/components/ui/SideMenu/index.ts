@@ -34,10 +34,10 @@ export default class SideMenu extends LitElement {
             <ul>
                 ${links.map(l => html`
                     <li>
-                        <zen-link href=${l.to}>
-                            ${l.icon ? html`<zen-icon type=${l.icon} color='grey-300' size="medium"></zen-icon>` : ''}
+                        <a href=${l.to}>
+                            ${l.icon ? html`<zen-icon .type=${l.icon} color='grey-300' size="medium"></zen-icon>` : ''}
                             <span>${l.text}</span>
-                        </zen-link>
+                        </a>
                     </li>
                 `)}
             </ul>

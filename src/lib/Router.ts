@@ -20,11 +20,10 @@ export interface Route extends JSONElement {
 }
 
 export interface RouterProps {
-    path: string;
+    path?: string;
     routes: Route[];
     base: string;
     switch: boolean;
-    _path: string;
 }
 
 
@@ -43,7 +42,6 @@ export default class Router extends LitElement implements RouterProps {
     switch: boolean = true;
 
     @property
-    _path: string = '';
     private _pathsCache = new Map();
     private _routesCache = new Map();
     private _elementsCache = new Map();
@@ -51,10 +49,7 @@ export default class Router extends LitElement implements RouterProps {
 
 
     @property
-    get path() { return this._path; }
-    set path(v) {
-        if (v !== this._path) this._update(v);
-    }
+    path?: string;
 
     connectedCallback() {
         super.connectedCallback();
@@ -73,7 +68,7 @@ export default class Router extends LitElement implements RouterProps {
     }
 
 
-    private _getRoutes(path: string = this.path) {
+    private _getRoutes(path: string = this.path!) {
         // Attempt to find routes in the cache by path lookup
         if (this._pathsCache.has(path)) {
             return this._pathsCache.get(path);
@@ -134,12 +129,13 @@ export default class Router extends LitElement implements RouterProps {
     }
 
 
-    private _update(path: string = this.path) {
-        const newRoutes = this._getRoutes(path);
-        if (!deepequal(this._activeRoutes, newRoutes) || !this._activeRoutes.length) {
-            this._activeRoutes = newRoutes;
-            this._path = path;
-            this.requestUpdate();
+    private updated(props: any) {
+        if (props.has('path')) {
+            const newRoutes = this._getRoutes(this.path);
+            if (!deepequal(this._activeRoutes, newRoutes) || !this._activeRoutes.length) {
+                this._activeRoutes = newRoutes;
+                this.requestUpdate();
+            }
         }
     }
 }

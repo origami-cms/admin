@@ -137,13 +137,13 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
             ${CSS}
             <div class="card shadow-main center-h">
                 <h3>
-                    <ui-avatar user=${this.id || 'default'} size="main" class="align-middle"></ui-avatar>
+                    <ui-avatar .user=${this.id || 'default'} size="main" class="align-middle"></ui-avatar>
                     <span class="align-middle margin-l-tiny">Edit <strong>${user.fname}</strong></span>
                 </h3>
                 <zen-form
-                    error=${errorEdit}
-                    fields=${this.fields}
-                    values=${user}
+                    .error=${errorEdit}
+                    .fields=${this.fields}
+                    .values=${user}
                     on-change=${(e: {target: {values: User}}) => this.user = e.target.values}
                     on-submit=${this.submit}
                 ></zen-form>
