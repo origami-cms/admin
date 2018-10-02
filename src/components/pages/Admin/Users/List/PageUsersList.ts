@@ -1,13 +1,9 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {RouterProps} from 'lib/Router';
 import {component} from '@origamijs/zen-lib';
 
 
-interface props {
-}
-
 @component('page-users-list')
-export default class PageUsersList extends LitElement implements props {
+export default class PageUsersList extends LitElement {
     static columns = ['fname', 'lname', 'email'];
 
     render() {

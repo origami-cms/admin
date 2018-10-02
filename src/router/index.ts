@@ -1,13 +1,14 @@
 // tslint:disable variable-name
-import Router, {RouterProps} from 'lib/Router';
-import {html} from '@polymer/lit-element';
+// import Router, {RouterProps} from 'lib/Router';
+import {html, LitElement} from '@polymer/lit-element';
 import {component, property} from '@origamijs/zen-lib';
-import {navigate} from 'actions/App';
+import {navigate, updatePath} from 'actions/App';
 import {verify} from 'actions/Auth';
 import store, {State} from 'store';
 import {BASE_URI} from 'const';
 import {getTheme} from 'actions/Organization';
 import {connect} from 'pwa-helpers/connect-mixin';
+import {Router} from '@origamijs/zen';
 
 interface props {
     _verified: boolean;
@@ -19,8 +20,8 @@ interface props {
 // Simple router for all main pages, and verifies token on page refresh.
 // Boots to login if invalid verification or no JWT
 @component('zen-app')
-export default class AppRouter extends connect(store)(Router) implements props {
-    name = 'base';
+export default class AppRouter extends connect(store)(LitElement) implements props {
+    base = '/admin';
     notfound = 'page-not-found';
 
     _verified: boolean = false;
@@ -32,15 +33,17 @@ export default class AppRouter extends connect(store)(Router) implements props {
     routes = [
         {path: '/login', element: 'page-login'},
         {path: '/logout', element: 'page-logout'},
-        {path: '/', element: 'page-admin'}
+        {path: '(.*)', element: 'page-admin'}
     ];
 
     render() {
-        const page = super.render();
-
-        const cssCenter = 'position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)';
-        if (this._loading && !this._verified) return html`<zen-loading .style=${cssCenter} size="large"></zen-loading>`;
-        else return page;
+        return html`
+            <style>zen-loading{position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)}</style>
+            ${this._loading && !this._verified
+                ? html`<zen-loading .size="large"></zen-loading>`
+                : html`<zen-router base=${this.base} .routes=${this.routes}></zen-router>`
+            }
+        `;
     }
 
     _stateChanged(s: State) {
@@ -53,8 +56,15 @@ export default class AppRouter extends connect(store)(Router) implements props {
         }, 10);
     }
 
-    _firstRendered() {
-        super._firstRendered();
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('RouterPop', () => {
+            store.dispatch(updatePath(window.location.pathname));
+        });
+    }
+
+    firstUpdated() {
+        super.firstUpdated();
         store.dispatch(verify());
         store.dispatch(getTheme());
     }

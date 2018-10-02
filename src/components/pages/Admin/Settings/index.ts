@@ -1,12 +1,12 @@
-import {html} from '@polymer/lit-element';
-import {titleSet} from 'lib/decorators';
-import Router, {Route, RouterProps} from 'lib/Router';
-import {TemplateResult} from 'lit-html';
 import {component} from '@origamijs/zen-lib';
+import {html, LitElement} from '@polymer/lit-element';
+import {titleSet} from 'lib/decorators';
+import {Router, ZenRoute} from '@origamijs/zen';
 import {Me} from 'store/state';
 import CSS from './page-settings-css';
+import {TemplateResult} from 'lit-html';
 
-interface props extends RouterProps {
+interface PageSettingsProps {
     me?: Me;
 }
 
@@ -15,11 +15,11 @@ export * from './SettingsMenu';
 
 @component('page-settings')
 @titleSet('Settings')
-export default class PageAdmin extends Router implements props {
+export default class PageSettings extends LitElement implements PageSettingsProps {
     me?: Me;
     base = '/admin/settings';
 
-    routes: Route[] = [
+    routes: ZenRoute[] = [
         {
             path: '/organization',
             element: 'page-settings-organization'
@@ -30,15 +30,11 @@ export default class PageAdmin extends Router implements props {
         }
     ];
 
-    render(props: props) {
-        const page = super.render();
-
+    render(): TemplateResult {
         return html`
             ${CSS}
             <page-settings-menu></page-settings-menu>
-            <section>
-                ${page}
-            </section>
+            <zen-router base=${this.base} .routes=${this.routes}></zen-router>
         `;
     }
 }

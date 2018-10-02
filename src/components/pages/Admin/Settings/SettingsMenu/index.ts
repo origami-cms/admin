@@ -1,5 +1,4 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {RouterProps} from 'lib/Router';
 import {component} from '@origamijs/zen-lib';
 import CSS from './page-settings-menu-css';
 
@@ -11,9 +10,6 @@ interface Link {
 
 interface props {
 }
-
-interface propsWithRouter extends props, RouterProps { }
-
 
 @component('page-settings-menu')
 export default class SettingsMenu extends LitElement implements props {

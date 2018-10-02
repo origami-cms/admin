@@ -37,7 +37,7 @@ export const getSidebarItems = () =>
             {
                 icon: 'user',
                 color: 'blue',
-                path: '/users',
+                path: '/users/',
                 name: 'Users'
             },
             // {
@@ -49,7 +49,7 @@ export const getSidebarItems = () =>
             {
                 icon: 'settings',
                 color: 'white',
-                path: '/settings',
+                path: '/settings/',
                 name: 'Settings',
                 iconColor: 'grey-700'
             }
@@ -60,6 +60,7 @@ export const getSidebarItems = () =>
 export const titleSet = (title: string) =>
     (dispatch: Dispatch) => dispatch({type: APP_TITLE_SET, title});
 
+
 export const pageActionsSet = (actions: ButtonOptions) =>
     (dispatch: Dispatch) => dispatch({type: APP_ACTIONS_SET, actions});
 
@@ -68,15 +69,19 @@ export const navigate = (path: string) =>
     async (dispatch: Dispatch) => {
 
         if (window.location.pathname !== path) {
-            dispatchEvent(new PopStateEvent('popstate', {state: {}}));
             window.history.pushState({}, undefined, path);
+            dispatchEvent(new PopStateEvent('popstate', {state: {}}));
         }
 
+        updatePath(path);
+    };
+
+
+export const updatePath = (path: string) =>
+    (dispatch: Dispatch) => {
         dispatch({type: APP_PATH_UPDATE, path});
     };
 
 
 export const toggleAppSelector = (open: boolean) =>
-    async (dispatch: Dispatch) => {
-        dispatch({type: APP_SELECTOR_SET, open});
-    };
+    async (dispatch: Dispatch) => dispatch({type: APP_SELECTOR_SET, open});

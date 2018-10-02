@@ -16,8 +16,9 @@
         height: var(--size-main);
         line-height: var(--size-main);
 
-        zen-link {
+        a {
             width: 100%;
+            text-decoration: none;
         }
 
         * {

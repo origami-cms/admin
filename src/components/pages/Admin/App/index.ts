@@ -1,6 +1,6 @@
 import {appGet, appGetPage} from 'actions/Apps';
 import deepequal from 'deep-equal';
-import Router from 'lib/Router';
+import {Router} from '@origamijs/zen';
 import {Origami} from 'origami-core-lib';
 import {component, property} from '@origamijs/zen-lib';
 import {connect} from 'pwa-helpers/connect-mixin';
@@ -44,9 +44,7 @@ export default class PageResource extends connect(store)(Router) implements prop
         } return null;
     }
 
-    async _firstRendered() {
-        console.log('setting up page-app');
-
+    async firstUpdated() {
         if (!this.appName) throw new Error('page-app needs a appName property');
         const app = await store.dispatch(appGet(this.appName)) as Origami.AppManifest;
 
@@ -58,9 +56,6 @@ export default class PageResource extends connect(store)(Router) implements prop
         }
 
         await Promise.all(pagePromises);
-
-        // @ts-ignore Added by router
-        this._update();
     }
 
     render(props: any) {
@@ -82,8 +77,6 @@ export default class PageResource extends connect(store)(Router) implements prop
         ) {
             // @ts-ignore
             this.app = newApp.asMutable({deep: true});
-            // @ts-ignore Added by router
-            this._update();
         }
     }
 }

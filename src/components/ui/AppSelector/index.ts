@@ -24,7 +24,7 @@ interface props {
 
 @component('ui-app-selector')
 @bindAttributes
-export default class Sidebar extends connect(store)(LitElement) implements props {
+export default class AppSelector extends connect(store)(LitElement) implements props {
     @property
     open: boolean = false;
 
@@ -75,7 +75,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
     }
 
 
-    _firstRendered() {
+    firstUpdated() {
         store.dispatch(getSidebarItems());
     }
 
@@ -93,7 +93,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
             const totalAniTime = 0.2;
 
             contents = html`
-                <ul class="apps"@click=${this.close}>
+                <ul class="apps" @click=${this.close}>
                     ${_apps.map((a, i) => {
                         return unsafeHTML(`
                             <li style="animation-delay: ${(i / _apps.length) * totalAniTime + aniDelay}s">
@@ -114,7 +114,7 @@ export default class Sidebar extends connect(store)(LitElement) implements props
         // TODO: Add click event listener to the list item and not the list
         return html`
             ${CSS}
-            <zen-icon type="cross"@click=${this.close} color="grey-200" size="large"></zen-icon>
+            <zen-icon type="cross" @click=${this.close} color="grey-200" size="large"></zen-icon>
             <h1>Applications</h1>
 
             <div class="wrapper">

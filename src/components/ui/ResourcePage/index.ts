@@ -1,4 +1,4 @@
-import Router, {Route} from 'lib/Router';
+import {Router, ZenRoute} from '@origamijs/zen';
 import lodash from 'lodash';
 import {APIReducer} from '@origamijs/zen-lib/lib/API';
 import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
@@ -59,7 +59,7 @@ export default class PageResource extends Router implements props {
 
 
     @property
-    get routes(): Route[] {
+    get routes(): ZenRoute[] {
         if (!this.resource) return [];
         const base = this.uribase || `/${this._resPlural}`;
         return [

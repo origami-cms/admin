@@ -1,4 +1,5 @@
 @import 'zen-css/import';
+@import 'zen-css/components/type';
 
 :host {
     display: grid;
@@ -10,7 +11,7 @@
         margin-top: var(--size-small);
     }
 
-    section {
+    zen-router {
         @extend %comp-card;
     }
 }

@@ -88,7 +88,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
     }
 
 
-    private _firstRendered() {
+    private firstUpdated() {
         this._get();
     }
 
@@ -114,7 +114,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
                 </div>
 
                 ${repeat(_data, (r: data) => r.id, (row: data) => html`
-                    <div class="row"@click=${(e: Event) => this._handleRowClick(e, row)}>
+                    <div class="row" @click=${(e: Event) => this._handleRowClick(e, row)}>
                         <div class="cell icon">
                             <zen-checkbox
                                 size="medium"
