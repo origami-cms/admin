@@ -1,18 +1,18 @@
-import {LitElement, html} from '@polymer/lit-element';
-import {upload} from 'actions/Media';
-import {InputFile} from '@origamijs/zen';
-import {component, property} from '@origamijs/zen-lib';
+import { InputFile } from '@origamijs/zen';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { upload } from 'actions/Media';
 import store from 'store';
-
 import CSS from './file-uploader-css';
+
 
 interface props {
     placeholder?: string;
 }
 
-@component('ui-file-uploader')
+// @ts-ignore
+@customElement('ui-file-uploader')
 export default class FileUploader extends LitElement implements props {
-    @property
+    @property()
     placeholder?: string;
 
     constructor() {

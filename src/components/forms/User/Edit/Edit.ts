@@ -1,14 +1,13 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {navigate} from 'actions/App';
+import { APIActions } from '@origamijs/zen-lib/lib/API';
+import { Field } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { navigate } from 'actions/App';
 import API from 'lib/API';
 import matchPath from 'lib/Path';
-import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import {APIActions} from '@origamijs/zen-lib/lib/API';
-import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
-import {connect} from 'pwa-helpers/connect-mixin';
-import store, {State} from 'store';
-import {User} from 'store/state';
+import { connect } from 'pwa-helpers/connect-mixin';
+import store, { State } from 'store';
+import { User } from 'store/state';
 import CSS from './edit-css';
 
 
@@ -23,9 +22,10 @@ interface props {
 }
 
 
-@component('form-user-edit')
+// @ts-ignore
+@customElement('form-user-edit')
 export default class FormUserCreate extends connect(store)(LitElement) implements props {
-    @property
+    @property()
     get id() {
         return this._id;
     }
@@ -36,19 +36,19 @@ export default class FormUserCreate extends connect(store)(LitElement) implement
     }
     _id ?: string;
 
-    @property
+    @property()
     errorGet: string | boolean = false;
 
-    @property
+    @property()
     errorEdit: string | boolean = false;
 
-    @property
+    @property()
     loadingGet: boolean = false;
 
-    @property
+    @property()
     loadingEdit: boolean = false;
 
-    @property
+    @property()
     user?: User;
 
 

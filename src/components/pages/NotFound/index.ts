@@ -1,11 +1,12 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {component} from '@origamijs/zen-lib';
+import {html, LitElement, customElement} from '@polymer/lit-element';
+
 import CSS from './page-not-found-css';
 
 interface props {
 }
 
-@component('page-not-found')
+// @ts-ignore
+@customElement('page-not-found')
 export default class PageNotFound extends LitElement implements props {
     render() {
         return html`

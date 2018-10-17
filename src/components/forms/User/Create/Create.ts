@@ -1,8 +1,7 @@
-import {html, LitElement} from '@polymer/lit-element';
-import API from 'lib/API';
-import {Field, FormValues} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
 import {APIActions} from '@origamijs/zen-lib/lib/API';
-import {component, property} from '@origamijs/zen-lib';
+import {Field, FormValues} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import {customElement, html, LitElement, property} from '@polymer/lit-element';
+import API from 'lib/API';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
@@ -14,15 +13,16 @@ interface props {
     values: FormValues;
 }
 
-@component('form-user-create')
+// @ts-ignore
+@customElement('form-user-create')
 export default class FormUserCreate extends connect(store)(LitElement) implements props {
-    @property
+    @property()
     error: string | boolean = false;
 
-    @property
+    @property()
     loading: boolean = false;
 
-    @property
+    @property()
     values: FormValues = {};
 
     private _actions = APIActions('users', API);

@@ -1,8 +1,9 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {component} from '@origamijs/zen-lib';
+import {html, LitElement, customElement} from '@polymer/lit-element';
 
 
-@component('page-users-list')
+
+// @ts-ignore
+@customElement('page-users-list')
 export default class PageUsersList extends LitElement {
     static columns = ['fname', 'lname', 'email'];
 

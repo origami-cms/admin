@@ -4,7 +4,7 @@ import {appsGet} from 'actions/Apps';
 import {getMe} from 'actions/Me';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
-import {AppDetail, Me} from 'store/state';
+import {AppsMap, Me} from 'store/state';
 import CSS from './page-admin-css';
 
 interface PageAdminProps {
@@ -33,7 +33,7 @@ export default class PageAdmin extends connect(store)(LitElement) implements Pag
     ];
 
     @property()
-    apps: { [name: string]: AppDetail } = {};
+    apps: AppsMap = {};
 
     notfound = 'page-not-found';
 
@@ -77,6 +77,7 @@ export default class PageAdmin extends connect(store)(LitElement) implements Pag
 
     updated(p: any) {
         super.updated(p);
+        // @ts-ignore
         this.shadowRoot.querySelector('zen-router').routes = this.routes;
     }
 }

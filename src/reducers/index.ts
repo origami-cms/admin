@@ -15,7 +15,6 @@ export default {
     Me,
     Setup,
     Organization,
-    // Pages,
     resources: {
         users: APIReducer('users'),
     }

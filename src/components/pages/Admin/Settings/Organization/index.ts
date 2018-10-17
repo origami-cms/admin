@@ -1,11 +1,10 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {setLogo, setTheme} from 'actions/Organization';
-import {Form} from '@origamijs/zen';
-import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import {component, property} from '@origamijs/zen-lib';
-import {connect} from 'pwa-helpers/connect-mixin';
-import store, {State} from 'store';
-import {OrganizationTheme} from 'store/state';
+import { Form } from '@origamijs/zen';
+import { Field } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { setLogo, setTheme } from 'actions/Organization';
+import { connect } from 'pwa-helpers/connect-mixin';
+import store, { State } from 'store';
+import { OrganizationTheme } from 'store/state';
 import CSS from './organization-css';
 
 
@@ -13,9 +12,10 @@ interface props {
     theme?: OrganizationTheme;
 }
 
-@component('page-settings-organization')
+// @ts-ignore
+@customElement('page-settings-organization')
 export class PageSettingsOrganization extends connect(store)(LitElement) implements props {
-    @property
+    @property()
     theme?: OrganizationTheme;
     static _formGeneral: Field[] = [
         {

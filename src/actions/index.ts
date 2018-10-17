@@ -9,9 +9,6 @@ export const App = _App;
 import * as _Apps from './Apps';
 export const Apps = _Apps;
 
-import * as _Pages from './Pages';
-export const Pages = _Pages;
-
 import * as _Me from './Me';
 export const Me = _Me;
 

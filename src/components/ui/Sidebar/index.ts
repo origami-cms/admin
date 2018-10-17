@@ -1,11 +1,10 @@
-import {html, LitElement, customElement, property} from '@polymer/lit-element';
-import {getSidebarItems, toggleAppSelector} from 'actions/App';
-import {BASE_URI} from 'const';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { getSidebarItems, toggleAppSelector } from 'actions/App';
+import { BASE_URI } from 'const';
 // @ts-ignore
-import {connect} from 'pwa-helpers/connect-mixin';
-import store, {State} from 'store';
-import {SidebarItem} from 'store/state';
+import { connect } from 'pwa-helpers/connect-mixin';
+import store, { State } from 'store';
+import { SidebarItem } from 'store/state';
 import CSS from './sidebar-css';
 
 
@@ -29,10 +28,9 @@ export default class Sidebar extends connect(store)(LitElement) implements props
     logo?: number;
 
     _stateChanged(state: State) {
-        const _apps = Object.entries(state.Apps.apps).map(([name, {manifest: a}]) => ({
-            icon: a.icon.type,
-            color: a.icon.color,
-            path: `/${name}`,
+        const _apps = Object.entries(state.Apps.apps).map(([name, a]) => ({
+            icon: a.icon,
+            path: a.uriBase,
             name: a.name
         }));
         this.apps = [..._apps, ...state.App.sidebar.items];
@@ -47,7 +45,6 @@ export default class Sidebar extends connect(store)(LitElement) implements props
 
     render() {
         const {apps, logo} = this;
-
         return html`
             ${CSS}
 
@@ -60,17 +57,13 @@ export default class Sidebar extends connect(store)(LitElement) implements props
             </div>
 
             <ul class="apps">
-                ${apps.map(a => {
-                    return unsafeHTML(`
-                        <li class="position-r">
-                            <a class="covers" href=${BASE_URI + a.path}>
-                                <div class="app rounded gradient-${a.color}">
-                                    <zen-icon type=${a.icon} color=${a.iconColor || 'white'} class="center" size="main"></zen-icon>
-                                </div>
-                            </a>
-                        </li>
-                    `);
-                })}
+                ${apps.map(a => html`
+                    <li class="position-r">
+                        <a class="covers" href=${BASE_URI + a.path}>
+                            <ui-app-icon .icon=${a.icon} .shadow=${true}></ui-app-icon>
+                        </a>
+                    </li>
+                `)}
 
             </ul>
 
@@ -82,7 +75,8 @@ export default class Sidebar extends connect(store)(LitElement) implements props
 
     updated(p: any) {
         super.updated(p);
-        (Array.from(this.shadowRoot.querySelectorAll('a')) as HTMLAnchorElement[]).forEach(a => {
+        // @ts-ignore
+        (Array.from((this).shadowRoot.querySelectorAll('a')) as HTMLAnchorElement[]).forEach(a => {
             const href = a.getAttribute('href')!;
             const path = window.location.pathname;
 

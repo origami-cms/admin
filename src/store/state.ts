@@ -1,8 +1,8 @@
-import {ResourceState} from '@origamijs/zen-lib/lib/API';
-import {Origami} from 'origami-core-lib';
 import {ButtonOptions} from '@origamijs/zen';
+import {ResourceState} from '@origamijs/zen-lib/lib/API';
+import {App as ServerApp} from 'origami-core-server';
 
-export {ImmutableObject} from 'seamless-immutable';
+export { ImmutableObject } from 'seamless-immutable';
 
 export default interface State {
     App: App;
@@ -69,24 +69,19 @@ export interface App {
 }
 
 export interface Apps {
-    apps: {
-        [name: string]: AppDetail;
+    apps: AppsMap;
+    entries: {
+        [name: string]: string;
     };
 }
 
-export interface AppDetail {
-    manifest: Origami.AppManifest;
-
-    pages: {
-        [path: string]: string // tag name of GeneratedAppPage
-    };
-
+export type AppConfig = ServerApp.EntryResponse;
+export interface AppsMap {
+    [name: string]: AppConfig;
 }
 
 export interface SidebarItem {
-    icon: string;
-    iconColor?: string;
-    color: string;
+    icon: string | {type: string, color: string, background: string};
     path: string;
     name: string;
 }

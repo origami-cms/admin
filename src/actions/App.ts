@@ -17,41 +17,34 @@ export const getSidebarItems = () =>
         // TODO: Convert to endpoint
         dispatch({type: APP_SIDEBAR_ITEMS_SET, items: [
             // {
-            //     icon: 'page',
-            //     color: 'red',
+            //     icon: {type: 'page', background: 'red'},
             //     path: '/pages',
             //     name: 'Pages'
             // },
             // {
-            //     icon: 'dollar',
-            //     color: 'green',
+            //     icon: {type: 'dollar', background: 'green'},
             //     path: '/app/sales',
             //     name: 'Sales'
             // },
             // {
-            //     icon: 'messages',
-            //     color: 'orange',
+            //     icon: {type: 'messages', background: 'orange'},
             //     path: '/app/engagement',
             //     name: 'Engagement'
             // },
             {
-                icon: 'user',
-                color: 'blue',
+                icon: {type: 'user', background: 'blue'},
                 path: '/users/',
                 name: 'Users'
             },
             // {
-            //     icon: 'image',
-            //     color: 'gold',
+            //     icon: {type: 'image', background: 'gold'},
             //     path: '/images',
             //     name: 'Images'
             // },
             {
-                icon: 'settings',
-                color: 'white',
+                icon: { type: 'settings', background: 'white', color: 'grey-700'},
                 path: '/settings/',
-                name: 'Settings',
-                iconColor: 'grey-700'
+                name: 'Settings'
             }
         ]});
     };

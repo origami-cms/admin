@@ -89,11 +89,12 @@
             text-align: center;
             clip-path: url(#sidebar-app-clip);
             border-bottom: var(--header-divider);
+            border-radius: var(--border-radius);
 
             a {
                 transition: all calc(var(--transition-time) / 2);
 
-                .app {
+                ui-app-icon {
                     width: 90%;
                     height: 90%;
                     margin-left: 5%;
@@ -102,12 +103,12 @@
                     opacity: 0.4;
                     transform: scale(0.7);
                 }
-                &:hover .app {
+                &:hover ui-app-icon {
                     transform: scale(0.8);
                 }
 
                 &.active {
-                    .app {
+                    ui-app-icon {
                         opacity: 1;
                         transform: scale(1);
                     }

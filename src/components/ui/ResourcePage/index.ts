@@ -1,13 +1,13 @@
-import {Router, ZenRoute} from '@origamijs/zen';
-import lodash from 'lodash';
+import {ZenRoute} from '@origamijs/zen';
 import {APIReducer} from '@origamijs/zen-lib/lib/API';
 import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import {component, property} from '@origamijs/zen-lib';
+import {customElement, LitElement, property, html} from '@polymer/lit-element';
+import lodash from 'lodash';
 import pluralize from 'pluralize';
 import {injectReducer} from 'redux-injector';
-import ResourceTable from '../ResourceTable';
 import FormResourceCreate from '../../forms/Resource/Create/Create';
 import FormResourceEdit from '../../forms/Resource/Edit/Edit';
+import ResourceTable from '../ResourceTable';
 
 interface Schema {
     properties: {
@@ -15,53 +15,41 @@ interface Schema {
     };
 }
 
-interface props {
-    resource?: string;
-    fieldsList?: string[];
-    fieldsCreate?: string[];
-    fieldsEdit?: string[];
-    model?: Schema;
-    base: string;
-    uribase?: string;
-    listElement: string;
-    editElement: string;
-    createElement: string;
-}
-
-@component('ui-resource-page')
-export default class PageResource extends Router implements props {
-    @property
+// @ts-ignore
+@customElement('ui-resource-page')
+export default class PageResource extends LitElement {
+    @property()
     resource?: string;
 
-    @property
+    @property()
     fieldsList?: string[];
 
-    @property
+    @property()
     fieldsCreate?: string[];
 
-    @property
+    @property()
     fieldsEdit?: string[];
 
-    @property
+    @property()
     model?: Schema;
 
-    @property
-    uribase?: string;
+    @property()
+    uriBase?: string;
 
-    @property
+    @property()
     listElement: string = 'ui-resource-table';
 
-    @property
+    @property()
     editElement: string = 'form-resource-edit';
 
-    @property
+    @property()
     createElement: string = 'form-resource-create';
 
 
-    @property
+    @property()
     get routes(): ZenRoute[] {
         if (!this.resource) return [];
-        const base = this.uribase || `/${this._resPlural}`;
+        const base = this.uriBase || `/${this._resPlural}`;
         return [
             {
                 path: `${base}`,
@@ -85,6 +73,13 @@ export default class PageResource extends Router implements props {
 
     private get _resPlural() {
         return pluralize(this.resource || '');
+    }
+
+
+    render() {
+        return html`
+            <zen-router .routes=${this.routes} .base=${this.uriBase}></zen-router>
+        `;
     }
 
 

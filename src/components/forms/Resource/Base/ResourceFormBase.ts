@@ -1,11 +1,10 @@
-import {html, LitElement} from '@polymer/lit-element';
+import {html, LitElement, property, customElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import {BASE_URI} from 'const';
 import lodash from 'lodash';
 import {Field, FormValues} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
 import {APIActions} from '@origamijs/zen-lib/lib/API';
 import pluralize from 'pluralize';
-import {property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
@@ -25,23 +24,23 @@ interface props {
 
 
 export default class FormResourceBase extends connect(store)(LitElement) implements props {
-    @property
+    @property()
     type?: 'create' | 'edit';
 
-    @property
+    @property()
     resource?: string;
 
 
-    @property
+    @property()
     error: string | boolean = false;
 
-    @property
+    @property()
     loading: boolean = false;
 
-    @property
+    @property()
     fields: Field[] = [];
 
-    @property
+    @property()
     values: FormValues = {};
 
     protected _store = store;

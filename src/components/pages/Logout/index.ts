@@ -1,11 +1,12 @@
-import {html, LitElement} from '@polymer/lit-element';
+import {html, LitElement, customElement} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import {logout} from 'actions/Auth';
-import {component} from '@origamijs/zen-lib';
+
 import store from 'store';
 
 
-@component('page-logout')
+// @ts-ignore
+@customElement('page-logout')
 export default class PageLogout extends LitElement {
     async connectedCallback() {
         super.connectedCallback();

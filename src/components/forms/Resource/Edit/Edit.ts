@@ -1,12 +1,13 @@
-import FormResourceBase from '../Base/ResourceFormBase';
-import {component, property} from '@origamijs/zen-lib';
-import store, {State} from 'store';
+import { customElement, property } from '@polymer/lit-element';
+import { navigate } from 'actions/App';
 import matchPath from 'lib/Path';
-import {navigate} from 'actions/App';
+import store, { State } from 'store';
+import FormResourceBase from '../Base/ResourceFormBase';
 
-@component('form-resource-edit')
+// @ts-ignore
+@customElement('form-resource-edit')
 export default class FormResourceEdit extends FormResourceBase {
-    @property
+    @property()
     get id() {
         return this._id;
     }
@@ -17,7 +18,7 @@ export default class FormResourceEdit extends FormResourceBase {
     }
     _id?: string;
 
-    @property
+    @property()
     uri?: string;
 
     _redirecting: boolean = false;

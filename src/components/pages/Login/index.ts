@@ -1,10 +1,9 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {login} from 'actions/Auth';
-import {navigate} from 'actions/App';
-import {Field, FormValues} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import {component, property} from '@origamijs/zen-lib/lib/decorators';
-import {connect} from 'pwa-helpers/connect-mixin';
-import store, {State} from 'store';
+import { Field, FormValues } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { navigate } from 'actions/App';
+import { login } from 'actions/Auth';
+import { connect } from 'pwa-helpers/connect-mixin';
+import store, { State } from 'store';
 import CSS from './page-login-css';
 
 interface props {
@@ -14,18 +13,19 @@ interface props {
     _email?: string | null;
 }
 
-@component('page-login')
+// @ts-ignore
+@customElement('page-login')
 export default class PageLogin extends connect(store)(LitElement) implements props{
-    @property
+    @property()
     error?: string | null;
 
-    @property
+    @property()
     loggedIn?: boolean;
 
-    @property
+    @property()
     values?: FormValues = {};
 
-    @property
+    @property()
     _email?: string | null;
 
     constructor() {

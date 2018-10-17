@@ -1,9 +1,8 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from '@origamijs/zen-lib';
-import {connect} from 'pwa-helpers/connect-mixin';
-import store, {State} from 'store';
+import { ButtonOptions } from '@origamijs/zen';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { connect } from 'pwa-helpers/connect-mixin';
+import store, { State } from 'store';
 import CSS from './header-css';
-import {ButtonOptions} from '@origamijs/zen';
 
 export * from './Notifications';
 export * from './User';
@@ -14,12 +13,13 @@ interface props {
 }
 
 
-@component('ui-header')
+// @ts-ignore
+@customElement('ui-header')
 export default class Header extends connect(store)(LitElement) implements props {
-    @property
+    @property()
     heading?: string;
 
-    @property
+    @property()
     actions: ButtonOptions[] = [];
 
     _stateChanged(state: State) {

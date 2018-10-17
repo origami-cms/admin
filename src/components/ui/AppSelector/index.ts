@@ -1,14 +1,13 @@
-import {html, LitElement} from '@polymer/lit-element';
+import {bindAttributes} from '@origamijs/zen-lib/lib/decorators';
+import {customElement, html, LitElement, property} from '@polymer/lit-element';
 import {getSidebarItems, toggleAppSelector} from 'actions/App';
 import {BASE_URI} from 'const';
 import fuse from 'fuse.js';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
-import {component, property} from '@origamijs/zen-lib';
 // @ts-ignore
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import {SidebarItem} from 'store/state';
-import {bindAttributes} from '@origamijs/zen-lib/lib/decorators';
 import CSS from './app-selector-css';
 
 
@@ -22,13 +21,14 @@ interface props {
 }
 
 
-@component('ui-app-selector')
+// @ts-ignore
+@customElement('ui-app-selector')
 @bindAttributes
 export default class AppSelector extends connect(store)(LitElement) implements props {
-    @property
+    @property()
     open: boolean = false;
 
-    @property
+    @property()
     apps: SidebarItem[] = [];
 
     static _boundAttributes = ['open'];
@@ -36,11 +36,11 @@ export default class AppSelector extends connect(store)(LitElement) implements p
     private _fuse?: fuse;
     private _filter?: string;
 
-    @property
+    @property()
     _filtered: SidebarItem[] = [];
 
 
-    @property
+    @property()
     get filter() {
         return this._filter;
     }
@@ -61,8 +61,8 @@ export default class AppSelector extends connect(store)(LitElement) implements p
         document.addEventListener('keydown', this._handleKeyDown);
     }
     disconnectedCallback() {
-        super.disconnectedCallback();
         document.removeEventListener('keydown', this._handleKeyDown);
+        super.disconnectedCallback();
     }
 
 
@@ -98,9 +98,7 @@ export default class AppSelector extends connect(store)(LitElement) implements p
                         return unsafeHTML(`
                             <li style="animation-delay: ${(i / _apps.length) * totalAniTime + aniDelay}s">
                                 <a href=${BASE_URI + a.path}>
-                                    <div class="app rounded gradient-${a.color}">
-                                        <zen-icon .type=${a.icon} color=${a.iconColor || 'white'} class="center" size="main"></zen-icon>
-                                    </div>
+                                    <ui-app-icon .icon=${a.icon}></ui-app-icon>
                                     <small>${a.name}</small>
                                 </a>
                             </li>

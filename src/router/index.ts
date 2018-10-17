@@ -1,14 +1,12 @@
 // tslint:disable variable-name
 // import Router, {RouterProps} from 'lib/Router';
-import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from '@origamijs/zen-lib';
-import {navigate, updatePath} from 'actions/App';
-import {verify} from 'actions/Auth';
-import store, {State} from 'store';
-import {BASE_URI} from 'const';
-import {getTheme} from 'actions/Organization';
-import {connect} from 'pwa-helpers/connect-mixin';
-import {Router} from '@origamijs/zen';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { navigate, updatePath } from 'actions/App';
+import { verify } from 'actions/Auth';
+import { getTheme } from 'actions/Organization';
+import { BASE_URI } from 'const';
+import { connect } from 'pwa-helpers/connect-mixin';
+import store, { State } from 'store';
 
 interface props {
     _verified: boolean;
@@ -19,7 +17,8 @@ interface props {
 
 // Simple router for all main pages, and verifies token on page refresh.
 // Boots to login if invalid verification or no JWT
-@component('zen-app')
+// @ts-ignore
+@customElement('zen-app')
 export default class AppRouter extends connect(store)(LitElement) implements props {
     base = '/admin';
     notfound = 'page-not-found';
@@ -27,7 +26,7 @@ export default class AppRouter extends connect(store)(LitElement) implements pro
     _verified: boolean = false;
     __verifyError: string | null = null;
 
-    @property
+    @property()
     _loading: boolean = true;
 
     routes = [

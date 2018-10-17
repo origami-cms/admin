@@ -1,5 +1,5 @@
-import {component} from '@origamijs/zen-lib';
-import {html, LitElement} from '@polymer/lit-element';
+
+import {html, LitElement, customElement} from '@polymer/lit-element';
 import {titleSet} from 'lib/decorators';
 import {Router, ZenRoute} from '@origamijs/zen';
 import {Me} from 'store/state';
@@ -13,7 +13,8 @@ interface PageSettingsProps {
 export * from './Organization';
 export * from './SettingsMenu';
 
-@component('page-settings')
+// @ts-ignore
+@customElement('page-settings')
 @titleSet('Settings')
 export default class PageSettings extends LitElement implements PageSettingsProps {
     me?: Me;

@@ -1,5 +1,5 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {component} from '@origamijs/zen-lib';
+import {html, LitElement, customElement} from '@polymer/lit-element';
+
 import CSS from './page-settings-menu-css';
 
 interface Link {
@@ -11,7 +11,8 @@ interface Link {
 interface props {
 }
 
-@component('page-settings-menu')
+// @ts-ignore
+@customElement('page-settings-menu')
 export default class SettingsMenu extends LitElement implements props {
     private _links: Link[] = [
         {

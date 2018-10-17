@@ -1,7 +1,6 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from '@origamijs/zen-lib';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import { BASE_URI } from 'const';
 import CSS from './side-menu-css';
-import {BASE_URI} from 'const';
 
 
 export interface Link {
@@ -15,9 +14,10 @@ export interface SettingsMenuProps {
 }
 
 
-@component('ui-side-menu')
+// @ts-ignore
+@customElement('ui-side-menu')
 export default class SideMenu extends LitElement {
-    @property
+    @property()
     links: Link[] = [];
 
     render() {

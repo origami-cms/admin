@@ -1,8 +1,9 @@
-import {component} from '@origamijs/zen-lib';
-import {LitElement, html} from '@polymer/lit-element';
+
+import {LitElement, html, customElement} from '@polymer/lit-element';
 import CSS from './notifications-css';
 
-@component('ui-header-notifications')
+// @ts-ignore
+@customElement('ui-header-notifications')
 export default class Notifications extends LitElement {
     render() {
         return html`${CSS}<zen-icon type="bell" color="main" class="center"></zen-icon>`;

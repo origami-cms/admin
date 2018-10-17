@@ -1,69 +1,43 @@
-import {html, LitElement} from '@polymer/lit-element';
+import {ButtonOptions} from '@origamijs/zen';
+import {APIActions} from '@origamijs/zen-lib/lib/API';
+import {customElement, html, LitElement, property} from '@polymer/lit-element';
 import {navigate} from 'actions/App';
 import API from 'lib/API';
-import { repeat } from 'lit-html/directives/repeat';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import {APIActions} from '@origamijs/zen-lib/lib/API';
-import {ButtonOptions} from '@origamijs/zen';
 import pluralize from 'pluralize';
-import {component, property} from '@origamijs/zen-lib';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
 import CSS from './resource-table-css';
 
 
-type data = {
+type ResourceTableData = {
     id: string;
     [key: string]: any
 };
 
-interface props {
-    columns: string[];
+// @ts-ignore
+@customElement('ui-resource-table')
+export default class ResourceTable extends connect(store)(LitElement) {
+
+    @property()
+    uriBase?: string;
+
+    @property()
+    // Update actions
     resource?: string;
-    selected: string[];
-    uribase?: string;
-    _resource?: string;
-    _selected: string[];
-    _data: data[];
-    _actions: {[action: string]: Function};
-    _buttons: ButtonOptions[];
-}
 
-@component('ui-resource-table')
-export default class ResourceTable extends connect(store)(LitElement) implements props {
-    @property
-    columns: string[] = [];
+    @property()
+    idKey = 'id';
 
-    @property
-    uribase?: string;
+    @property()
+    selected: number[] = [];
 
-    @property
-    get resource() {
-        return this._resource;
-    }
-    set resource(v) {
-        this._resource = v;
-        this._updateActions();
-    }
+    @property()
+    _data: ResourceTableData[] = [];
 
-    get selected() {
-        return this._selected;
-    }
-    set selected(v) {
-        this._selected = v;
-        this._updateButtons();
-    }
-
-    @property
-    _data: data[] = [];
-
-    @property
+    @property()
     _buttons: ButtonOptions[] = [];
 
-
-    _resource?: string;
-    @property
-    _selected: string[] = [];
+    @property()
     _actions: { [action: string]: Function } = {};
 
 
@@ -77,7 +51,6 @@ export default class ResourceTable extends connect(store)(LitElement) implements
         this._actionCreate = this._actionCreate.bind(this);
         this._actionEdit = this._actionEdit.bind(this);
         this._actionRemove = this._actionRemove.bind(this);
-        this._handleCheckbox = this._handleCheckbox.bind(this);
         this._handleRowClick = this._handleRowClick.bind(this);
     }
 
@@ -89,60 +62,31 @@ export default class ResourceTable extends connect(store)(LitElement) implements
 
 
     private firstUpdated() {
+        this._updateActions();
         this._get();
     }
 
 
     render() {
-        const {_data, _selected = [], _buttons} = this;
-
-        const cols = this._getColumns(this.columns);
         return html`
             ${CSS}
-            <zen-button-group .buttons=${_buttons}></zen-button-group>
-            <div class="table">
-                <div class="row header">
-                    <div class="cell icon">
-                        <zen-checkbox
-                            size="medium"
-                            @change=${(e: Event) => this._handleCheckbox(e, 'all')}
-                        ></zen-checkbox>
-                    </div>
-                    ${unsafeHTML(cols.map(c => `
-                        <div class="header">${c}</div>
-                    `).join(''))}
-                </div>
-
-                ${repeat(_data, (r: data) => r.id, (row: data) => html`
-                    <div class="row" @click=${(e: Event) => this._handleRowClick(e, row)}>
-                        <div class="cell icon">
-                            <zen-checkbox
-                                size="medium"
-                                @change="${(e: Event) => this._handleCheckbox(e, row)}"
-                                .checked=${_selected.includes(row.id)}
-                            ></zen-checkbox>
-                        </div>
-                        ${repeat(cols, c => c, c => html`
-                            <div class="cell">${row[c]}</div>
-                        `)}
-                    </div>
-                `)}
-            </div>
+            <zen-button-group .buttons=${this._buttons}></zen-button-group>
+            <zen-table
+                .data=${this._data}
+                hoverable
+                selectable
+                @rowclick=${this._handleRowClick}
+                @select=${this._handleSelect.bind(this)}
+            >
+                <slot></slot>
+            </zen-table>
         `;
     }
 
-    updated() {
-        super.updated();
-        // @ts-ignore Shadow root exists
-        const rows = this.shadowRoot.querySelectorAll('.table .row:not(.header)');
-        (Array.from(rows) as HTMLElement[]).forEach((r, i) => {
-            const id = this._data[i].id;
-            r.classList.toggle('active', this.selected.includes(id));
-        });
 
-        const cols = this._getColumns(this.columns);
-        // @ts-ignore
-        this.style.setProperty('--cols', cols.length);
+    updated(p: any) {
+        if (p.has('resource')) this._updateActions();
+        if (p.has('selected')) this._updateButtons();
     }
 
 
@@ -150,22 +94,31 @@ export default class ResourceTable extends connect(store)(LitElement) implements
         store.dispatch(this._actions.get());
     }
 
+
     private async _actionCreate() {
-        const base = `/admin${this.uribase || `/${this._resPlural}`}`;
+        const base = `/admin${this.uriBase || `/${this._resPlural}`}`;
         store.dispatch(navigate(`${base}/create`));
     }
+
 
     private async _actionEdit(id: string) {
         if (!id) throw new Error('No ID specified');
 
-        const base = `/admin${this.uribase || `/${this._resPlural}`}`;
+        const base = `/admin${this.uriBase || `/${this._resPlural}`}`;
         store.dispatch(navigate(`${base}/${id}`));
     }
 
+
     private async _actionRemove() {
-        store.dispatch(this._actions.remove(this.selected));
-        this.selected.forEach(this._unselect);
+        store.dispatch(
+            this._actions.remove(
+                this.selected.map(i => this._data[i][this.idKey])
+            )
+        );
+        // @ts-ignore
+        this.shadowRoot!.querySelector('zen-table').selected = [];
     }
+
 
     private _updateActions() {
         const a = APIActions(this._resPlural, API);
@@ -177,6 +130,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
             update: a[`${this._resPlural}Update`]
         };
     }
+
 
     private _updateButtons() {
 
@@ -192,7 +146,7 @@ export default class ResourceTable extends connect(store)(LitElement) implements
             if (s.length === 1) {
                 buttons.push({
                     icon: 'edit', text: 'Edit', color: 'blue', size: 'medium',
-                    onclick: () => this._actionEdit(s[0])
+                    onclick: () => this._actionEdit(this._data[s[0]].id)
                 });
             }
         } else {
@@ -202,45 +156,20 @@ export default class ResourceTable extends connect(store)(LitElement) implements
             });
         }
 
-
         this._buttons = buttons;
     }
 
 
-    private _getColumns(columns: string[]) {
-        if (columns.length) return columns;
-        const [firstRow] = this._data;
-        if (!firstRow) return [];
-        return Object.keys(firstRow);
+    private _handleSelect(e: CustomEvent) {
+        this.selected = e.detail;
+        this._updateButtons();
     }
 
-    private _handleCheckbox(e: Event, select: 'all' | data) {
-        if (select === 'all') {
-            this.selected = this.selected.length ? [] : this._data.map(o => o.id);
-        } else if (typeof select === 'object') {
-            const add = (e.target as HTMLInputElement).checked;
-            if (add) {
-                const s = [...this.selected];
-                s.push(select.id);
-                this.selected = s;
-            } else this._unselect(select.id);
-            // @ts-ignore Is just protected
-            this.requestUpdate();
-        }
-    }
 
-    private _handleRowClick(e: Event, row: data) {
-        const t = e.target as HTMLElement;
-
+    private _handleRowClick(e: CustomEvent) {
         // Disable opening a row if any rows are selected
         if (this.selected.length) return;
 
-        // If not clicked on one of these elements
-        const exclude = ['zen-checkbox'];
-        if (!exclude.includes(t.tagName.toLowerCase())) this._actionEdit(row.id);
-    }
-
-    private _unselect(id: string) {
-        this.selected = this.selected.filter(i => i !== id);
+        this._actionEdit(e.detail[this.idKey]);
     }
 }

@@ -1,5 +1,5 @@
+import '@webcomponents/webcomponentsjs/webcomponents-bundle';
 import '@origamijs/zen';
-import '@webcomponents/webcomponentsjs';
 import '../src/styles/app.scss';
 import './components';
 import './const';

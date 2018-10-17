@@ -1,12 +1,13 @@
-import {html, LitElement} from '@polymer/lit-element';
+import {html, LitElement, customElement} from '@polymer/lit-element';
 import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import {component} from '@origamijs/zen-lib';
+
 
 
 interface props {
 }
 
-@component('page-user-edit')
+// @ts-ignore
+@customElement('page-user-edit')
 export default class PageUsersEdit extends LitElement implements props {
     get fields(): Field[] {
         return [

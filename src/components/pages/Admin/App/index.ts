@@ -1,82 +1,61 @@
-import {appGet, appGetPage} from 'actions/Apps';
-import deepequal from 'deep-equal';
-import {Router} from '@origamijs/zen';
-import {Origami} from 'origami-core-lib';
-import {component, property} from '@origamijs/zen-lib';
+import {customElement, html, LitElement, property} from '@polymer/lit-element';
+import {appGetEntry} from 'actions/Apps';
+import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import {connect} from 'pwa-helpers/connect-mixin';
 import store, {State} from 'store';
-import {AppDetail} from 'store/state';
-import { html } from '@polymer/lit-element';
+import {AppConfig} from 'store/state';
 import CSS from './page-app-css';
+import {SERVER_API} from 'const';
 
-interface props {
-    appName?: string;
-    app?: AppDetail;
-}
+// @ts-ignore
+@customElement('page-app')
+export default class PageApp extends connect(store)(LitElement) {
 
-@component('page-app')
-export default class PageResource extends connect(store)(Router) implements props {
-    @property
+    @property({reflect: true, type: String})
     appName?: string;
 
-    @property
-    app?: AppDetail;
+    @property()
+    entry?: string;
 
-    base = '/admin';
+    @property()
+    app?: AppConfig;
 
-    @property
-    get routes() {
-        if (!this.app || !this.app.pages) return [];
-        return Object.entries(this.app.pages).map(([path, element]) => ({path, element}));
-    }
-    set routes(v) {}
-
-    get sidemenu() {
-
-        if (this.app && this.app.manifest.sidemenu) {
-            const links = this.app.manifest.pages!.map(p => ({
-                icon: p.icon,
-                to: p.path,
-                text: p.title
-            }));
-            return html`<ui-side-menu .links=${links}></ui-side-menu>`;
-
-        } return null;
-    }
-
-    async firstUpdated() {
-        if (!this.appName) throw new Error('page-app needs a appName property');
-        const app = await store.dispatch(appGet(this.appName)) as Origami.AppManifest;
-
-        const pagePromises: Promise<any>[] = [];
-        if (app) {
-            app.pages.forEach(p => {
-                pagePromises.push(store.dispatch(appGetPage(this.appName as string, p)));
-            });
-        }
-
-        await Promise.all(pagePromises);
-    }
-
-    render(props: any) {
-        const page = super.render(props);
-
+    render() {
         return html`
             ${CSS}
-            ${this.sidemenu}
-            <section>${page}</section>
+            ${this.entry
+                ? unsafeHTML(this.entry)
+                : html`<zen-loading></zen-loading>`
+            }
         `;
     }
 
-
-    _stateChanged(s: State) {
-        const newApp = s.Apps.apps[this.appName || ''];
-        if (!this.app && newApp ||
-            this.app && !this.app.pages ||
-            this.app && !deepequal(this.app.pages, newApp.pages)
-        ) {
-            // @ts-ignore
-            this.app = newApp.asMutable({deep: true});
+    async updated(p: any) {
+        super.updated(p);
+        if (p.has('appName') && this.appName) {
+            await store.dispatch(appGetEntry(this.appName));
+            this._injectScripts();
         }
     }
+
+    _stateChanged(state: State) {
+        if (!this.app && this.appName) this.app = state.Apps.apps[this.appName];
+        if (!this.entry && this.appName) this.entry = state.Apps.entries[this.appName];
+    }
+
+    private _injectScripts() {
+        if (!this.app || !this.appName) return;
+        // @ts-ignore
+        const shadow = this.shadowRoot as ShadowRoot;
+        const existing = Array.from(shadow.querySelectorAll('scripts[src]')).map(s => s.src);
+        this.app.scripts
+            .filter(s => !existing.includes(s))
+            .forEach(s => {
+                const script = document.createElement('script');
+                script.src = `${SERVER_API}/apps/${this.appName}/public${s}`;
+                shadow.appendChild(script);
+            });
+
+    }
 }
+

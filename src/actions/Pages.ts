@@ -50,6 +50,4 @@ export const pagesTreeMove = (pages: Page[], parent: string) =>
         });
 
         return Promise.all(execs);
-
-        // Dispatch({type: PAGES_TREE_SET, parent, pages});
     };

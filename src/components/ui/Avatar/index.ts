@@ -1,14 +1,14 @@
-import {LitElement, html} from '@polymer/lit-element';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import CSS from './avatar-css';
-import {component, property} from '@origamijs/zen-lib';
 
 interface props {
     user?: string;
 }
 
-@component('ui-avatar')
+// @ts-ignore
+@customElement('ui-avatar')
 export default class UserAvatar extends LitElement implements props{
-    @property
+    @property()
     user?: string;
 
     render() {
